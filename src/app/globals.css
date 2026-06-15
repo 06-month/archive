@@ -234,13 +234,13 @@ nav {
 }
 
 .nav-links-container a.active {
-  background: transparent;
-  color: var(--text-secondary); /* JS 로드 전에는 투명한 배경과 눈에 띄는 일반 텍스트 색상 유지 */
+  background: var(--text);
+  color: var(--bg);
 }
 
 .nav-links-container.js-ready a.active {
   background: transparent;
-  color: var(--nav-active-text); /* JS 로드 후 검은색 알약이 나타나면 흰색으로 전환 */
+  color: var(--nav-active-text);
 }
 
 /* Header Navbar Specific Non-overlapping Stacking Order Styles */
@@ -285,6 +285,7 @@ nav .nav-pill-group {
 nav .nav-pill-group a.active,
 nav .nav-pill-group a.active:hover {
   background: transparent;
+  color: var(--text-secondary);
 }
 
 nav .nav-pill-group.js-ready a.active,
@@ -2155,3 +2156,36 @@ footer {
   border-color: var(--text-muted);
   color: var(--text);
 }
+
+/* Premium Wiki Map Button Style */
+.btn-wiki-map {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px 24px;
+  border-radius: 40px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: 
+    background-color 200ms ease, 
+    color 200ms ease, 
+    transform 200ms ease,
+    box-shadow 200ms ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.btn-wiki-map:hover {
+  background: var(--text-secondary);
+  color: var(--bg);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn-wiki-map:active {
+  transform: translateY(0);
+}
+

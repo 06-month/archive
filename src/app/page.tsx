@@ -313,7 +313,7 @@ export default function Home() {
           </p>
         </div>
         <div className="mt-10">
-          <Link href="/wiki-map" className="nav-links-container text-center py-3 px-6 active" style={{ display: "inline-block", border: "none", fontWeight: 700, textDecoration: "none" }}>
+          <Link href="/wiki-map" className="btn-wiki-map">
             Wiki
           </Link>
         </div>
