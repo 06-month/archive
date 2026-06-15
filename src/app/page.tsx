@@ -392,7 +392,7 @@ export default function Home() {
                   <td>
                     <Link href={targetUrl} className="btn-icon-custom" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                        <path d="M1 5H9M9 5L5 1M9 5L5 9" stroke="black" stroke-width="1.5"></path>
+                        <path d="M1 5H9M9 5L5 1M9 5L5 9" stroke="black" strokeWidth="1.5"></path>
                       </svg>
                     </Link>
                   </td>
