@@ -16,3 +16,6 @@
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# local design reference (not published)
+/design-clones/
