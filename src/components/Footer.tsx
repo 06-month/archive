@@ -45,7 +45,7 @@ export default function Footer() {
             </li>
             <li style={{ color: "inherit" }}>
               <a
-                href="mailto:firstn1028@gmail.com"
+                href="mailto:junjeon@edu.hanbat.ac.kr"
                 style={{ color: "inherit", textDecoration: "none" }}
               >
                 Email Contact

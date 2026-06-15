@@ -23,7 +23,7 @@ export default function About() {
           </p>
           <div className="contact-links flex gap-2 mt-6">
             <a href="https://github.com/06-month" className="contact-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="mailto:firstn1028@gmail.com" className="contact-btn">Email Contact</a>
+            <a href="mailto:junjeon@edu.hanbat.ac.kr" className="contact-btn">Email Contact</a>
             <a href="https://06-month.github.io/home/Jun%20Jeon%20CV.pdf?v=10" className="contact-btn" target="_blank" rel="noopener noreferrer">Curriculum Vitae</a>
           </div>
         </div>
