@@ -149,12 +149,11 @@ export default function Navbar() {
   return (
     <nav style={{ maxWidth: isWikiMap ? "1400px" : "1200px" }}>
       <div className="nav-brand">Research.Archive</div>
-      <div className="nav-links-container nav-pill-group" ref={navRef}>
+      <div className={`nav-links-container nav-pill-group ${mounted && indicator.ready ? "js-ready" : ""}`} ref={navRef}>
         <span
           className="nav-pill-indicator"
           aria-hidden="true"
           style={{
-            opacity: mounted && indicator.ready ? 1 : 0,
             transform: `translateX(${mounted ? indicator.left : 4}px)`,
             width: `${mounted ? indicator.width : 0}px`,
           }}
@@ -177,7 +176,7 @@ export default function Navbar() {
               }}
               onClick={() => storeIndicatorSnapshotForIndex(index)}
             >
-              {item.label}
+              <span className="nav-link-text">{item.label}</span>
             </Link>
           );
         })}

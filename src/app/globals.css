@@ -22,6 +22,7 @@
   --radius-lg: 32px;
   --radius-md: 16px;
   --radius-sm: 8px;
+  --nav-active-text: #FFFFFF;
 }
 
 [data-theme="dark"] {
@@ -43,6 +44,7 @@
   --accent: #7C83FF;
   --accent-muted: rgba(124, 131, 255, 0.35);
   --dots-color: rgba(255, 255, 255, 0.05);
+  --nav-active-text: var(--bg);
 }
 
 @theme {
@@ -80,12 +82,10 @@ body,
 .tech-badge,
 .skill-tag,
 .timeline-item::before,
-nav,
 footer,
 table,
 th,
 td,
-h1, h2, h3, h4, p, span, a,
 input,
 .search-box,
 .suggest-item,
@@ -94,7 +94,6 @@ input,
 .concept-link,
 .taxonomy-link,
 .btn-icon-custom,
-.nav-links-container,
 .wiki-map-detail-card,
 .paper-link-btn,
 .interest-item,
@@ -106,6 +105,10 @@ input,
     border-color 300ms ease,
     border 300ms ease,
     box-shadow 300ms ease;
+}
+
+h1, h2, h3, h4, p, span {
+  transition: color 300ms ease;
 }
 
 body {
@@ -209,18 +212,20 @@ nav {
   display: flex;
   gap: 4px;
   position: relative;
+  z-index: 0;
+  isolation: isolate;
 }
 
 .nav-links-container a {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-decoration: none;
   padding: 8px 20px;
   border-radius: 40px;
   font-size: 13px;
   font-weight: 600;
   color: var(--text-muted);
-  transition: background-color 240ms ease-out, color 240ms ease-out;
+  transition: color 220ms cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 .nav-links-container a:hover {
@@ -229,8 +234,47 @@ nav {
 }
 
 .nav-links-container a.active {
-  background: var(--text);
-  color: var(--bg);
+  background: transparent;
+  color: var(--text-secondary); /* JS 로드 전에는 투명한 배경과 눈에 띄는 일반 텍스트 색상 유지 */
+}
+
+.nav-links-container.js-ready a.active {
+  background: transparent;
+  color: var(--nav-active-text); /* JS 로드 후 검은색 알약이 나타나면 흰색으로 전환 */
+}
+
+/* Header Navbar Specific Non-overlapping Stacking Order Styles */
+nav .nav-links-container a {
+  z-index: auto; /* Prevent creating stacking context per anchor */
+}
+
+nav .nav-links-container a:hover {
+  background: transparent; /* Remove standard background on hover */
+}
+
+nav .nav-links-container a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  background: transparent;
+  z-index: 1; /* Render behind the indicator (2) and text (3) */
+  transition: background-color 200ms ease;
+}
+
+nav .nav-links-container a:hover::before {
+  background: var(--pill-bg);
+}
+
+nav .nav-links-container a.active::before,
+nav .nav-links-container a.active:hover::before {
+  background: transparent !important;
+}
+
+nav .nav-links-container .nav-link-text {
+  position: relative;
+  z-index: 3; /* Render on top of the active indicator (2) */
+  pointer-events: none;
 }
 
 nav .nav-pill-group {
@@ -241,11 +285,16 @@ nav .nav-pill-group {
 nav .nav-pill-group a.active,
 nav .nav-pill-group a.active:hover {
   background: transparent;
-  color: var(--bg);
+}
+
+nav .nav-pill-group.js-ready a.active,
+nav .nav-pill-group.js-ready a.active:hover {
+  background: transparent;
+  color: var(--nav-active-text);
 }
 
 nav .nav-pill-group a:hover {
-  background: var(--pill-bg);
+  background: transparent;
 }
 
 .nav-pill-indicator {
@@ -255,11 +304,17 @@ nav .nav-pill-group a:hover {
   left: 0;
   position: absolute;
   top: 4px;
+  opacity: 0;
+  pointer-events: none; /* Prevent visual pill from capturing click/hover events */
   transition:
-    transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
-    width 380ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 220ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 200ms ease-out;
-  z-index: 0;
+  z-index: 2; /* Render on top of hover backgrounds (1) but below text (3) */
+}
+
+.nav-links-container.js-ready .nav-pill-indicator {
+  opacity: 1;
 }
 
 @keyframes page-content-enter {
