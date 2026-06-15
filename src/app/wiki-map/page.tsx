@@ -429,10 +429,10 @@ export default function WikiMap() {
         </div>
 
         {/* Selected Node details Panel */}
-        <div 
-          className="card-custom flex flex-col justify-between" 
-          style={{ 
-            minHeight: "450px", 
+        <div
+          className="card-custom flex flex-col"
+          style={{
+            minHeight: "450px",
             padding: "28px", 
             border: "1px solid var(--border)", 
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
@@ -440,9 +440,9 @@ export default function WikiMap() {
           }}
         >
           {activeNodeDetails ? (
-            <div className="flex flex-col h-full justify-between flex-grow">
+            <div className="flex flex-col flex-grow">
               {/* Content Preview Area */}
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-5 flex-grow">
                 {/* Category Pill */}
                 <div>
                   <span 
