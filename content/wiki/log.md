@@ -70,3 +70,8 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - **research 4**: [[HMR]](인체 SMPL 회귀) · [[HaMeR]](ViT 손) · [[Hamba]](Mamba+graph 손) · [[WiLoR]](검출+복원) + source 노트 4.
 - cross-link: 손복원 research ↔ MANO/ViT/Mamba concepts 가교 형성. [[위치인코딩-positional-encoding]]에 [[Transformer]]·[[Mamba-선형시간시퀀스]] 재연결.
 - index 갱신(research 2계보·concepts 4그룹 재편). 전부 통독·압축.
+
+## [2026-06-16] ingest | CoherentRaster (LFD용 3DGS, SIGGRAPH'26)
+- 멱등성 가드: 신규 raw(`raw/CoherentRaster.md`, 14p) — 부록 포함 전체 통독 후 ingest. [통과]/research.
+- **research 신규**: [[CoherentRaster]] — 라이트필드 디스플레이 서브픽셀 3DGS. ① Cross-view Coherent Attribute Reuse(클러스터별 공분산·깊이·SH 재사용) ② View-coherent Remapping(시점 정렬 룩업 Ψ로 warp coalescing 복원). full-frame 3DGS 대비 7.6×, 4K 71뷰 23 FPS. + source 노트 [[2026-06-16-CoherentRaster-논문]].
+- cross-link: [[3D-Gaussian-Splatting]](기반)·[[구면조화함수-SH]]·[[방사장-볼륨렌더링]]·[[SfM-COLMAP]](concepts)·[[NeRF]]·[[Relaxed-Rigidity-동적GS]]. index 방사장 계보에 응용으로 편입.

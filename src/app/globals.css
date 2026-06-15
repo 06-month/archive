@@ -204,6 +204,11 @@ nav {
   letter-spacing: -0.02em;
 }
 
+/* Wrapper is transparent on desktop; only used to center the pill bar on mobile */
+.nav-pill-wrap {
+  display: contents;
+}
+
 .nav-links-container {
   background: var(--pill-bg);
   border: 1px solid var(--pill-border);
@@ -2187,5 +2192,174 @@ footer {
 
 .btn-wiki-map:active {
   transform: translateY(0);
+}
+
+/* ============================================
+   Mobile optimization
+   ============================================ */
+@media (max-width: 992px) {
+  body {
+    padding: 14px;
+  }
+
+  /* Global navbar: drop the pill links onto their own centered row and
+     pin it to the top of the viewport while scrolling. Negative side
+     margins make the bar background span full-bleed over the body padding. */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 10px 20px 12px;
+    background: transparent;
+    /* No full-width bar: only the pill oval floats. Let the transparent
+       area pass clicks through to the content scrolling behind it. */
+    pointer-events: none;
+  }
+  nav .nav-brand,
+  nav > .flex {
+    pointer-events: auto;
+  }
+  nav {
+    min-width: 0;
+  }
+  .nav-pill-wrap {
+    display: flex;
+    order: 3;
+    flex: 1 1 100%;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: center;
+  }
+  nav .nav-links-container.nav-pill-group {
+    flex: 0 1 auto;
+    width: -moz-fit-content;
+    width: fit-content;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    pointer-events: auto;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  }
+  nav .nav-links-container.nav-pill-group::-webkit-scrollbar {
+    display: none;
+  }
+  nav .nav-links-container.nav-pill-group a {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+  }
+
+  /* Collapse to a single column. minmax(0, 1fr) (instead of the default
+     1fr == minmax(auto, 1fr)) stops wide children like the graph SVG or
+     tables from blowing the track out past the viewport. */
+  .container-overview,
+  .container-custom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .container-overview {
+    gap: 16px;
+  }
+  .container-overview > * {
+    grid-column: auto !important;
+  }
+  .container-overview .hero {
+    height: auto !important;
+    min-height: 340px;
+  }
+  .container-overview .wiki-desc {
+    padding: 32px !important;
+  }
+  .research-card h3 {
+    margin-top: 48px !important;
+  }
+  /* Decorative hero graph clutters the narrow card */
+  .graph-viz {
+    display: none !important;
+  }
+
+  .section-header {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  /* Wide tables scroll inside their card instead of overflowing the page */
+  .update-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .update-table-container table {
+    min-width: 560px;
+  }
+  th,
+  td {
+    padding: 14px 18px;
+  }
+
+  /* Wiki map: the desktop grid is 260px 1fr 300px. Trying to reshape that
+     into one column leaves reserved/implicit tracks that shrink the content
+     and leave dead space. Drop grid entirely and just stack the cards full
+     width — robust at every viewport size. */
+  .container-custom-wide {
+    display: block;
+    max-width: 100%;
+  }
+  .container-custom-wide > * {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 16px;
+  }
+  .container-custom-wide > *:last-child {
+    margin-bottom: 0;
+  }
+  .graph-container {
+    min-height: 62vh;
+  }
+  .container-custom-wide .sidebar-right {
+    display: flex !important;
+  }
+  .wiki-map-detail-card.is-empty {
+    min-height: 260px;
+  }
+
+  /* Reading pages */
+  .wiki-card,
+  .article-card {
+    padding: 30px 22px;
+  }
+  .wiki-title,
+  .article-title {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav .nav-brand {
+    font-size: 16px;
+  }
+  nav .flex .tag-custom {
+    display: none;
+  }
+  .container-overview .hero {
+    padding: 24px;
+  }
+  .wiki-card,
+  .article-card {
+    padding: 22px 18px;
+  }
+  .frontmatter-row {
+    grid-template-columns: 78px 1fr;
+    font-size: 12.5px;
+  }
+  .wiki-body pre,
+  .article-body pre {
+    padding: 14px;
+    font-size: 12px;
+  }
 }
 

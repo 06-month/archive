@@ -41,10 +41,11 @@ tags: [index]
 ## research — 3D Vision / 3DGS / NeRF / Scene Reconstruction
 
 ### 방사장 NVS (Radiance Field)
-**계보**: [[NeRF]] (2020, 연속 MLP) → [[3D-Gaussian-Splatting|3DGS]] (2023, 명시적·실시간) → 응용 [[lighthouseGS]] · 동적 [[Relaxed-Rigidity-동적GS]]
+**계보**: [[NeRF]] (2020, 연속 MLP) → [[3D-Gaussian-Splatting|3DGS]] (2023, 명시적·실시간) → 응용 [[lighthouseGS]] · [[CoherentRaster]] · 동적 [[Relaxed-Rigidity-동적GS]]
 - [[NeRF]] — 연속 5D MLP + 볼륨 렌더링. 위치 인코딩·계층 샘플링 (ECCV'20)
 - [[3D-Gaussian-Splatting]] — 비등방 3D 가우시안 + 타일 래스터화, 실시간 (SIGGRAPH'23)
 - [[lighthouseGS]] — 실내 파노라마 모바일 캡처용 3DGS, plane scaffold·SfM-free (2026)
+- [[CoherentRaster]] — 라이트필드 디스플레이용 서브픽셀 3DGS, cross-view reuse·view-coherent remapping (SIGGRAPH'26)
 - [[Relaxed-Rigidity-동적GS]] — 동적(4D) GS, ray-based grouping 모션 정규화, plug-in (2026)
 
 ### 3D 손/인체 복원 (Mesh Recovery)
@@ -54,7 +55,7 @@ tags: [index]
 - [[Hamba]] — graph-guided Mamba(GSS/GBS), 토큰 88.5%↓, HO3D Rank1 (NeurIPS'24)
 - [[WiLoR]] — 검출+복원 full-stack, 다중스케일 refinement, WHIM 2M (2024)
 
-- _sources_: 방사장 [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]]
+- _sources_: 방사장 [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]]
 - `Zotero/`는 **ingest 대상 아님** (raw/ 전용 — [[raw-wiki-규칙]] §A 참조)
 
 ## concepts — 공통 개념 (courses ↔ research)

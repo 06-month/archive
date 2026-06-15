@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SwipeNavigator from "@/components/SwipeNavigator";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <SwipeNavigator />
         <Navbar />
         {children}
         <Footer />

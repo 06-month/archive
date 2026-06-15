@@ -39,11 +39,32 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
+  const navRootRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
   const firstMeasureRef = useRef(true);
   const [indicator, setIndicator] = useState<NavIndicatorSnapshot>({ left: 4, width: 0, ready: false, index: 0 });
   const [mounted, setMounted] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  // On mobile the whole nav is sticky, but pulled up by the height of the
+  // brand row so only the pill bar stays pinned while scrolling.
+  const [stickTop, setStickTop] = useState(0);
+
+  useEffect(() => {
+    const measure = () => {
+      const root = navRootRef.current;
+      const wrap = root?.querySelector(".nav-pill-wrap") as HTMLElement | null;
+      if (!root || !wrap || window.innerWidth > 992) {
+        setStickTop(0);
+        return;
+      }
+      const navTop = root.getBoundingClientRect().top;
+      const wrapTop = wrap.getBoundingClientRect().top;
+      setStickTop(Math.round(wrapTop - navTop));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -147,8 +168,9 @@ export default function Navbar() {
   const isWikiMap = pathname === "/wiki-map";
 
   return (
-    <nav style={{ maxWidth: isWikiMap ? "1400px" : "1200px" }}>
+    <nav ref={navRootRef} style={{ maxWidth: isWikiMap ? "1400px" : "1200px", top: stickTop ? `-${Math.max(stickTop - 12, 0)}px` : undefined }}>
       <div className="nav-brand">Research.Archive</div>
+      <div className="nav-pill-wrap">
       <div className={`nav-links-container nav-pill-group ${mounted && indicator.ready ? "js-ready" : ""}`} ref={navRef}>
         <span
           className="nav-pill-indicator"
@@ -180,6 +202,7 @@ export default function Navbar() {
             </Link>
           );
         })}
+      </div>
       </div>
       <div className="flex items-center gap-3">
         <button 
