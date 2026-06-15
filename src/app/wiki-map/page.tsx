@@ -69,6 +69,7 @@ export default function WikiMap() {
   
   // Selected Node State
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const selectedSlugRef = useRef<string | null>(null);
   
   // Search query
   const [searchQuery, setSearchQuery] = useState("");
@@ -150,8 +151,8 @@ export default function WikiMap() {
       .force("y", d3.forceY<GraphNode>(height / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
       .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 12 * nodeCountMultiplier));
 
-    // Pre-run the simulation to stabilize positions before rendering (increased ticks for perfect stability)
-    for (let i = 0; i < 250; i++) {
+    // Pre-run simulation for near-final layout; remaining energy creates Obsidian-like settling
+    for (let i = 0; i < 200; i++) {
       simulation.tick();
     }
 
@@ -284,7 +285,7 @@ export default function WikiMap() {
       link.style("opacity", 1);
       
       d3.select(this).select("circle")
-        .style("fill", d.slug === selectedSlug ? "var(--accent)" : "#4A4A4A")
+        .style("fill", d.slug === selectedSlugRef.current ? "var(--accent)" : "#4A4A4A")
         .attr("r", getNodeRadius(d.degree));
 
       link.style("stroke", "#E0E0E0").style("stroke-width", "0.8px");
@@ -300,8 +301,7 @@ export default function WikiMap() {
       router.push(`/wiki/${d.slug}`);
     });
 
-    // Highlight selected node on click updates
-    node.style("fill", (n) => (n.slug === selectedSlug ? "var(--accent)" : "#4A4A4A"));
+
 
     const ticked = () => {
       link
@@ -319,14 +319,39 @@ export default function WikiMap() {
     // Simulation tick callback
     simulation.on("tick", ticked);
 
+    // Gentle sloshing on initial load (Obsidian-like settling animation)
+    simulation.alpha(0.12).restart();
+
     return () => {
       simulation.stop();
     };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Keep selectedSlugRef in sync
+  useEffect(() => {
+    selectedSlugRef.current = selectedSlug;
+  }, [selectedSlug]);
+
+  // Highlight selected node without restarting simulation
+  useEffect(() => {
+    if (!svgRef.current) return;
+    d3.select(svgRef.current)
+      .selectAll<SVGCircleElement, GraphNode>(".node")
+      .style("fill", (n) => (n.slug === selectedSlug ? "var(--accent)" : "#4A4A4A"));
   }, [selectedSlug]);
 
   // Apply search query highlighting inside the graph
   useEffect(() => {
-    if (!svgRef.current || !searchQuery.trim()) return;
+    if (!svgRef.current) return;
+
+    const nodeGroups = d3.select(svgRef.current).selectAll(".node-group");
+    const links = d3.select(svgRef.current).selectAll(".edge");
+
+    if (!searchQuery.trim()) {
+      nodeGroups.style("opacity", 1);
+      links.style("opacity", 1);
+      return;
+    }
 
     const q = searchQuery.toLowerCase();
     const matchingNodeIds = new Set<string>();
@@ -341,10 +366,6 @@ export default function WikiMap() {
       }
     });
 
-    // Dim non-matching nodes
-    const nodeGroups = d3.select(svgRef.current).selectAll(".node-group");
-    const links = d3.select(svgRef.current).selectAll(".edge");
-
     nodeGroups.style("opacity", (n: any) => (matchingNodeIds.has(n.id) ? 1 : 0.15));
     links.style("opacity", (l: any) => {
       const sourceId = typeof l.source === "object" ? l.source.id : l.source;
@@ -358,16 +379,7 @@ export default function WikiMap() {
     setSearchQuery("");
   };
 
-  const mappedZoomScale = useMemo(() => {
-    const k = zoomScale / 100;
-    let mapped = 50;
-    if (k <= 1.0) {
-      mapped = Math.round(10 + ((k - 0.1) / 0.9) * 40);
-    } else {
-      mapped = Math.round(50 + ((k - 1.0) / 3.0) * 350);
-    }
-    return Math.max(10, Math.min(400, mapped));
-  }, [zoomScale]);
+  const mappedZoomScale = zoomScale;
 
   return (
     <div className="container-custom-wide">

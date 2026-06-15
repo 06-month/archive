@@ -43,16 +43,9 @@ interface SidebarProps {
 export default function Sidebar({ type, zoomScale, activeSlug }: SidebarProps) {
   const pathname = usePathname();
   
-  // Calculate mapped zoom percent: center k = 1.0 is 50%, k = 0.1 is 10%, k = 4.0 is 400%
-  const k = zoomScale !== undefined ? zoomScale / 100 : 1.0;
-  let mappedPercent = 50;
-  if (k <= 1.0) {
-    mappedPercent = Math.round(10 + ((k - 0.1) / 0.9) * 40);
-  } else {
-    mappedPercent = Math.round(50 + ((k - 1.0) / 3.0) * 350);
-  }
-  mappedPercent = Math.max(10, Math.min(400, mappedPercent));
-  const barWidth = Math.round(((mappedPercent - 10) / 390) * 100);
+  // Display actual zoom percentage from D3
+  const mappedPercent = zoomScale !== undefined ? zoomScale : 100;
+  const barWidth = Math.min(100, Math.round((mappedPercent / 400) * 100));
   
   // Find current slug from pathname
   // e.g. "/wiki/mano" -> "mano"

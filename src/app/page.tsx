@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import * as d3 from "d3";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import contentIndexRaw from "@/generated/content-index.json";
+import graphDataRaw from "@/generated/graph-data.json";
 
 interface Backlink {
   slug: string;
@@ -36,120 +38,133 @@ interface IndexItem {
 
 const contentIndex = contentIndexRaw as Record<string, IndexItem>;
 
-interface Node {
-  baseX: number;
-  baseY: number;
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  label: string;
+interface MiniGraphNode extends d3.SimulationNodeDatum {
+  id: string;
+  title: string;
+  slug: string;
+  degree: number;
+  area: string;
 }
 
-interface Edge {
-  from: number;
-  to: number;
+interface MiniGraphEdge extends d3.SimulationLinkDatum<MiniGraphNode> {
+  source: string | MiniGraphNode;
+  target: string | MiniGraphNode;
 }
+
+const miniGraphData = graphDataRaw as { nodes: MiniGraphNode[]; edges: MiniGraphEdge[] };
 
 export default function Home() {
-  const svgRef = useRef<SVGSVGElement>(null);
-  
-  // Animation Nodes
-  const [nodes, setNodes] = useState<Node[]>([
-    { baseX: 100, baseY: 100, x: 100, y: 100, vx: 0, vy: 0, label: "NeRF" },
-    { baseX: 200, baseY: 150, x: 200, y: 150, vx: 0, vy: 0, label: "3DGS" },
-    { baseX: 150, baseY: 250, x: 150, y: 250, vx: 0, vy: 0, label: "Scaffold-GS" },
-    { baseX: 300, baseY: 120, x: 300, y: 120, vx: 0, vy: 0, label: "COLMAP" },
-    { baseX: 350, baseY: 200, x: 350, y: 200, vx: 0, vy: 0, label: "Mamba" },
-    { baseX: 280, baseY: 300, x: 280, y: 300, vx: 0, vy: 0, label: "Hamba" }
-  ]);
+  const heroGraphRef = useRef<SVGSVGElement>(null);
 
-  const edges: Edge[] = [
-    { from: 0, to: 1 },
-    { from: 1, to: 2 },
-    { from: 1, to: 3 },
-    { from: 3, to: 4 },
-    { from: 2, to: 5 },
-    { from: 4, to: 5 }
-  ];
-
-  // Animated Floating Effect in Hero SVG
+  // D3 mini graph in hero section — mirrors the wiki-map graph
   useEffect(() => {
-    let animationId: number;
-    const startTime = Date.now();
-    const timeScale = 0.001;
+    if (!heroGraphRef.current) return;
 
-    const centerX = 200;
-    const centerY = 200;
-    const repulsion = 300;
-    const springLength = 90;
-    const springK = 0.03;
-    const gravity = 0.004;
-    const friction = 0.92;
+    d3.select(heroGraphRef.current).selectAll("*").remove();
 
-    const animate = () => {
-      const time = (Date.now() - startTime) * timeScale;
+    const width = 460;
+    const height = 410;
 
-      setNodes((prevNodes) => {
-        const nextNodes = prevNodes.map((n, i) => {
-          let vx = n.vx + Math.sin(time + i * 1.5) * 0.03;
-          let vy = n.vy + Math.cos(time + i * 2.1) * 0.03;
-          return { ...n, vx, vy };
-        });
+    const svg = d3.select(heroGraphRef.current)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .attr("width", "100%")
+      .attr("height", "100%");
 
-        // Apply forces
-        for (let i = 0; i < nextNodes.length; i++) {
-          const n = nextNodes[i];
-          let fx = 0, fy = 0;
+    const g = svg.append("g");
 
-          // Repulsion
-          for (let j = 0; j < nextNodes.length; j++) {
-            if (i === j) continue;
-            const o = nextNodes[j];
-            const dx = n.x - o.x;
-            const dy = n.y - o.y;
-            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-            const force = repulsion / (dist * dist);
-            fx += (dx / dist) * force;
-            fy += (dy / dist) * force;
-          }
+    // Deep copy data
+    const nodes: MiniGraphNode[] = JSON.parse(JSON.stringify(miniGraphData.nodes));
+    const links: MiniGraphEdge[] = JSON.parse(JSON.stringify(miniGraphData.edges));
 
-          // Spring forces
-          edges.forEach((e) => {
-            if (e.from === i || e.to === i) {
-              const o = nextNodes[e.from === i ? e.to : e.from];
-              const dx = o.x - n.x;
-              const dy = o.y - n.y;
-              const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-              const force = (dist - springLength) * springK;
-              fx += (dx / dist) * force;
-              fy += (dy / dist) * force;
-            }
-          });
+    const nodeCountMultiplier = Math.max(0.65, Math.min(1.2, Math.sqrt(40 / nodes.length)));
 
-          // Gravity back to base center
-          fx += (centerX - n.x) * gravity;
-          fy += (centerY - n.y) * gravity;
+    function getNodeRadius(degree: number) {
+      if (degree <= 1) return 1.6 * nodeCountMultiplier;
+      if (degree <= 2) return 2.4 * nodeCountMultiplier;
+      return Math.min(2.8 + Math.sqrt(degree) * 1.2, 9.0) * nodeCountMultiplier;
+    }
 
-          n.vx = (n.vx + fx) * friction;
-          n.vy = (n.vy + fy) * friction;
-          n.x += n.vx;
-          n.y += n.vy;
-        }
-
-        return nextNodes;
-      });
-
-      animationId = requestAnimationFrame(animate);
+    // Area color map (same as wiki-map categories)
+    const areaColorMap: Record<string, string> = {
+      research: "#4A4A4A",
+      concepts: "#6366f1",
+      courses: "#059669",
+      system: "#d97706",
     };
 
-    animate();
-    return () => cancelAnimationFrame(animationId);
-  }, []);
+    // Force simulation
+    const simulation = d3.forceSimulation<MiniGraphNode>(nodes)
+      .force("link", d3.forceLink<MiniGraphNode, MiniGraphEdge>(links).id((d) => d.id).distance(120 * nodeCountMultiplier).strength(0.18))
+      .force("charge", d3.forceManyBody<MiniGraphNode>().strength((d) => d.degree === 0 ? -15 : -140 - d.degree * 30))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("x", d3.forceX<MiniGraphNode>(width / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
+      .force("y", d3.forceY<MiniGraphNode>(height / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
+      .force("collide", d3.forceCollide<MiniGraphNode>().radius((d) => getNodeRadius(d.degree) + 12 * nodeCountMultiplier));
+
+    // Pre-run for near-final layout
+    for (let i = 0; i < 200; i++) {
+      simulation.tick();
+    }
+
+    // Auto-fit zoom
+    const minX = d3.min(nodes, (d) => d.x) || 0;
+    const maxX = d3.max(nodes, (d) => d.x) || width;
+    const minY = d3.min(nodes, (d) => d.y) || 0;
+    const maxY = d3.max(nodes, (d) => d.y) || height;
+    const graphWidth = Math.max(100, maxX - minX);
+    const graphHeight = Math.max(100, maxY - minY);
+    const graphCenterX = (minX + maxX) / 2;
+    const graphCenterY = (minY + maxY) / 2;
+    const padding = 40;
+    const scaleX = (width - padding * 2) / graphWidth;
+    const scaleY = (height - padding * 2) / graphHeight;
+    const fitScale = Math.max(0.25, Math.min(1.1, Math.min(scaleX, scaleY)));
+    const translateX = width / 2 - fitScale * graphCenterX;
+    const translateY = height / 2 - fitScale * graphCenterY;
+    g.attr("transform", `translate(${translateX}, ${translateY}) scale(${fitScale})`);
+
+    // Edges
+    const link = g.append("g")
+      .selectAll<SVGLineElement, MiniGraphEdge>("line")
+      .data(links)
+      .enter()
+      .append("line")
+      .style("stroke", "#E0E0E0")
+      .style("stroke-width", "0.8px");
+
+    // Node groups
+    const nodeGroup = g.append("g")
+      .selectAll<SVGGElement, MiniGraphNode>("g")
+      .data(nodes)
+      .enter()
+      .append("g");
+
+    // Node circles
+    nodeGroup.append("circle")
+      .attr("r", (d) => getNodeRadius(d.degree))
+      .attr("fill", (d) => areaColorMap[d.area] || "#4A4A4A");
+
+    const ticked = () => {
+      link
+        .attr("x1", (d) => (d.source as MiniGraphNode).x!)
+        .attr("y1", (d) => (d.source as MiniGraphNode).y!)
+        .attr("x2", (d) => (d.target as MiniGraphNode).x!)
+        .attr("y2", (d) => (d.target as MiniGraphNode).y!);
+      nodeGroup.attr("transform", (d) => `translate(${d.x!}, ${d.y!})`);
+    };
+
+    ticked();
+    simulation.on("tick", ticked);
+
+    // Perpetual gentle drift — never fully stops
+    simulation.alphaMin(0).alphaTarget(0.018).alpha(0.12).restart();
+
+    return () => { simulation.stop(); };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Fetch actual blog files and wiki files to build dynamic content
   const allItems = Object.values(contentIndex);
-  
+
   // Sort items by creation date for Activity Log
   const sortedItems = [...allItems]
     .filter(item => item.created)
@@ -231,43 +246,8 @@ export default function Home() {
           </span>
         </div>
 
-        {/* Floating Animation SVG */}
-        <svg ref={svgRef} className="graph-viz" viewBox="0 0 400 400" style={{ position: "absolute", right: "-50px", top: "50px", width: "450px", height: "400px", pointerEvents: "none" }}>
-          {/* Edges */}
-          {edges.map((e, index) => {
-            const fromNode = nodes[e.from];
-            const toNode = nodes[e.to];
-            if (!fromNode || !toNode) return null;
-            return (
-              <line
-                key={index}
-                x1={fromNode.x}
-                y1={fromNode.y}
-                x2={toNode.x}
-                y2={toNode.y}
-                style={{ stroke: "#DDD", strokeWidth: 1 }}
-              />
-            );
-          })}
-          {/* Nodes */}
-          {nodes.map((node, index) => (
-            <g key={index}>
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r={index === 1 || index === 5 ? 6 : index === 3 ? 5 : 4}
-                style={{ fill: "#1A1A1A" }}
-              />
-              <text
-                x={node.x + 10}
-                y={node.y + 4}
-                style={{ fontSize: "10px", fontWeight: 600, fill: "#888" }}
-              >
-                {node.label}
-              </text>
-            </g>
-          ))}
-        </svg>
+        {/* Real D3 force-directed mini graph from graph-data.json */}
+        <svg ref={heroGraphRef} className="graph-viz" style={{ position: "absolute", right: "10px", top: "30px", width: "400px", height: "380px", pointerEvents: "none", opacity: 0.5 }} />
       </section>
 
       {/* 2. STATUS CARD */}
@@ -385,10 +365,10 @@ export default function Home() {
           </thead>
           <tbody>
             {sortedItems.map((item, index) => {
-              const displayCategory = item.category 
-                ? item.category.toUpperCase() 
-                : item.type === "blog" 
-                  ? "BLOG" 
+              const displayCategory = item.category
+                ? item.category.toUpperCase()
+                : item.type === "blog"
+                  ? "BLOG"
                   : "WIKI";
               const dateString = item.created ? item.created.slice(0, 10).replace(/-/g, ".") : "2026.06.13";
               const targetUrl = item.type === "blog" ? `/blog/${item.slug}` : `/wiki/${item.slug}`;
