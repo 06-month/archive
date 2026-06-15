@@ -314,7 +314,7 @@ export default function Home() {
         </div>
         <div className="mt-10">
           <Link href="/wiki-map" className="nav-links-container text-center py-3 px-6 active" style={{ display: "inline-block", border: "none", fontWeight: 700, textDecoration: "none" }}>
-            지식 그래프 열기
+            Wiki
           </Link>
         </div>
       </section>
