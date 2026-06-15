@@ -2323,6 +2323,13 @@ footer {
   .container-custom-wide .sidebar-right {
     display: flex !important;
   }
+  /* The detail card uses align-self: flex-start on desktop (so it hugs its
+     content in the sidebar). On mobile that leaves it narrow/left-aligned —
+     stretch it to fill the column instead. */
+  .wiki-map-detail-card {
+    align-self: stretch;
+    width: 100%;
+  }
   .wiki-map-detail-card.is-empty {
     min-height: 260px;
   }
