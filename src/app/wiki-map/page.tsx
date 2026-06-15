@@ -433,7 +433,9 @@ export default function WikiMap() {
           className="card-custom flex flex-col"
           style={{
             minHeight: "450px",
-            padding: "28px", 
+            flexShrink: 0,
+            overflow: "visible",
+            padding: "28px",
             border: "1px solid var(--border)", 
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
             background: "var(--surface)" 
