@@ -85,17 +85,12 @@ export default function Sidebar({ type, zoomScale, activeSlug }: SidebarProps) {
         }
       }
     } else {
-      // Blog sections
-      const currentItem = Object.values(contentIndex).find(
-        (item) => item.slug === slugToUse && item.type === "blog"
-      );
-      initialExpanded["AI"] = true; // Match prototype default
-      if (currentItem && currentItem.category) {
-        initialExpanded[currentItem.category] = true;
-        if (currentItem.subcategory) {
-          initialExpanded[`${currentItem.category}-${currentItem.subcategory}`] = true;
-        }
-      }
+      // Blog: keep every category expanded so the "AI / hand pose" subcategory
+      // labels are always visible, but leave subcategories collapsed so the
+      // posts under them only appear when a subcategory is clicked.
+      items.forEach((item) => {
+        initialExpanded[item.category || "AI"] = true;
+      });
     }
     
     setExpandedSections(initialExpanded);
