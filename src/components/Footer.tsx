@@ -1,13 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isWikiMap = pathname === "/wiki-map";
+
   return (
-    <footer>
+    <footer style={{ maxWidth: isWikiMap ? "1400px" : "1200px" }}>
       <div>
-        <div className="footer-logo">RESEARCH.LOG</div>
+        <div className="footer-logo">RESEARCH.ARCHIVE</div>
         <p className="philosophy">
-          지식은 축적되는 것이 아니라 연결되는 것입니다. 저는 이 공간을 통해
-          복잡한 AI 연구의 숲을 조망하고, 새로운 통찰을 발견하고자 합니다.
+          공부한 내용과 구현 기록을 다시 꺼내 쓸 수 있도록
+          연결 가능한 지식으로 정리합니다.
         </p>
         <p style={{ fontSize: "11px", marginTop: "20px", color: "#AAA" }}>
           © 2024 Research Archive. Built with Obsidian-style Logic.
@@ -19,15 +25,14 @@ export default function Footer() {
           <ul>
             <li className="mb-2">
               <Link href="/blog" style={{ color: "inherit", textDecoration: "none" }}>
-                Blog Posts
+                Articles
               </Link>
             </li>
             <li className="mb-2">
               <Link href="/wiki-map" style={{ color: "inherit", textDecoration: "none" }}>
-                Knowledge Map
+                Wiki
               </Link>
             </li>
-            <li style={{ color: "inherit" }}>Resources</li>
           </ul>
         </div>
         <div className="link-group">
@@ -43,7 +48,7 @@ export default function Footer() {
                 GitHub
               </a>
             </li>
-            <li style={{ color: "inherit" }}>
+            <li>
               <a
                 href="mailto:junjeon@edu.hanbat.ac.kr"
                 style={{ color: "inherit", textDecoration: "none" }}

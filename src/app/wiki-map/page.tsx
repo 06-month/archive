@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import * as d3 from "d3";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import graphDataRaw from "@/generated/graph-data.json";
 import contentIndexRaw from "@/generated/content-index.json";
@@ -110,20 +108,23 @@ export default function WikiMap() {
 
     // Container for zooming/panning
     const g = svg.append("g");
+    const getLabelOpacityForZoom = (scale: number) => Math.max(0, Math.min(0.8, (scale - 1.1) * 1.2));
+    let activeZoomScale = 1;
+    let activeTransform = d3.zoomIdentity;
+    let hoveredNode: GraphNode | null = null;
 
     // Add zoom/pan behavior
     const zoomBehavior = d3.zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.1, 4])
       .on("zoom", (event) => {
+        activeTransform = event.transform;
+        activeZoomScale = event.transform.k;
         g.attr("transform", event.transform);
-        setZoomScale(Math.round(event.transform.k * 100));
+        setZoomScale(Math.round(activeZoomScale * 100));
 
-        const k = event.transform.k;
-        // Zoom-dependent label opacity:
-        // k <= 1.1 -> opacity 0
-        // k >= 1.8 -> opacity 0.8
-        const targetOpacity = Math.max(0, Math.min(0.8, (k - 1.1) * 1.2));
+        const targetOpacity = getLabelOpacityForZoom(activeZoomScale);
         g.selectAll(".node-label").style("opacity", targetOpacity);
+        positionHoverLabel();
       });
 
     svg.call(zoomBehavior);
@@ -179,6 +180,8 @@ export default function WikiMap() {
     const initialTransform = d3.zoomIdentity
       .translate(translateX, translateY)
       .scale(initialScale);
+    activeZoomScale = initialScale;
+    activeTransform = initialTransform;
 
     svg.call(zoomBehavior.transform, initialTransform);
 
@@ -190,7 +193,7 @@ export default function WikiMap() {
       .enter()
       .append("line")
       .attr("class", "edge")
-      .style("stroke", "#E0E0E0")
+      .style("stroke", "var(--border)")
       .style("stroke-width", "0.8px");
 
     // Nodes container layer
@@ -204,22 +207,88 @@ export default function WikiMap() {
       .style("cursor", "pointer");
 
     // Node circles
-    const node = nodeGroup.append("circle")
+    nodeGroup.append("circle")
       .attr("class", "node")
       .attr("r", (d) => getNodeRadius(d.degree))
-      .attr("fill", "#4A4A4A");
+      .attr("fill", "var(--text-muted)");
 
     // Node labels
-    const label = nodeGroup.append("text")
+    nodeGroup.append("text")
       .attr("class", "node-label")
       .attr("dx", (d) => getNodeRadius(d.degree) + 3)
       .attr("dy", 3)
       .text((d) => d.title.split(" (")[0])
       .style("font-size", `${7.5 * nodeCountMultiplier}px`)
       .style("font-weight", "500")
-      .style("fill", "#1A1A1A")
-      .style("opacity", Math.max(0, Math.min(0.8, (initialScale - 1.1) * 1.2))) // Set initial opacity based on scale (hidden at k <= 1.0)
+      .style("fill", "var(--text)")
+      .style("opacity", getLabelOpacityForZoom(initialScale))
       .style("pointer-events", "none");
+
+    const hoverLayer = svg.append("g")
+      .attr("class", "node-hover-label-layer")
+      .style("pointer-events", "none");
+
+    function positionHoverLabel() {
+      if (!hoveredNode) return;
+
+      const group = hoverLayer.select<SVGGElement>("g.node-hover-label");
+      if (group.empty()) return;
+
+      const [nodeX, nodeY] = activeTransform.apply([hoveredNode.x || 0, hoveredNode.y || 0]);
+      const paddingX = 8;
+      const paddingY = 5;
+
+      const textNode = group.select<SVGTextElement>("text").node();
+      if (!textNode) return;
+
+      const textBox = textNode.getBBox();
+      const rectX = textBox.x - paddingX;
+      const rectY = textBox.y - paddingY;
+      const rectWidth = textBox.width + paddingX * 2;
+      const rectHeight = textBox.height + paddingY * 2;
+
+      const minLabelX = 8 - rectX;
+      const maxLabelX = width - rectX - rectWidth - 8;
+      const minLabelY = 8 - rectY;
+      const maxLabelY = height - rectY - rectHeight - 8;
+      const labelX = Math.max(minLabelX, Math.min(maxLabelX, nodeX + 12));
+      const labelY = Math.max(minLabelY, Math.min(maxLabelY, nodeY - 10));
+
+      group.attr("transform", `translate(${labelX}, ${labelY})`);
+      group.select("rect")
+        .attr("x", rectX)
+        .attr("y", rectY)
+        .attr("width", rectWidth)
+        .attr("height", rectHeight);
+    }
+
+    function showHoverLabel(d: GraphNode) {
+      hoveredNode = d;
+      hoverLayer.selectAll("*").remove();
+
+      const group = hoverLayer.append("g")
+        .attr("class", "node-hover-label")
+        .style("opacity", 0);
+
+      group.append("rect")
+        .attr("class", "node-hover-label-bg")
+        .attr("rx", 7)
+        .attr("ry", 7);
+
+      group.append("text")
+        .attr("class", "node-hover-label-text")
+        .attr("x", 0)
+        .attr("y", 0)
+        .text(d.title.split(" (")[0]);
+
+      positionHoverLabel();
+      group.style("opacity", 1);
+    }
+
+    function hideHoverLabel() {
+      hoveredNode = null;
+      hoverLayer.selectAll("*").remove();
+    }
 
     // Drag behavior functions
     const dragstarted = (event: any, d: GraphNode) => {
@@ -267,9 +336,12 @@ export default function WikiMap() {
       });
 
       // Highlight active hovered node
-      d3.select(this).select("circle")
+      const hoveredGroup = d3.select(this).raise();
+
+      hoveredGroup.select("circle")
         .style("fill", "var(--accent)")
         .attr("r", getNodeRadius(d.degree) + 2);
+      showHoverLabel(d);
       
       link.filter((l) => {
         const sourceId = typeof l.source === "object" ? (l.source as GraphNode).id : l.source;
@@ -284,11 +356,15 @@ export default function WikiMap() {
       nodeGroup.style("opacity", 1);
       link.style("opacity", 1);
       
-      d3.select(this).select("circle")
-        .style("fill", d.slug === selectedSlugRef.current ? "var(--accent)" : "#4A4A4A")
+      const hoveredGroup = d3.select(this);
+
+      hoveredGroup.select("circle")
+        .style("fill", d.slug === selectedSlugRef.current ? "var(--accent)" : "var(--text-muted)")
         .attr("r", getNodeRadius(d.degree));
 
-      link.style("stroke", "#E0E0E0").style("stroke-width", "0.8px");
+      hideHoverLabel();
+
+      link.style("stroke", "var(--border)").style("stroke-width", "0.8px");
     });
 
     // Click behavior
@@ -311,6 +387,7 @@ export default function WikiMap() {
         .attr("y2", (d) => (d.target as GraphNode).y!);
 
       nodeGroup.attr("transform", (d) => `translate(${d.x!}, ${d.y!})`);
+      positionHoverLabel();
     };
 
     // Initialize visual elements to their pre-run stable positions immediately
@@ -337,7 +414,7 @@ export default function WikiMap() {
     if (!svgRef.current) return;
     d3.select(svgRef.current)
       .selectAll<SVGCircleElement, GraphNode>(".node")
-      .style("fill", (n) => (n.slug === selectedSlug ? "var(--accent)" : "#4A4A4A"));
+      .style("fill", (n) => (n.slug === selectedSlug ? "var(--accent)" : "var(--text-muted)"));
   }, [selectedSlug]);
 
   // Apply search query highlighting inside the graph
@@ -383,7 +460,6 @@ export default function WikiMap() {
 
   return (
     <div className="container-custom-wide">
-      <Navbar />
       {/* Dynamic Left Sidebar */}
       <Sidebar type="wiki" zoomScale={zoomScale} activeSlug={selectedSlug} />
 
@@ -391,8 +467,8 @@ export default function WikiMap() {
       <main className="card-custom graph-container">
         <svg ref={svgRef} id="knowledge-graph"></svg>
         <div style={{ position: "absolute", bottom: "24px", left: "24px", display: "flex", gap: "8px" }}>
-          <div className="tag-custom" style={{ background: "white" }}>Zoom: {mappedZoomScale}%</div>
-          <div className="tag-custom" style={{ background: "white" }}>Nodes: {graphData.nodes.length}</div>
+          <div className="tag-custom">Zoom: {mappedZoomScale}%</div>
+          <div className="tag-custom">Nodes: {graphData.nodes.length}</div>
         </div>
       </main>
 
@@ -414,7 +490,7 @@ export default function WikiMap() {
           </div>
           {searchSuggestions.length > 0 && (
             <div className="suggest-list">
-              <p style={{ fontSize: "11px", textTransform: "uppercase", color: "#BBB", margin: "10px 0 5px" }}>Suggested</p>
+              <p style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--text-muted)", margin: "10px 0 5px" }}>Suggested</p>
               {searchSuggestions.map((node) => (
                 <div
                   key={node.id}
@@ -430,21 +506,17 @@ export default function WikiMap() {
 
         {/* Selected Node details Panel */}
         <div
-          className="card-custom flex flex-col"
+          className={`card-custom wiki-map-detail-card ${activeNodeDetails ? "" : "is-empty"}`}
           style={{
-            minHeight: "450px",
-            flexShrink: 0,
-            overflow: "visible",
-            padding: "28px",
             border: "1px solid var(--border)", 
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
             background: "var(--surface)" 
           }}
         >
           {activeNodeDetails ? (
-            <div className="flex flex-col flex-grow">
+            <div className="wiki-map-detail-content">
               {/* Content Preview Area */}
-              <div className="flex flex-col gap-5 flex-grow">
+              <div className="wiki-map-detail-main">
                 {/* Category Pill */}
                 <div>
                   <span 
@@ -454,9 +526,9 @@ export default function WikiMap() {
                       fontSize: "10px", 
                       fontWeight: 600, 
                       letterSpacing: "0.05em",
-                      background: "#F4F4F5",
-                      border: "none",
-                      color: "#71717A",
+                      background: "var(--pill-bg)",
+                      border: "1px solid var(--pill-border)",
+                      color: "var(--text-muted)",
                       padding: "4px 8px"
                     }}
                   >
@@ -472,7 +544,7 @@ export default function WikiMap() {
                       fontSize: "18px", 
                       fontWeight: 700, 
                       lineHeight: "1.4",
-                      color: "#18181B",
+                      color: "var(--text)",
                       letterSpacing: "-0.02em"
                     }}
                   >
@@ -480,17 +552,17 @@ export default function WikiMap() {
                   </h4>
 
                   {/* Metadata Row */}
-                  <div className="flex flex-col gap-1 text-xs text-zinc-400 font-medium" style={{ color: "#8E8E93" }}>
+                  <div className="flex flex-col gap-1 text-xs text-zinc-400 font-medium" style={{ color: "var(--text-muted)" }}>
                     <div className="flex items-center gap-1.5">
                       <span className="font-semibold" style={{ minWidth: "65px" }}>Category:</span>
-                      <span className="text-zinc-600" style={{ color: "#3F3F46" }}>
+                      <span className="text-zinc-600" style={{ color: "var(--text)" }}>
                         {activeNodeDetails.area || activeNodeDetails.category || "General"}
                       </span>
                     </div>
                     {activeNodeDetails.created && (
                       <div className="flex items-center gap-1.5">
                         <span className="font-semibold" style={{ minWidth: "65px" }}>Date:</span>
-                        <span className="text-zinc-600" style={{ color: "#3F3F46" }}>
+                        <span className="text-zinc-600" style={{ color: "var(--text)" }}>
                           {activeNodeDetails.created.slice(0, 10)}
                         </span>
                       </div>
@@ -504,7 +576,7 @@ export default function WikiMap() {
                     style={{ 
                       fontSize: "13px", 
                       lineHeight: "1.6", 
-                      color: "#52525B",
+                      color: "var(--text-secondary)",
                       margin: "0" 
                     }}
                   >
@@ -517,7 +589,7 @@ export default function WikiMap() {
                   <div className="flex flex-col gap-2 pt-2">
                     <span 
                       className="font-bold tracking-wider text-zinc-400 uppercase" 
-                      style={{ fontSize: "10px", color: "#A1A1AA", letterSpacing: "0.08em" }}
+                      style={{ fontSize: "10px", color: "var(--text-muted)", letterSpacing: "0.08em" }}
                     >
                       TAGS
                     </span>
@@ -529,9 +601,9 @@ export default function WikiMap() {
                           style={{ 
                             fontSize: "10px", 
                             padding: "3px 8px", 
-                            background: "#FAFAFA", 
-                            border: "1px solid #E4E4E7",
-                            color: "#52525B",
+                            background: "var(--pill-bg)", 
+                            border: "1px solid var(--pill-border)",
+                            color: "var(--text-muted)",
                             borderRadius: "4px",
                             fontFamily: "var(--font-mono)"
                           }}
@@ -547,7 +619,7 @@ export default function WikiMap() {
                 <div className="flex flex-col gap-2 pt-2">
                   <span 
                     className="font-bold tracking-wider text-zinc-400 uppercase" 
-                    style={{ fontSize: "10px", color: "#A1A1AA", letterSpacing: "0.08em" }}
+                    style={{ fontSize: "10px", color: "var(--text-muted)", letterSpacing: "0.08em" }}
                   >
                     BACKLINKS
                   </span>
@@ -563,9 +635,9 @@ export default function WikiMap() {
                             style={{ 
                               fontSize: "10.5px", 
                               padding: "4px 8px", 
-                              background: "#FFFFFF", 
-                              border: "1px solid #E4E4E7",
-                              color: "#27272A",
+                              background: "var(--pill-bg)", 
+                              border: "1px solid var(--pill-border)",
+                              color: "var(--text-secondary)",
                               borderRadius: "4px"
                             }}
                           >
@@ -575,7 +647,7 @@ export default function WikiMap() {
                       })}
                     </div>
                   ) : (
-                    <span style={{ fontSize: "11px", color: "#A1A1AA", fontStyle: "italic" }}>
+                    <span style={{ fontSize: "11px", color: "var(--text-muted)", fontStyle: "italic" }}>
                       No backlinks found
                     </span>
                   )}
@@ -583,25 +655,11 @@ export default function WikiMap() {
               </div>
 
               {/* Subtle Divider and CTA Button */}
-              <div className="mt-8 pt-5 border-t border-zinc-100 flex flex-col gap-3" style={{ borderColor: "#F4F4F5" }}>
+              <div className="wiki-map-detail-actions">
                 <Link
                   href={`/wiki/${activeNodeDetails.slug}`}
-                  className="flex items-center justify-center font-semibold text-sm transition-all duration-200"
-                  style={{ 
-                    textDecoration: "none",
-                    height: "44px",
-                    width: "100%",
-                    borderRadius: "8px",
-                    background: "#18181B",
-                    color: "#FFFFFF",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.backgroundColor = "#27272A";
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.backgroundColor = "#18181B";
-                  }}
+                  className="btn-primary"
+                  style={{ textDecoration: "none" }}
                 >
                   Open Wiki
                 </Link>
@@ -618,15 +676,15 @@ export default function WikiMap() {
                 height="32"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#D4D4D8"
+                stroke="var(--border)"
                 strokeWidth="1.5"
                 style={{ marginBottom: "16px" }}
               >
                 <circle cx="12" cy="12" r="10"></circle>
                 <path d="M12 8v4M12 16h.01"></path>
               </svg>
-              <span style={{ color: "#71717A", fontWeight: 500 }}>Select a node to view connections and metadata.</span>
-              <span className="text-xs opacity-60 mt-2" style={{ color: "#A1A1AA" }}>Double click to open note page directly.</span>
+              <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>Select a node to view connections and metadata.</span>
+              <span className="text-xs opacity-60 mt-2" style={{ color: "var(--text-faint)" }}>Double click to open note page directly.</span>
             </div>
           )}
         </div>
@@ -684,7 +742,7 @@ export default function WikiMap() {
                           style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
                         >
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                            <path d="M1 5H9M9 5L5 1M9 5L5 9" stroke="black" strokeWidth="1.5"></path>
+                            <path d="M1 5H9M9 5L5 1M9 5L5 9" stroke="currentColor" strokeWidth="1.5"></path>
                           </svg>
                         </button>
                       </td>
@@ -695,7 +753,6 @@ export default function WikiMap() {
           </table>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import contentIndexRaw from "@/generated/content-index.json";
 
@@ -60,7 +58,6 @@ export default async function WikiDetail({ params }: PageProps) {
   if (!item) {
     return (
       <div className="container-custom">
-        <Navbar />
         <Sidebar type="wiki" />
         <main className="content-right">
           <div className="card-custom text-center py-20">
@@ -71,7 +68,6 @@ export default async function WikiDetail({ params }: PageProps) {
             </Link>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
@@ -123,7 +119,7 @@ export default async function WikiDetail({ params }: PageProps) {
       }
       
       // Default fallback if not found in index
-      return `<span style="color: #8E8E93; border-bottom: 1px dashed #DDD;" title="Unresolved Link">${displayText}</span>`;
+      return `<span style="color: var(--text-muted); border-bottom: 1px dashed var(--border);" title="Unresolved Link">${displayText}</span>`;
     });
     
     return processed;
@@ -133,7 +129,6 @@ export default async function WikiDetail({ params }: PageProps) {
 
   return (
     <div className="container-custom">
-      <Navbar />
       {/* Wiki Sidebar */}
       <Sidebar type="wiki" />
 
@@ -198,8 +193,7 @@ export default async function WikiDetail({ params }: PageProps) {
                     <Link
                       key={link.slug}
                       href={route}
-                      className="tag-custom hover:bg-zinc-100 hover:text-black transition"
-                      style={{ fontSize: "12px", padding: "6px 12px", background: "white" }}
+                      className="backlink-pill"
                     >
                       {link.title.split(" (")[0]}
                     </Link>
@@ -214,7 +208,6 @@ export default async function WikiDetail({ params }: PageProps) {
           </div>
         </article>
       </main>
-      <Footer />
     </div>
   );
 }

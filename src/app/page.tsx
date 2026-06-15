@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import contentIndexRaw from "@/generated/content-index.json";
 import graphDataRaw from "@/generated/graph-data.json";
 
@@ -165,7 +163,7 @@ export default function Home() {
   // Fetch actual blog files and wiki files to build dynamic content
   const allItems = Object.values(contentIndex);
 
-  // Sort items by creation date for Activity Log
+  // Sort items by creation date for recent updates
   const sortedItems = [...allItems]
     .filter(item => item.created)
     .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
@@ -176,7 +174,7 @@ export default function Home() {
     {
       slug: "3d-gaussian-splatting",
       defaultTitle: "3D 가우시안 스플래팅의 실시간 렌더링 최적화",
-      defaultDesc: "전통적인 메시 구조를 넘어선 포인트 클라우드 기반의 혁신적인 래스터화 방식 연구.",
+      defaultDesc: "3D 장면 표현과 novel view synthesis의 핵심 흐름을 정리한 글.",
       defaultCategory: "Neural Rendering",
       defaultDate: "2026.06.13",
       defaultCover: "https://images.unsplash.com/photo-1633167606207-d840b5070fc2?auto=format&fit=crop&q=80&w=800",
@@ -185,7 +183,7 @@ export default function Home() {
     {
       slug: "depth-based-hand-pose-estimation-리뷰",
       defaultTitle: "Depth-Based HPE - 표준 평가 체계 리뷰",
-      defaultDesc: "HPE 분야 최초의 표준화된 평가 프레임워크와 In-the-Wild 데이터셋 분석.",
+      defaultDesc: "깊이 영상 기반 손 자세 추정의 접근 방식과 한계를 정리한 리뷰.",
       defaultCategory: "Hand Pose",
       defaultDate: "2026.06.14",
       defaultCover: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800",
@@ -194,7 +192,7 @@ export default function Home() {
     {
       slug: "nerf",
       defaultTitle: "NeRF: 신경 방사장 기반 신규 뷰 합성",
-      defaultDesc: "정밀한 3D 표현을 위한 다층 퍼셉트론(MLP) 기반 볼륨 렌더링 최적화.",
+      defaultDesc: "신경 복사장 기반 3D 표현과 렌더링 과정을 정리한 개념 노트.",
       defaultCategory: "Neural Fields",
       defaultDate: "2026.06.13",
       defaultCover: "https://images.unsplash.com/photo-1509228468518-180dd482180c?auto=format&fit=crop&q=80&w=800",
@@ -222,27 +220,26 @@ export default function Home() {
 
   return (
     <div className="container-overview">
-      <Navbar />
       {/* 1. HERO BANNER */}
       <section className="card-custom hero col-span-8 flex flex-col justify-between" style={{ height: "500px" }}>
         <div className="hero-header">
-          <span className="tag-custom">AI Research Nodes</span>
+          <span className="tag-custom">Research Archive</span>
         </div>
         <div className="hero-content">
           <h1 className="text-4xl font-extrabold tracking-tight leading-tight" style={{ fontSize: "42px", fontWeight: 700 }}>
-            시각적 지능과<br />신경 렌더링의 탐구
+            공부하고, 구현하고,<br />연결합니다
           </h1>
           <p className="mt-6 text-sm text-zinc-500 max-w-sm" style={{ color: "var(--text-secondary)" }}>
-            이곳은 3D 가우시안 스플래팅부터 기하학적 딥러닝까지, 최신 AI 연구를 기록하는 개인 지식 저장소입니다.
+            컴퓨터 비전, 3D 재구성, 신경 렌더링을 중심으로 공부한 내용과 구현 기록, 연구 아이디어를 정리하는 개인 아카이브입니다.
           </p>
         </div>
         <div className="hero-meta flex justify-between items-end">
-          <div className="nav-links-container" style={{ background: "#F0F0F0" }}>
-            <Link href="/wiki-map" className="active">Explore Wiki</Link>
-            <Link href="/blog">Read Blog</Link>
+          <div className="nav-links-container">
+            <Link href="/wiki-map" className="active">Wiki</Link>
+            <Link href="/blog">Articles</Link>
           </div>
-          <span className="text-xs text-zinc-300 font-semibold" style={{ fontSize: "11px", color: "#BBB" }}>
-            LAT: 37.5665 / LONG: 126.9780
+          <span className="text-xs text-zinc-300 font-semibold" style={{ fontSize: "11px", color: "var(--text-faint)" }}>
+            Notes · Projects · Wiki
           </span>
         </div>
 
@@ -251,19 +248,19 @@ export default function Home() {
       </section>
 
       {/* 2. STATUS CARD */}
-      <section className="card-custom research-card col-span-4 flex flex-col justify-between" style={{ backgroundColor: "#1A1A1A", color: "white" }}>
+      <section className="card-custom research-card col-span-4 flex flex-col justify-between" style={{ backgroundColor: "var(--dark-card-bg)", color: "white" }}>
         <div>
-          <span className="tag-custom" style={{ backgroundColor: "#2A2A2A", borderColor: "#333", color: "#AAA" }}>Status</span>
+          <span className="tag-custom" style={{ backgroundColor: "var(--dark-tag-bg)", borderColor: "var(--dark-border)", color: "var(--dark-tag-text)" }}>Connected Notes</span>
           <h3 className="mt-20 text-2xl font-bold leading-tight" style={{ fontSize: "24px", marginTop: "100px" }}>
-            연결된 지식노드<br />{allItems.length}개 분석완료
+            연결된 노트<br />{allItems.length}개
           </h3>
           <p className="mt-3 text-sm opacity-60">
-            현재 3D Vision, Mamba, 블록체인 등 전공 및 연구 도메인의 핵심 개념들을 상호 인덱싱했습니다.
+            개념 정리, 구현 기록, 연구 아이디어가 서로 이어지도록 정리하고 있습니다.
           </p>
         </div>
         <div className="flex justify-between items-center">
-          <div className="tag-custom" style={{ backgroundColor: "#2A2A2A", borderColor: "#333", color: "#AAA" }}>AI-TR-418</div>
-          <Link href="/wiki-map" className="btn-icon-custom" style={{ backgroundColor: "#333", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div className="tag-custom" style={{ backgroundColor: "var(--dark-tag-bg)", borderColor: "var(--dark-border)", color: "var(--dark-tag-text)" }}>Knowledge Base</div>
+          <Link href="/wiki-map" className="btn-icon-custom" style={{ backgroundColor: "var(--dark-btn-bg)", borderColor: "var(--dark-border)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path d="M6 1V11M1 6H11" stroke="white" strokeWidth="2"></path>
             </svg>
@@ -273,14 +270,14 @@ export default function Home() {
 
       {/* 3. FEATURED ARTICLES */}
       <div className="section-header col-span-12">
-        <h2>Featured Articles</h2>
+        <h2>Recent Writing</h2>
         <hr />
       </div>
 
       {featuredArticles.map((art) => (
         <article key={art.slug} className="writing-card col-span-4 flex flex-col justify-between" style={{ height: "420px" }}>
           <Link href={art.targetUrl} style={{ display: "block", flexGrow: 1, overflow: "hidden", borderRadius: "16px", marginBottom: "20px" }}>
-            <div className="writing-thumb" style={{ width: "100%", height: "100%", border: "1px solid #EEE", position: "relative", overflow: "hidden" }}>
+            <div className="writing-thumb" style={{ width: "100%", height: "100%", border: "1px solid var(--border)", position: "relative", overflow: "hidden" }}>
               <img
                 src={art.coverImage}
                 alt={art.title}
@@ -310,45 +307,45 @@ export default function Home() {
 
       <section className="card-custom wiki-desc col-span-7 flex flex-col justify-between" style={{ padding: "48px" }}>
         <div>
-          <span className="tag-custom" style={{ marginBottom: "24px" }}>Connected Philosophy</span>
-          <p className="text-xl font-medium text-zinc-700 mt-6" style={{ fontSize: "20px", fontWeight: 500, color: "#444" }}>
-            모든 지식은 고립되어 있지 않습니다. 제 연구 노트는 각각의 논문과 개념이 그래프로 연결되어, 하나의 아이디어가 어떻게 다른 기술적 진보로 이어지는지 추적합니다.
+          <span className="tag-custom" style={{ marginBottom: "24px" }}>Connected Knowledge</span>
+          <p className="text-xl font-medium text-zinc-700 mt-6" style={{ fontSize: "20px", fontWeight: 500, color: "var(--text-secondary)" }}>
+            공부한 내용은 개별 글로 끝나지 않습니다. 개념 정리, 구현 기록, 연구 아이디어를 서로 연결해 다음 공부의 출발점으로 만듭니다.
           </p>
         </div>
         <div className="mt-10">
           <Link href="/wiki-map" className="nav-links-container text-center py-3 px-6 active" style={{ display: "inline-block", border: "none", fontWeight: 700, textDecoration: "none" }}>
-            Open Knowledge Graph
+            지식 그래프 열기
           </Link>
         </div>
       </section>
 
       {/* Interest Grid */}
       <div className="interest-grid col-span-5 grid grid-cols-2 gap-3">
-        <div className="interest-item flex flex-col gap-2 p-5 bg-white border border-zinc-200 rounded-2xl" style={{ borderRadius: "16px", border: "1px solid var(--border)", padding: "20px" }}>
+        <div className="interest-item flex flex-col gap-2">
           <span className="tag-custom">Core</span>
           <span className="font-semibold text-sm">Neural Rendering</span>
-          <p style={{ fontSize: "11px", color: "#888" }}>Radiance Fields, Splatting, Hybrid Models</p>
+          <p style={{ fontSize: "11px", color: "var(--text-muted)" }}>3DGS, NeRF, novel view synthesis</p>
         </div>
-        <div className="interest-item flex flex-col gap-2 p-5 bg-white border border-zinc-200 rounded-2xl" style={{ borderRadius: "16px", border: "1px solid var(--border)", padding: "20px" }}>
+        <div className="interest-item flex flex-col gap-2">
           <span className="tag-custom">Math</span>
           <span className="font-semibold text-sm">Geometry</span>
-          <p style={{ fontSize: "11px", color: "#888" }}>Projective Geometry, Epipolar, SFM</p>
+          <p style={{ fontSize: "11px", color: "var(--text-muted)" }}>Camera geometry, SfM, epipolar geometry</p>
         </div>
-        <div className="interest-item flex flex-col gap-2 p-5 bg-white border border-zinc-200 rounded-2xl" style={{ borderRadius: "16px", border: "1px solid var(--border)", padding: "20px" }}>
+        <div className="interest-item flex flex-col gap-2">
           <span className="tag-custom">Dev</span>
           <span className="font-semibold text-sm">System Design</span>
-          <p style={{ fontSize: "11px", color: "#888" }}>CUDA Kernels, PyTorch, C++ Optimization</p>
+          <p style={{ fontSize: "11px", color: "var(--text-muted)" }}>PyTorch, CUDA, experiment logs</p>
         </div>
-        <div className="interest-item flex flex-col gap-2 p-5 bg-white border border-zinc-200 rounded-2xl" style={{ borderRadius: "16px", border: "1px solid var(--border)", padding: "20px" }}>
+        <div className="interest-item flex flex-col gap-2">
           <span className="tag-custom">Exp</span>
           <span className="font-semibold text-sm">Vision Theory</span>
-          <p style={{ fontSize: "11px", color: "#888" }}>Perception, Optics, Human Vision Systems</p>
+          <p style={{ fontSize: "11px", color: "var(--text-muted)" }}>Concept notes, ideas, project logs</p>
         </div>
       </div>
 
       {/* 5. ACTIVITY LOG */}
       <div className="section-header col-span-12">
-        <h2>Activity Log</h2>
+        <h2>Recently Updated</h2>
         <hr />
       </div>
 
@@ -357,10 +354,10 @@ export default function Home() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Subject</th>
-              <th>Category</th>
-              <th>Last Modified</th>
-              <th>Action</th>
+              <th>NOTE</th>
+              <th>TYPE</th>
+              <th>UPDATED</th>
+              <th>OPEN</th>
             </tr>
           </thead>
           <tbody>
@@ -376,7 +373,7 @@ export default function Home() {
               return (
                 <tr key={item.slug} style={{ cursor: "pointer" }}>
                   <td className="mono" style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
-                    #NT-{(100 + index).toString()}
+                    NOTE-{(100 + index).toString()}
                   </td>
                   <td style={{ fontWeight: 600 }}>
                     <Link href={targetUrl} style={{ textDecoration: "none", color: "inherit" }}>
@@ -392,7 +389,7 @@ export default function Home() {
                   <td>
                     <Link href={targetUrl} className="btn-icon-custom" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                        <path d="M1 5H9M9 5L5 1M9 5L5 9" stroke="black" strokeWidth="1.5"></path>
+                        <path d="M1 5H9M9 5L5 1M9 5L5 9" stroke="currentColor" strokeWidth="1.5"></path>
                       </svg>
                     </Link>
                   </td>
@@ -402,7 +399,6 @@ export default function Home() {
           </tbody>
         </table>
       </section>
-      <Footer />
     </div>
   );
 }

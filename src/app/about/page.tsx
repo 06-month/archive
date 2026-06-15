@@ -1,27 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function About() {
   return (
-    <div className="container-overview">
-      <Navbar />
+    <div className="container-overview about-page">
       {/* PROFILE HERO */}
-      <section className="card-custom profile-hero col-span-8 flex flex-col justify-between" style={{ minHeight: "420px" }}>
+      <section className="card-custom profile-hero col-span-8">
         <div className="hero-header">
-          <span className="tag-custom">Researcher Identity</span>
+          <span className="tag-custom">Academic Profile</span>
         </div>
         <div className="profile-content">
-          <h1 className="text-4xl font-extrabold tracking-tight leading-none mt-6" style={{ fontSize: "46px", fontWeight: 800 }}>
-            Hi, I'm Jun Jeon (전준)
+          <h1 className="profile-title">
+            Jun Jeon
           </h1>
-          <p className="mt-5 text-zinc-500 text-sm leading-relaxed" style={{ fontSize: "14.5px", color: "var(--text-secondary)", maxWidth: "650px" }}>
-            I study 3D Computer Vision, Neural Rendering, and Novel View Synthesis for robust 3D scene representation and reconstruction.<br /><br />
-            Currently, I am an Undergraduate Researcher at the <strong>UNIST Vision &amp; Learning Lab (UVLL)</strong> advised by Prof. Seungryul Baek, focusing on 3D hand pose estimation and reconstruction. Prior to this, I researched semantic segmentation, domain adaptation, and long-tail federated learning at <strong>AiRLab, Hanbat National University</strong>.
+          <p className="profile-lead">
+            Undergraduate student in Computer Engineering at Hanbat National University, working as an Undergraduate Researcher at UNIST Vision &amp; Learning Lab.
           </p>
-          <div className="contact-links flex gap-2 mt-6">
+          <div className="profile-meta-list">
+            <div>
+              <span>Current Focus</span>
+              <strong>3D hand pose estimation and reconstruction</strong>
+            </div>
+            <div>
+              <span>Research Interests</span>
+              <strong>3D scene reconstruction, neural rendering, NVS, 3DGS</strong>
+            </div>
+          </div>
+          <div className="interest-chip-row">
+            <span>3D Computer Vision</span>
+            <span>Neural Rendering</span>
+            <span>Novel View Synthesis</span>
+            <span>3D Gaussian Splatting</span>
+          </div>
+          <div className="contact-links">
             <a href="https://github.com/06-month" className="contact-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="mailto:junjeon@edu.hanbat.ac.kr" className="contact-btn">Email Contact</a>
             <a href="https://06-month.github.io/home/Jun%20Jeon%20CV.pdf?v=10" className="contact-btn" target="_blank" rel="noopener noreferrer">Curriculum Vitae</a>
@@ -29,26 +41,30 @@ export default function About() {
         </div>
         <div className="hero-meta mt-8">
           <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-secondary)" }}>
-            UNIST / Ulsan, South Korea (LAT: 35.5728 / LONG: 129.1903)
+            Hanbat National University / Daejeon, South Korea · Undergraduate Researcher, UNIST Vision &amp; Learning Lab
           </span>
         </div>
       </section>
 
       {/* AVATAR CARD */}
-      <section className="card-custom profile-avatar-card col-span-4 flex flex-col justify-between" style={{ backgroundColor: "#1A1A1A", color: "white", minHeight: "420px" }}>
+      <section className="card-custom profile-avatar-card col-span-4">
         <div>
-          <span className="tag-custom" style={{ backgroundColor: "#2A2A2A", borderColor: "#333", color: "#AAA" }}>Researcher Profile</span>
-          <div className="profile-avatar-placeholder" style={{ width: "90px", height: "90px", borderRadius: "50%", background: "linear-gradient(135deg, var(--accent) 0%, #00B1A5 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px", fontWeight: 800, color: "white", marginTop: "40px", boxShadow: "0 0 0 8px rgba(0, 209, 178, 0.1)" }}>
-            J
-          </div>
-          <div className="avatar-info mt-6">
-            <h3 style={{ fontSize: "22px", fontWeight: 700 }}>Jun Jeon</h3>
-            <p style={{ fontSize: "13px", color: "#8E8E93", marginTop: "4px" }}>3D Computer Vision / AI Research Student</p>
+          <span className="tag-custom profile-card-tag">Researcher Profile</span>
+          <div className="profile-avatar-block">
+            <img
+              src="/junjeon.jpg"
+              alt="Jun Jeon"
+              className="avatar-img"
+            />
+            <div className="avatar-info">
+              <h3>Jun Jeon</h3>
+              <p>3D Computer Vision / AI Research Student</p>
+            </div>
           </div>
         </div>
-        <div style={{ borderTop: "1px solid #333", paddingTop: "16px", display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "40px" }}>
-          <span style={{ fontSize: "12px", color: "#8E8E93" }}>Status: Hand Pose &amp; Recon</span>
-          <span className="tag-custom" style={{ backgroundColor: "#2A2A2A", borderColor: "#333", color: "var(--accent)" }}>● ACTIVE</span>
+        <div className="profile-status-row">
+          <span>Status: 3D Vision &amp; Neural Rendering</span>
+          <span className="tag-custom profile-active-tag">● ACTIVE</span>
         </div>
       </section>
 
@@ -64,10 +80,10 @@ export default function About() {
         <div className="timeline">
           <div className="timeline-item">
             <div className="timeline-date">Mar. 2026 - Present</div>
-            <h4 className="timeline-title">Undergraduate Researcher</h4>
+            <h4 className="timeline-title">Undergraduate Researcher / Intern</h4>
             <div className="timeline-subtitle">UNIST Vision &amp; Learning Lab (UVLL)</div>
             <p className="timeline-desc">
-              Advised by Prof. Seungryul Baek. Focusing on research in 3D hand pose estimation and hand mesh reconstruction.
+              Advised by Prof. Seungryul Baek while enrolled at Hanbat National University. Working on 3D hand pose estimation and hand mesh reconstruction.
             </p>
           </div>
 
@@ -76,7 +92,7 @@ export default function About() {
             <h4 className="timeline-title">Undergraduate Researcher</h4>
             <div className="timeline-subtitle">AiRLab, Hanbat National University</div>
             <p className="timeline-desc">
-              Advised by Prof. Dong-Geol Choi. Conducted research on computer vision, deep learning semantic segmentation, representation learning, and federated learning architectures.
+              Advised by Prof. Dong-Geol Choi. Studied semantic segmentation, domain adaptation, representation learning, and federated learning.
             </p>
           </div>
           
@@ -85,16 +101,16 @@ export default function About() {
             <h4 className="timeline-title">B.S. in Computer Engineering</h4>
             <div className="timeline-subtitle">Hanbat National University</div>
             <p className="timeline-desc">
-              Current GPA: <strong>3.79 / 4.5</strong> (Major GPA: 3.79 / 4.5). Focused coursework in computer vision, machine learning, and systems engineering.
+              Current GPA: <strong>3.79 / 4.5</strong>. Focused coursework in computer vision, machine learning, and systems engineering.
             </p>
           </div>
           
           <div className="timeline-item">
             <div className="timeline-date">Mar. 2021 - Dec. 2022</div>
-            <h4 className="timeline-title">B.S. Coursework in Software Engineering</h4>
+            <h4 className="timeline-title">Previous Undergraduate Coursework in Software Engineering</h4>
             <div className="timeline-subtitle">Pai Chai University</div>
             <p className="timeline-desc">
-              Completed initial coursework. GPA: <strong>4.14 / 4.5</strong> (Major GPA: 4.32 / 4.5). Established strong foundations in software design, logic, and data structures.
+              Completed initial software engineering coursework. GPA: <strong>4.14 / 4.5</strong>, with foundations in software design, logic, and data structures.
             </p>
           </div>
         </div>
@@ -106,18 +122,20 @@ export default function About() {
         <hr />
       </div>
 
-      <section className="card-custom publication-card col-span-12" style={{ borderLeft: "4px solid var(--accent)" }}>
-        <span className="tag-custom" style={{ marginBottom: "20px" }}>Conference Proceedings</span>
-        <div className="pub-item flex flex-col gap-2">
-          <span className="pub-conf text-xs font-semibold" style={{ color: "var(--accent)", letterSpacing: "0.05em" }}>
-            KICS Winter Conference 2026
-          </span>
-          <h3 className="pub-title text-lg font-bold">
-            Balanced Knowledge Distillation (BKD) for Long-Tail Federated Learning Based on CLIP2FL
-          </h3>
-          <p className="pub-authors text-sm text-zinc-500">
-            <em>Jun Jeon</em>, Minu Baek, Sangkeum Lee
-          </p>
+      <section className="card-custom publication-card col-span-12">
+        <div className="publication-inner">
+          <div className="pub-item">
+            <span className="tag-custom" style={{ width: "fit-content" }}>Conference Proceedings</span>
+            <span className="pub-conf">
+              KICS Winter Conference 2026
+            </span>
+            <h3 className="pub-title">
+              Balanced Knowledge Distillation (BKD) for Long-Tail Federated Learning Based on CLIP2FL
+            </h3>
+            <p className="pub-authors">
+              <em>Jun Jeon</em>, Minu Baek, Sangkeum Lee
+            </p>
+          </div>
         </div>
       </section>
 
@@ -128,7 +146,7 @@ export default function About() {
       </div>
 
       <div className="projects-grid col-span-12 grid grid-cols-3 gap-5">
-        <div className="project-card flex flex-col justify-between">
+        <div className="project-card project-card-featured flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Research</span>
@@ -136,7 +154,7 @@ export default function About() {
             </div>
             <div className="project-body">
               <h3>3D Low-Light Enhancement for Robust NVS</h3>
-              <p>Independent experimental study participating in the NTIRE 2026 Challenge. Investigating low-light degradation and baseline methods for robust Novel View Synthesis and 3DGS.</p>
+              <p>Independent experimental study investigating low-light degradation and baseline methods for robust Novel View Synthesis and 3D Gaussian Splatting.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
@@ -146,7 +164,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="project-card flex flex-col justify-between">
+        <div className="project-card project-card-featured flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Research</span>
@@ -154,7 +172,7 @@ export default function About() {
             </div>
             <div className="project-body">
               <h3>Geometry-Preserving Synthetic-to-Real Dataset Refinement</h3>
-              <p>Independent research project focused on 3D hand reconstruction. Investigating geometry-preserving domain adaptation techniques to minimize sim-to-real appearance and shape gaps.</p>
+              <p>Independent project on geometry-preserving dataset refinement for 3D hand reconstruction under sim-to-real gaps.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
@@ -164,7 +182,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="project-card flex flex-col justify-between">
+        <div className="project-card project-card-compact flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Engineering</span>
@@ -172,7 +190,7 @@ export default function About() {
             </div>
             <div className="project-body">
               <h3>On-Device Human Pose Estimation</h3>
-              <p>Capstone Design Project. Leading the AI pipeline of a mobile application for real-time exercise posture coaching using on-device pose keypoints and joint-angle heuristic scoring.</p>
+              <p>Capstone AI pipeline for real-time exercise posture coaching with on-device pose keypoints.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
@@ -182,7 +200,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="project-card flex flex-col justify-between">
+        <div className="project-card project-card-compact flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Seminar</span>
@@ -190,7 +208,7 @@ export default function About() {
             </div>
             <div className="project-body">
               <h3>Satellite Image Building Area Segmentation</h3>
-              <p>AiRLab coding seminar project. Developed and optimized deep learning semantic segmentation models for high-accuracy building extraction from satellite imagery.</p>
+              <p>AiRLab seminar project on semantic segmentation for building extraction from satellite imagery.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
@@ -200,7 +218,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="project-card flex flex-col justify-between">
+        <div className="project-card project-card-compact flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Academic</span>
@@ -208,7 +226,7 @@ export default function About() {
             </div>
             <div className="project-body">
               <h3>Satellite Cloud Semantic Segmentation</h3>
-              <p>Computer Vision course term project. Implemented multi-class semantic segmentation models for classifying satellite image regions into thick cloud, thin cloud, and cloud shadow.</p>
+              <p>Course project implementing multi-class satellite cloud and shadow segmentation models.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
@@ -218,7 +236,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="project-card flex flex-col justify-between">
+        <div className="project-card project-card-compact flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Research</span>
@@ -226,7 +244,7 @@ export default function About() {
             </div>
             <div className="project-body">
               <h3>CLIP2FL-based Federated Learning Research</h3>
-              <p>IoT Project developing a Balanced Knowledge Distillation (BKD) framework for long-tail federated learning, leading to a conference publication at KICS Winter 2026.</p>
+              <p>Balanced Knowledge Distillation framework for long-tail federated learning, later published at KICS Winter 2026.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
@@ -333,11 +351,9 @@ export default function About() {
         </div>
         
         <div>
-          <span className="mono" style={{ color: "#666", fontSize: "11px" }}>Last Updated: 2026.06.14</span>
+          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.06.14</span>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

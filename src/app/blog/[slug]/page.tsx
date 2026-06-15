@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import contentIndexRaw from "@/generated/content-index.json";
 
@@ -60,7 +58,6 @@ export default async function BlogDetail({ params }: PageProps) {
   if (!item) {
     return (
       <div className="container-custom">
-        <Navbar />
         <Sidebar type="blog" />
         <main className="content-right">
           <div className="card-custom text-center py-20">
@@ -71,7 +68,6 @@ export default async function BlogDetail({ params }: PageProps) {
             </Link>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
@@ -83,7 +79,6 @@ export default async function BlogDetail({ params }: PageProps) {
 
   return (
     <div className="container-custom">
-      <Navbar />
       {/* Blog Sidebar */}
       <Sidebar type="blog" />
 
@@ -136,7 +131,6 @@ export default async function BlogDetail({ params }: PageProps) {
           />
         </article>
       </main>
-      <Footer />
     </div>
   );
 }

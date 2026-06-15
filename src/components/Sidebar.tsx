@@ -38,9 +38,11 @@ interface SidebarProps {
   type: "wiki" | "blog";
   zoomScale?: number;
   activeSlug?: string | null;
+  activeCategory?: string | null;
+  activeSubcategory?: string | null;
 }
 
-export default function Sidebar({ type, zoomScale, activeSlug }: SidebarProps) {
+export default function Sidebar({ type, zoomScale, activeSlug, activeCategory, activeSubcategory }: SidebarProps) {
   const pathname = usePathname();
   
   // Display actual zoom percentage from D3
@@ -54,6 +56,9 @@ export default function Sidebar({ type, zoomScale, activeSlug }: SidebarProps) {
   
   // Grouping items based on type
   const items = Object.values(contentIndex).filter((item) => item.type === type);
+  const currentItem = items.find((item) => item.slug === currentSlug);
+  const activeBlogCategory = activeCategory ?? (type === "blog" ? currentItem?.category ?? null : null);
+  const activeBlogSubcategory = activeSubcategory ?? (type === "blog" ? currentItem?.subcategory ?? null : null);
 
   // Posts authored in the current month (computed client-side to avoid a
   // build-time vs view-time month mismatch under static export)
@@ -295,118 +300,88 @@ export default function Sidebar({ type, zoomScale, activeSlug }: SidebarProps) {
         <div className="dark-card" style={{ marginTop: "auto", padding: "20px" }}>
           <p style={{ fontSize: "12px", opacity: 0.6, marginBottom: "10px" }}>GRAPH SCOPE</p>
           <h3 style={{ fontSize: "24px", fontWeight: 700 }}>{mappedPercent}%</h3>
-          <div style={{ height: "4px", background: "#333", borderRadius: "2px", marginTop: "12px" }}>
+          <div style={{ height: "4px", background: "var(--dark-border)", borderRadius: "2px", marginTop: "12px" }}>
             <div style={{ width: `${barWidth}%`, height: "100%", backgroundColor: "var(--accent)", borderRadius: "2px" }}></div>
           </div>
         </div>
       </aside>
     );
   } else {
-    // Group blog items by category & subcategory
-    const blogCategories: Record<string, Record<string, IndexItem[]>> = {};
+    // Group blog items by taxonomy only. Article titles stay in the main list.
+    const blogCategories: Record<string, Record<string, number>> = {};
     items.forEach((item) => {
       const cat = item.category || "AI";
       const sub = item.subcategory || "Other";
       if (!blogCategories[cat]) {
         blogCategories[cat] = {};
       }
-      if (!blogCategories[cat][sub]) {
-        blogCategories[cat][sub] = [];
-      }
-      blogCategories[cat][sub].push(item);
+      blogCategories[cat][sub] = (blogCategories[cat][sub] || 0) + 1;
     });
 
+    const getBlogHref = (category?: string | null, subcategory?: string | null) => {
+      const params = new URLSearchParams();
+      if (category) params.set("category", category);
+      if (subcategory) params.set("subcategory", subcategory);
+      const query = params.toString();
+      return query ? `/blog?${query}` : "/blog";
+    };
+
+    const isAllArticlesActive = pathname === "/blog" && !activeBlogCategory && !activeBlogSubcategory;
+    const recentActivityText = postsThisMonth && postsThisMonth > 0
+      ? `${postsThisMonth} ${postsThisMonth === 1 ? "post" : "posts"}`
+      : "No posts yet";
+
     return (
-      <aside className="sidebar-left">
+      <aside className="sidebar-left blog-sidebar">
+        <div className="category-group">
+          <Link
+            href="/blog"
+            className={`taxonomy-link taxonomy-link-root ${isAllArticlesActive ? "active" : ""}`}
+          >
+            <span>All Articles</span>
+            <span className="taxonomy-count">{items.length}</span>
+          </Link>
+        </div>
+
         {Object.entries(blogCategories).map(([catName, subGroups]) => {
+          const categoryCount = Object.values(subGroups).reduce((sum, count) => sum + count, 0);
+          const isCategoryActive = activeBlogCategory === catName;
           return (
             <div key={catName} className="category-group">
-              <div className="category-header" onClick={() => toggleSection(catName)}>
-                <h4>{catName}</h4>
-                <svg
-                  width="10"
-                  height="6"
-                  viewBox="0 0 10 6"
-                  fill="none"
-                  style={{ transform: expandedSections[catName] ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
-                >
-                  <path d="M1 1L5 5L9 1" stroke="#888" strokeWidth="1.5"></path>
-                </svg>
+              <Link
+                href={getBlogHref(catName)}
+                className={`taxonomy-link taxonomy-link-parent ${isCategoryActive ? "active" : ""}`}
+              >
+                <span>{catName}</span>
+                <span className="taxonomy-count">{categoryCount}</span>
+              </Link>
+              <div className="category-content taxonomy-content">
+                {Object.entries(subGroups).map(([subName, count]) => {
+                  const isSubcategoryActive = isCategoryActive && activeBlogSubcategory === subName;
+                  return (
+                    <Link
+                      key={subName}
+                      href={getBlogHref(catName, subName)}
+                      className={`taxonomy-link taxonomy-link-child ${isSubcategoryActive ? "active" : ""}`}
+                    >
+                      <span className="dot-small"></span>
+                      <span>{subName}</span>
+                      <span className="taxonomy-count">{count}</span>
+                    </Link>
+                  );
+                })}
               </div>
-              {expandedSections[catName] && (
-                <div className="category-content">
-                  {Object.entries(subGroups).map(([subName, subItems]) => {
-                    const subKey = `${catName}-${subName}`;
-                    return (
-                      <div key={subName} className="subcategory-group" style={{ marginLeft: "8px", width: "100%" }}>
-                        <div
-                          className="subcategory-header"
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            padding: "6px 0",
-                            cursor: "pointer",
-                            userSelect: "none",
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleSection(subKey);
-                          }}
-                        >
-                          <span style={{ fontSize: "13px", fontWeight: isActive(subItems[0]?.slug) ? 700 : 500, color: "var(--text)" }}>
-                            {subName}
-                          </span>
-                          <svg
-                            width="8"
-                            height="5"
-                            viewBox="0 0 10 6"
-                            fill="none"
-                            style={{ transform: expandedSections[subKey] ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
-                          >
-                            <path d="M1 1L5 5L9 1" stroke="#888" strokeWidth="1.5"></path>
-                          </svg>
-                        </div>
-                        {expandedSections[subKey] && (
-                          <div
-                            className="subcategory-content"
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              gap: "8px",
-                              marginLeft: "14px",
-                              marginTop: "4px",
-                              paddingBottom: "8px",
-                            }}
-                          >
-                            {subItems.map((item) => (
-                              <Link
-                                key={item.slug}
-                                href={`/blog/${item.slug}`}
-                                className={`concept-link ${isActive(item.slug) ? "active" : ""}`}
-                              >
-                                <span className="dot-small"></span> {item.title.split(" - ")[0]}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
             </div>
           );
         })}
 
         {/* Recent Activity Card */}
-        <div className="dark-card" style={{ marginTop: "auto", padding: "20px" }}>
-          <p style={{ fontSize: "12px", opacity: 0.6, marginBottom: "10px" }}>RECENT ACTIVITY</p>
-          <h3 style={{ fontSize: "24px", fontWeight: 700 }}>
-            <span style={{ color: "var(--accent)" }}>{postsThisMonth ?? "—"}</span>{" "}
-            {postsThisMonth === 1 ? "post" : "posts"}
-          </h3>
-          <p style={{ fontSize: "12px", opacity: 0.6, marginTop: "8px" }}>this month</p>
+        <div className="blog-sidebar-sticky">
+          <div className="dark-card blog-activity-card">
+            <p className="blog-activity-eyebrow">RECENT ACTIVITY</p>
+            <h3 className="blog-activity-title">{recentActivityText}</h3>
+            <p className="blog-activity-period">this month</p>
+          </div>
         </div>
       </aside>
     );
