@@ -55,6 +55,15 @@ export default function Sidebar({ type, zoomScale, activeSlug }: SidebarProps) {
   // Grouping items based on type
   const items = Object.values(contentIndex).filter((item) => item.type === type);
 
+  // Posts authored in the current month (computed client-side to avoid a
+  // build-time vs view-time month mismatch under static export)
+  const [postsThisMonth, setPostsThisMonth] = useState<number | null>(null);
+  useEffect(() => {
+    const now = new Date();
+    const nowYm = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+    setPostsThisMonth(items.filter((it) => (it.created || "").slice(0, 7) === nowYm).length);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Expanded sections state
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
 
@@ -395,13 +404,14 @@ export default function Sidebar({ type, zoomScale, activeSlug }: SidebarProps) {
           );
         })}
 
-        {/* Writing Coverage Card */}
+        {/* Recent Activity Card */}
         <div className="dark-card" style={{ marginTop: "auto", padding: "20px" }}>
-          <p style={{ fontSize: "12px", opacity: 0.6, marginBottom: "10px" }}>WRITING COVERAGE</p>
-          <h3 style={{ fontSize: "24px", fontWeight: 700 }}>72%</h3>
-          <div style={{ height: "4px", background: "#333", borderRadius: "2px", marginTop: "12px" }}>
-            <div style={{ width: "72%", height: "100%", backgroundColor: "var(--accent)", borderRadius: "2px" }}></div>
-          </div>
+          <p style={{ fontSize: "12px", opacity: 0.6, marginBottom: "10px" }}>RECENT ACTIVITY</p>
+          <h3 style={{ fontSize: "24px", fontWeight: 700 }}>
+            <span style={{ color: "var(--accent)" }}>{postsThisMonth ?? "—"}</span>{" "}
+            {postsThisMonth === 1 ? "post" : "posts"}
+          </h3>
+          <p style={{ fontSize: "12px", opacity: 0.6, marginTop: "8px" }}>this month</p>
         </div>
       </aside>
     );
