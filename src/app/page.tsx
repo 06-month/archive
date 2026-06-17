@@ -225,6 +225,7 @@ export default function Home() {
         <div className="hero-header">
           <span className="tag-custom">Research Archive</span>
         </div>
+        <h2 className="hero-mobile-title">공부, 구현, 연구</h2>
         <div className="hero-content">
           <h1 className="text-4xl font-extrabold tracking-tight leading-tight" style={{ fontSize: "42px", fontWeight: 700 }}>
             공부하고, 구현하고,<br />연결합니다

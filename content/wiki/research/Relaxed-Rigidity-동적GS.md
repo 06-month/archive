@@ -2,8 +2,15 @@
 title: Relaxed Rigidity (Ray-based Grouping 동적 GS)
 area: research
 created: 2026-06-13
-sources: [Relaxed Rigidity with Ray-based Grouping for Dynamic Gaussian Splatting.md]
-tags: [research, 4DGS, dynamic-scene, motion-regularization, monocular-video, novel-view-synthesis]
+sources:
+  - Relaxed Rigidity with Ray-based Grouping for Dynamic Gaussian Splatting.md
+tags:
+  - research
+  - 4DGS
+  - dynamic-scene
+  - motion-regularization
+  - monocular-video
+  - novel-view-synthesis
 ---
 
 # Relaxed Rigidity — Ray-based Grouping 동적(4D) Gaussian Splatting

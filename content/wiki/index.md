@@ -55,7 +55,25 @@ tags: [index]
 - [[Hamba]] — graph-guided Mamba(GSS/GBS), 토큰 88.5%↓, HO3D Rank1 (NeurIPS'24)
 - [[WiLoR]] — 검출+복원 full-stack, 다중스케일 refinement, WHIM 2M (2024)
 
-- _sources_: 방사장 [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]]
+### Feed-forward 3D 복원 (DUSt3R 계보 — pointmap 직접회귀)
+**계보**: [[CroCo]] (2022, cross-view 사전학습) → [[DUSt3R]] (2024, 뿌리·쌍 pointmap·정적) → 매칭 [[MASt3R]] · 정적 다중뷰 [[VGGT]] · 동적 분기 [[MONST3R]]→[[POMATO]] / [[MoRe]]
+- [[CroCo]] — DUSt3R 계보 **사전학습 토대**. cross-view completion(두 뷰로 마스킹 복원), Siamese ViT+cross-attention (NeurIPS'22)
+- [[DUSt3R]] — **뿌리**. 보정·포즈 없는 쌍에서 pointmap 회귀, CroCo+ViT 2-디코더, 3D 전역정렬 (CVPR'24)
+- [[MASt3R]] — DUSt3R+dense feature 매칭 헤드(InfoNCE) + fast reciprocal matching, Map-free localization +30%p (ECCV'24)
+- [[VGGT]] — 1.2B 트랜스포머, 카메라·깊이·포인트맵·트랙 단일 forward(<1s), Alternating-Attention, 후처리 제거 (2025)
+- [[MONST3R]] — "Motion DUSt3R", timestep별 pointmap 동적 장면, 소규모 fine-tune + 경량 전역최적화 (ICLR'25)
+- [[POMATO]] — DUSt3R+pointmap matching 헤드(동적 대응) + temporal motion module, 3D point tracking SOTA, MonST3R 초기화 (2025)
+- [[MoRe]] — VGGT 기반, attention-forcing 모션분리 + grouped causal attention 스트리밍 + BA-like refinement (2026)
+
+### Feed-forward GS 복원 (LRM 계보: 정적 → 4D/동적)
+**계보**: [[GS-LRM]] (2024, 정적 뿌리·per-pixel GS LRM) → 동적/4D 후계 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]]. posed/uncalibrated 영상 → GS를 feed-forward 예측, 최적화 기반 대비 수백~수천배 빠름. 방사장([[3D-Gaussian-Splatting]]) × DUSt3R 계보([[VGGT]]) 교차.
+- [[GS-LRM]] — **정적 뿌리**. 2~4 posed 이미지 → per-pixel 3DGS, 단순 트랜스포머, 객체·장면 통합, 0.23s (ECCV'24)
+- [[4DGT]] — 4DGS(2DGS+life-span/velocity)로 정적·동적 통일, density control, 실세계 단안 학습 (NeurIPS'25)
+- [[DGS-LRM]] — per-pixel deformable 3DGS + 3D scene flow, Kubric 멀티뷰 학습, flow chaining 3D tracking (2025)
+- [[MoVieS]] — VGGT 기반 dynamic splatter pixel, NVS·깊이·tracking 통합 1초, zero-shot scene flow (2026)
+- [[StreamSplat]] — uncalibrated 스트림 온라인 동적 3DGS, 양방향 deformation + adaptive fusion, 1200× (ICLR'26)
+
+- _sources_: 방사장 [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]
 - `Zotero/`는 **ingest 대상 아님** (raw/ 전용 — [[raw-wiki-규칙]] §A 참조)
 
 ## concepts — 공통 개념 (courses ↔ research)
@@ -70,6 +88,7 @@ tags: [index]
 **ML 아키텍처 (시퀀스·비전 백본)**
 - [[Transformer]] — attention. 모든 후속 백본의 토대
 - [[ViT]] — Vision Transformer. 3D 복원 백본(HaMeR·Hamba·WiLoR)
+- [[DINO]] — 자기지도 ViT(DINO/DINOv2). 동결 피처 백본(VGGT·4DGT·StreamSplat·MoVieS)
 - [[SSM]] — 상태공간모델(S4). 장거리 의존성, 선형
 - [[Mamba-선형시간시퀀스]] — 선택적 SSM(S6). attention 대안, Hamba 차용
 - [[위치인코딩-positional-encoding]] — Fourier features. NeRF·Transformer 공통

@@ -2194,6 +2194,11 @@ footer {
   transform: translateY(0);
 }
 
+/* Mobile-only short hero heading; shown via the mobile media query below. */
+.hero-mobile-title {
+  display: none;
+}
+
 /* ============================================
    Mobile optimization
    ============================================ */
@@ -2268,19 +2273,52 @@ footer {
   .container-overview > * {
     grid-column: auto !important;
   }
+  /* Mobile hero order: tag → short bold heading → graph → description → pills,
+     replacing the big "공부하고, 구현하고, 연결합니다" heading. */
   .container-overview .hero {
     height: auto !important;
     min-height: 340px;
   }
+  .container-overview .hero-content h1 {
+    display: none;
+  }
+  .container-overview .hero-header {
+    order: 1;
+  }
+  .container-overview .hero-mobile-title {
+    display: block;
+    order: 2;
+    margin-top: 14px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .container-overview .hero .graph-viz {
+    display: block !important;
+    position: static !important;
+    order: 3;
+    width: 100% !important;
+    height: 200px !important;
+    opacity: 0.9 !important;
+    margin: 8px 0;
+  }
+  .container-overview .hero-content {
+    order: 4;
+  }
+  .container-overview .hero-meta {
+    order: 5;
+  }
   .container-overview .wiki-desc {
     padding: 32px !important;
   }
+  /* The mt-10 utility on this button wrapper is zeroed out by the
+     unlayered `* { margin: 0 }` reset, so add the spacing explicitly. */
+  .container-overview .wiki-desc > div:last-child {
+    margin-top: 32px;
+  }
   .research-card h3 {
     margin-top: 48px !important;
-  }
-  /* Decorative hero graph clutters the narrow card */
-  .graph-viz {
-    display: none !important;
   }
 
   .section-header {
