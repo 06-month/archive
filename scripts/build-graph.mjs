@@ -43,39 +43,69 @@ function getCategoryInfo(relPath) {
   return { category: null, subcategory: null };
 }
 
-// Extract first image from content
-function getFirstImage(content) {
+const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg', '.avif'];
+
+function isImagePath(p) {
+  return IMAGE_EXTENSIONS.some((ext) => p.toLowerCase().endsWith(ext));
+}
+
+// Resolve an image reference (from an Obsidian embed or markdown link) to a
+// public URL. `assetMap` maps a lowercased basename → public path (e.g.
+// "nerf_image.png" → "/blog/sources/NeRF_image.png"). Obsidian embeds usually
+// reference an attachment by bare filename, so the basename lookup is what makes
+// them resolve.
+function resolveImagePath(ref, assetMap) {
+  let p = ref.split('|')[0].trim(); // drop Obsidian "|size" suffix
+  if (p.startsWith('http://') || p.startsWith('https://')) return p;
+  if (assetMap) {
+    const byBase = assetMap.get(path.basename(p).toLowerCase());
+    if (byBase) return byBase;
+  }
+  return p.startsWith('/') ? p : '/' + p;
+}
+
+// Extract first image from content (used as the card cover)
+function getFirstImage(content, assetMap) {
   // 1. Match Obsidian format: ![[raw/assets/image.png]]
   const obsMatch = content.match(/!\[\[([^\]]+)\]\]/);
-  if (obsMatch) {
-    let imgPath = obsMatch[1].trim();
-    if (!imgPath.startsWith('/') && !imgPath.startsWith('http://') && !imgPath.startsWith('https://')) {
-      imgPath = '/' + imgPath;
-    }
-    return imgPath;
-  }
+  if (obsMatch) return resolveImagePath(obsMatch[1], assetMap);
 
   // 2. Match standard markdown format: ![alt](raw/assets/image.png)
   const mdMatch = content.match(/!\[[^\]]*\]\(([^)]+)\)/);
-  if (mdMatch) {
-    let imgPath = mdMatch[1].trim();
-    if (!imgPath.startsWith('/') && !imgPath.startsWith('http://') && !imgPath.startsWith('https://')) {
-      imgPath = '/' + imgPath;
-    }
-    return imgPath;
-  }
+  if (mdMatch) return resolveImagePath(mdMatch[1], assetMap);
 
   return null;
 }
 
-// Parse markdown with KaTeX equations
-function renderMarkdown(mdContent) {
+// KaTeX rejects exotic Unicode whitespace that often sneaks in via copy-paste
+// (line/paragraph separators, non-breaking & thin spaces, zero-width chars).
+// Normalize them to a plain space (or nothing) so formulas parse.
+function sanitizeMath(formula) {
+  return formula
+    // line/paragraph separators, NBSP, en/em/thin/hair/ideographic & figure spaces
+    .replace(/[\u2028\u2029\u00A0\u2000-\u200A\u202F\u205F\u3000\u2007]/g, " ")
+    // zero-width space/joiner/non-joiner, word joiner, BOM
+    .replace(/[\u200B\u200C\u200D\u2060\uFEFF]/g, "");
+}
+
+// Parse markdown with KaTeX equations and resolve Obsidian image embeds.
+function renderMarkdown(mdContent, assetMap) {
   const placeholders = [];
 
+  // Convert Obsidian embeds ![[file]] before anything else. Images become
+  // <img> tags (marked passes raw HTML through); non-image embeds are dropped.
+  let temp = mdContent.replace(/!\[\[([^\]]+)\]\]/g, (match, inner) => {
+    const name = inner.split('|')[0].trim();
+    if (!isImagePath(name)) return '';
+    const src = resolveImagePath(inner, assetMap);
+    const alt = path.basename(name.split('|')[0]);
+    return `\n\n<img src="${src}" alt="${alt}" loading="lazy" />\n\n`;
+  });
+
   // Extract display math: $$...$$
-  let temp = mdContent.replace(/\$\$([\s\S]*?)\$\$/g, (match, formula) => {
+  temp = temp.replace(/\$\$([\s\S]*?)\$\$/g, (match, formula) => {
     try {
-      const html = katex.renderToString(formula.trim(), { displayMode: true, throwOnError: false });
+      const html = katex.renderToString(sanitizeMath(formula.trim()), { displayMode: true, throwOnError: false });
       const id = `@@MATH_DISP_${placeholders.length}@@`;
       placeholders.push({ id, html });
       return id;
@@ -87,7 +117,7 @@ function renderMarkdown(mdContent) {
   // Extract inline math: $...$
   temp = temp.replace(/\$([^\$\n]+?)\$/g, (match, formula) => {
     try {
-      const html = katex.renderToString(formula.trim(), { displayMode: false, throwOnError: false });
+      const html = katex.renderToString(sanitizeMath(formula.trim()), { displayMode: false, throwOnError: false });
       const id = `@@MATH_INL_${placeholders.length}@@`;
       placeholders.push({ id, html });
       return id;
@@ -107,12 +137,51 @@ function renderMarkdown(mdContent) {
   return htmlContent;
 }
 
+// Walk the content tree, copy every image into ./public at the same relative
+// path, and return a map of lowercased basename → public URL so embeds that
+// reference an attachment by bare filename (Obsidian style) can be resolved.
+async function collectAndCopyAssets(contentRoot, publicRoot) {
+  const assetMap = new Map();
+  const allFiles = await getFiles(contentRoot);
+  let copied = 0;
+  for (const abs of allFiles) {
+    if (!isImagePath(abs)) continue;
+    const rel = path.relative(contentRoot, abs);
+    const dest = path.join(publicRoot, rel);
+    await fs.mkdir(path.dirname(dest), { recursive: true });
+    await fs.cp(abs, dest);
+    const url = '/' + rel.split(path.sep).join('/');
+    assetMap.set(path.basename(abs).toLowerCase(), url);
+    copied++;
+  }
+  console.log(`Copied ${copied} image asset(s) into public/`);
+  return assetMap;
+}
+
+// Fall back to the file's modification time (YYYY-MM-DD, local) when a note has
+// no explicit created/date frontmatter.
+async function fileDate(absPath) {
+  try {
+    const { mtime } = await fs.stat(absPath);
+    const y = mtime.getFullYear();
+    const m = String(mtime.getMonth() + 1).padStart(2, '0');
+    const d = String(mtime.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  } catch {
+    return '';
+  }
+}
+
 async function main() {
   const rootDir = process.cwd();
   // Content lives in-repo under ./content (populated by scripts/sync.mjs from the Obsidian vault).
   // This keeps the repo self-contained so CI (Vercel) can rebuild without access to the vault.
   const vaultDir = process.env.CONTENT_DIR || path.join(rootDir, 'content');
   console.log(`Starting graph & content build inside: ${rootDir}, Content root: ${vaultDir}`);
+
+  // 0. Copy image assets into public/ and build a filename → URL map.
+  const publicDir = path.join(rootDir, 'public');
+  const assetMap = await collectAndCopyAssets(vaultDir, publicDir);
 
   // 1. Gather all wiki and blog files (public)
   const wikiDir = path.join(vaultDir, 'wiki');
@@ -171,8 +240,8 @@ async function main() {
       subcategory,
       frontmatter,
       content: cleanContent,
-      cover: frontmatter.cover || getFirstImage(cleanContent) || null,
-      created: frontmatter.created || frontmatter.date || '',
+      cover: frontmatter.cover || getFirstImage(cleanContent, assetMap) || null,
+      created: frontmatter.created || frontmatter.date || (await fileDate(absPath)),
       updated: frontmatter.updated || '',
       tags: frontmatter.tags || [],
       description: frontmatter.description || '',
@@ -374,7 +443,7 @@ async function main() {
   const contentIndex = {};
   for (const f of publicFiles) {
     // Render Markdown to HTML with math typesetting
-    const html = renderMarkdown(f.content);
+    const html = renderMarkdown(f.content, assetMap);
 
     // Compute Backlinks for this file
     const backlinks = publicFiles

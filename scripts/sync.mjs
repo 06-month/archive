@@ -55,7 +55,9 @@ async function main() {
       continue;
     }
     await fs.mkdir(path.dirname(to), { recursive: true });
-    await fs.cp(from, to, { recursive: true });
+    // preserveTimestamps so build-graph can fall back to each note's authoring
+    // mtime for its date when no created/date frontmatter is present.
+    await fs.cp(from, to, { recursive: true, preserveTimestamps: true });
     console.log(`• copied ${src} → content/${dest}`);
   }
 

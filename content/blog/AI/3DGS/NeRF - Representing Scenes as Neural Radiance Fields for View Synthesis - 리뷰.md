@@ -1,4 +1,8 @@
-논문 주소: [https://arxiv.org/abs/2308.04079 ](https://arxiv.org/abs/2003.08934)
+---
+created: 2026-06-18
+---
+
+논문 주소: https://arxiv.org/abs/2003.08934
 
 NeRF는 Novel View Synthesis(NVS) 분야에서 2D 이미지 집합으로부터 3D 장면을 연속적인 radiance field로 표현할 수 있음을 보이며 큰 영향을 준 방법이다.
 
@@ -19,7 +23,7 @@ NeRF는 Novel View Synthesis(NVS) 분야에서 2D 이미지 집합으로부터 3
 
 - 여기에서 $\sigma$는 $\mathbf{x}$에만 의존한다. (시점과 관계없이, 물체 또는 불투명한 구조가 얼마나 존재하는지를 나타내기 때문)
 - 따라서 $\mathbf{c}$는 $\mathbf{x}$와 $\mathbf{d}$에 모두 의존한다. (색은 바라보는 시야에 따른 빛의 반사정도가 반영되기 때문)
-- 여기서 입력 Ray의 방향, 즉 카메라의 방향은 sfm(COLMAP)을 이용하여 추출한 $d$를 사용한다.
+- 여기서 입력 Ray의 방향, 즉 카메라의 방향은 sfm(COLMAP)을 이용하여 계산한 $d$를 사용한다.
 
 - **MLP 구조**: $\gamma(\mathbf{x})$ → 8×FC(256, ReLU, 5층에 skip-connection) → $\sigma$ + 256 feature → $\gamma(\mathbf{d})$ 와 concat → 1×FC(128) → $\mathbf{c}(R, G, B)$  
 ![[NeRF_MLP.png]]
@@ -31,7 +35,7 @@ NeRF는 Novel View Synthesis(NVS) 분야에서 2D 이미지 집합으로부터 3
 학습된 MLP를 기반으로 각 위치에 따른 실제 픽셀의 색을 출력, 즉 렌더링할 때 사용하는 방법을 설명한다.
 
 
-$$C(\mathbf{r})=\int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}\,dt,\quad T(t)=\exp\!\Big(-\!\int_{t_n}^{t}\!\sigma(r(s))\,ds\Big)$$
+$$C(\mathbf{r})=\int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}(r(t), d)\,dt,\quad T(t)=\exp\!\Big(-\!\int_{t_n}^{t}\!\sigma(r(s))\,ds\Big)$$
 
 - $r(t) = o + td$: Ray 수식
 	- o: Ray가 시작하는 원점, t: Ray가 이동한 거리, d: 방향
@@ -65,7 +69,7 @@ $$C(\mathbf{r})=\int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}\,dt,\qu
 	- NeRF의 MLP 구조는 비교적 부드러운(저주파) 이미지를 학습하기 쉬움.
 		 →체크무늬나 나무 무늬같은 고주파 패턴에서는 뭉개질 수 있음
 	- 따라서 NeRF는 모든 좌표 $p$를 다음과 같이 바꾼다	$$\gamma(p) = \big( \sin(2^0\pi p), \cos(2^0\pi p), \dots, \sin(2^{L-1}\pi p), \cos(2^{L-1}\pi p) \big)$$
-	- 즉, 하나의 좌표값 $p$를 여러 주파수의 sin과 cos들의 합으로 표현한다.
+	- 즉, 하나의 좌표값 $p$를 여러 주파수의 sin과 cos들을 이어붙인 벡터로 표현한다.
 	- NeRF에서 L은 10으로 지정한다. 즉, 한 좌표계의 sin과 cos 함수 각각 10개로 표현한다.
 		→ x, y, z좌표를 합하여 총 60개의 삼각함수로 표현된다.
 
@@ -83,5 +87,8 @@ $$C(\mathbf{r})=\int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}\,dt,\qu
 
 - NeRF는 입력된 모든 이미지의 모든 픽셀에 대해서 Ray를 발사하고, 해당 Ray 위의 수십, 수백개의 3D 샘플을 평가해야 한다.
 - 즉, 1024 * 1024 이미지 한 장에 대해 MLP를 호출한다 하면, 1024 * 1024 = 1,048,576
-- 각 픽셀마다 발사한 Ray위에 64개의 샘플이 있다고 가정하면, 대략 6,700만 번의 MLP 샘플 평가가 필요하며, course 64개 + fine 128개의 샘플을 추출하는 NeRF라고 가정하면 대략 2억번의 MLP 샘플평가가 필요하다.
+- 각 픽셀마다 발사한 Ray위에 64개의 샘플이 있다고 가정하면, 대략 6,700만 번의 MLP 샘플 평가가 필요하며, coarse 64개 + fine 128개의 샘플을 추출하는 NeRF라고 가정하면 대략 2억번의 MLP 샘플평가가 필요하다.
 	→ 이 때문에 한번의 학습부터 렌더링까지 매우 큰 시간이 소요된다.
+
+
+
