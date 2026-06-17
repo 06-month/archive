@@ -143,41 +143,17 @@ export default function WikiMap() {
       return Math.min(2.8 + Math.sqrt(degree) * 1.2, 9.0) * nodeCountMultiplier;
     }
 
-    const cx = width / 2;
-    const cy = height / 2;
-
-    // Organic, compact initial placement: a golden-angle spiral around the
-    // center instead of d3's default wide phyllotaxis. Starting nodes already
-    // clustered (rather than torn apart) lets the layout settle into a single
-    // round cloud the way Obsidian's Graph View does.
-    const seedRadius = Math.min(width, height) * 0.2;
-    nodes.forEach((d, i) => {
-      const angle = i * 2.399963229728653; // golden angle (rad)
-      const r = seedRadius * Math.sqrt((i + 0.5) / nodes.length);
-      d.x = cx + r * Math.cos(angle) + (Math.random() - 0.5) * 6;
-      d.y = cy + r * Math.sin(angle) + (Math.random() - 0.5) * 6;
-    });
-
-    // Force simulation tuned for an Obsidian-like round, centered cluster:
-    //  - short, fairly strong links pull connected nodes close together
-    //  - gentle, range-limited repulsion keeps nodes apart without flinging
-    //    whole clusters off-screen
-    //  - center gravity (x/y) + a weak radial force collapse everything into a
-    //    single organic cloud; leaves are nudged onto a soft outer ring
-    const radialTarget = Math.min(width, height) * 0.22;
+    // Force simulation setup
     const simulation = d3.forceSimulation<GraphNode>(nodes)
-      .force("link", d3.forceLink<GraphNode, GraphEdge>(links).id((d) => d.id).distance(48 * nodeCountMultiplier).strength(0.6))
-      .force("charge", d3.forceManyBody<GraphNode>().strength((d) => (d.degree === 0 ? -28 : Math.max(-95, -48 - d.degree * 4))).distanceMax(260))
-      .force("center", d3.forceCenter(cx, cy).strength(1))
-      .force("x", d3.forceX<GraphNode>(cx).strength((d) => (d.degree === 0 ? 0.11 : 0.07)))
-      .force("y", d3.forceY<GraphNode>(cy).strength((d) => (d.degree === 0 ? 0.11 : 0.07)))
-      .force("radial", d3.forceRadial<GraphNode>(radialTarget, cx, cy).strength((d) => (d.degree <= 1 ? 0.05 : 0.02)))
-      .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 4).strength(0.85))
-      .velocityDecay(0.5)
-      .alphaDecay(0.022);
+      .force("link", d3.forceLink<GraphNode, GraphEdge>(links).id((d) => d.id).distance(120 * nodeCountMultiplier).strength(0.18))
+      .force("charge", d3.forceManyBody<GraphNode>().strength((d) => d.degree === 0 ? -15 : -140 - d.degree * 30))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("x", d3.forceX<GraphNode>(width / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
+      .force("y", d3.forceY<GraphNode>(height / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
+      .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 12 * nodeCountMultiplier));
 
-    // Pre-run simulation for a near-final, settled layout.
-    for (let i = 0; i < 300; i++) {
+    // Pre-run simulation for near-final layout; remaining energy creates Obsidian-like settling
+    for (let i = 0; i < 200; i++) {
       simulation.tick();
     }
 
@@ -192,12 +168,10 @@ export default function WikiMap() {
     const graphCenterX = (minX + maxX) / 2;
     const graphCenterY = (minY + maxY) / 2;
 
-    // Fit-to-view leaving a ~12% margin on each side (not by simply zooming out:
-    // the layout above is already a compact round cluster).
-    const marginFrac = 0.12;
-    const scaleX = (width * (1 - marginFrac * 2)) / graphWidth;
-    const scaleY = (height * (1 - marginFrac * 2)) / graphHeight;
-    const initialScale = Math.max(0.25, Math.min(1.4, Math.min(scaleX, scaleY)));
+    const padding = 70; // Padding around the graph bounds
+    const scaleX = (width - padding * 2) / graphWidth;
+    const scaleY = (height - padding * 2) / graphHeight;
+    const initialScale = Math.max(0.25, Math.min(1.1, Math.min(scaleX, scaleY)));
 
     const translateX = width / 2 - initialScale * graphCenterX;
     const translateY = height / 2 - initialScale * graphCenterY;
