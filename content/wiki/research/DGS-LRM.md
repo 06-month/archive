@@ -31,7 +31,7 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 - **Scene normalization**: metric depth estimator로 스케일 정규화(20th percentile disparity=2). 64×H100, 256→512 2단계.
 
 ## 결과
-- **동적 NVS**(DyCheck iPhone): 예측 기반 [[GS-LRM|L4GM]] 능가(masked PSNR 5.84→11.97), 최적화 기반 D3DGS·PGDVS(수 시간)와 대등하면서 **0.495s**. DAVIS in-the-wild서 thin geometry·water deformation 잘 복원.
+- **동적 NVS**(DyCheck iPhone): 예측 기반 L4GM 능가(masked PSNR 5.84→11.97), 최적화 기반 D3DGS·PGDVS(수 시간)와 대등하면서 **0.495s**. DAVIS in-the-wild서 thin geometry·water deformation 잘 복원.
 - **3D tracking**(PointOdyssey, flow chaining): SpatialTracker와 대등(ATE-3D 0.21 vs 0.22), texture-less 영역서 더 일관(전체 기하 복원 덕). Native(24f)·FV variant는 chaining 손실 없이 더 우수.
 - Ablation: temporal tokenization(없으면 OOM)·dual-view·scene flow loss·reference frames 모두 기여(특히 flow loss가 deformation rigidity, reference가 스케일·깊이).
 

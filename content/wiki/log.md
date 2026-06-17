@@ -122,3 +122,10 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - 영역 판정 근거: DINO/DINOv2=범용 비전 백본 → concepts([[ViT]] 급). CroCo/MASt3R=3D vision 논문 → research(§B②). cross-link: 계보 형제 + [[ViT]]·[[Transformer]]·[[SfM-COLMAP]] concepts + [[DINO]]↔[[CroCo]] 사전학습 대조.
 - index: DUSt3R 계보에 CroCo(사전학습)·MASt3R(매칭) 편입, concepts ML백본에 [[DINO]] 추가. 전부 통독·압축(각 ≤200줄).
 - **잔여 오링크**: `[[GS-LRM|L4GM]]`(4DGT 2곳·DGS-LRM 1곳) 미교정 — 이번 ingest는 갭 해소 범위, L4GM 교정은 별도(승인 대기).
+
+## [2026-06-17] lint-조치 | 직전 lint 오류 일괄 교정
+- 직전 [2026-06-17] lint 발견사항 전부 종결:
+  - **① 오링크 [[GS-LRM|L4GM]] ×3 → 교정 완료**: 4DGT.md(2곳)·DGS-LRM.md(1곳)의 잘못된 별칭을 평문 `L4GM`으로 수정. L4GM(Ren et al. NeurIPS'24, 합성 4D)≠[[GS-LRM]](Zhang et al. ECCV'24, 정적) 별개 논문이라 link 제거(L4GM raw 미수집 → 평문이 정확, forward link로 두면 새 데이터갭 생성하므로 평문 선택). 4DGT.md 계보줄은 이미 올바른 사용([[GS-LRM]] link + 평문 L4GM)이라 유지.
+  - **② 데이터 갭 [[DINO]] → 해소**: 직전 ingest로 concepts [[DINO]](DINO+DINOv2) 생성, VGGT·4DGT·StreamSplat·MoVieS 백본 링크 연결.
+  - **③ 평문 다출현 CroCo·MASt3R → 해소**: research [[CroCo]]·[[MASt3R]] 생성.
+- 잔여 데이터갭 후보(pixelSplat·SpatialTracker·CUT3R 평문)는 raw 미수집이라 보류 — 다음 ingest 대상. 재검 결과 **노트 내 미해결 wikilink 0, 오링크 0**.
