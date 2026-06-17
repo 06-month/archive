@@ -5,4 +5,5 @@
 
 본 글에서는 이후 다양한 3D Gaussian Splatting 계열 연구의 토대가 된 논문인 3D Gaussian Splatting for Real-Time Radiance Field Rendering을 리뷰하고자 한다.
 
+![[3DGS_image.png]]
 

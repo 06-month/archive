@@ -3,6 +3,8 @@
 NeRF는 Novel View Synthesis(NVS) 분야에서 2D 이미지 집합으로부터 3D 장면을 연속적인 radiance field로 표현할 수 있음을 보이며 큰 영향을 준 방법이다.
 
 본 글에서는 이후 다양한 neural rendering 및 radiance field 계열 연구의 토대가 된 논문인 NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis를 리뷰하고자 한다.
+
+![[NeRF_image.png]]
 ### MLP 
 함수: $F_\Theta:(\mathbf{x},\mathbf{d})\to(\mathbf{c},\sigma)$
 - 입력
@@ -77,3 +79,9 @@ $$C(\mathbf{r})=\int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}\,dt,\qu
 	- 즉, $p_1+p_2+\cdots+p_N=1$이 된다.
 	- 이후, $p_i$에 따라 fine 샘플을 추출하고, coarse 샘플과 fine 샘플에 대한 최종 $C$를 출력한다.
 
+### 한계
+
+- NeRF는 입력된 모든 이미지의 모든 픽셀에 대해서 Ray를 발사하고, 해당 Ray 위의 수십, 수백개의 3D 샘플을 평가해야 한다.
+- 즉, 1024 * 1024 이미지 한 장에 대해 MLP를 호출한다 하면, 1024 * 1024 = 1,048,576
+- 각 픽셀마다 발사한 Ray위에 64개의 샘플이 있다고 가정하면, 대략 6,700만 번의 MLP 샘플 평가가 필요하며, course 64개 + fine 128개의 샘플을 추출하는 NeRF라고 가정하면 대략 2억번의 MLP 샘플평가가 필요하다.
+	→ 이 때문에 한번의 학습부터 렌더링까지 매우 큰 시간이 소요된다.
