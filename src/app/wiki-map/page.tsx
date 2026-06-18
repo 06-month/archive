@@ -459,62 +459,63 @@ export default function WikiMap() {
   const mappedZoomScale = zoomScale;
 
   return (
-    <div className="container-custom-wide">
-      {/* Dynamic Left Sidebar */}
-      <Sidebar type="wiki" zoomScale={zoomScale} activeSlug={selectedSlug} />
+    <div className="wiki-map-page">
+      <div className="container-custom-wide wiki-map-main-row">
+        {/* Dynamic Left Sidebar */}
+        <Sidebar type="wiki" zoomScale={zoomScale} activeSlug={selectedSlug} />
 
-      {/* Main interactive graph map */}
-      <main className="card-custom graph-container">
-        <svg ref={svgRef} id="knowledge-graph"></svg>
-        <div style={{ position: "absolute", bottom: "24px", left: "24px", display: "flex", gap: "8px" }}>
-          <div className="tag-custom">Zoom: {mappedZoomScale}%</div>
-          <div className="tag-custom">Nodes: {graphData.nodes.length}</div>
-        </div>
-      </main>
-
-      {/* Sidebar Right info panel */}
-      <aside className="sidebar-right">
-        {/* Search Panel */}
-        <div className="card-custom" style={{ padding: "20px", overflow: "visible" }}>
-          <div className="search-box">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="7" cy="7" r="5" stroke="#888" strokeWidth="1.5"></circle>
-              <path d="M11 11L14 14" stroke="#888" strokeWidth="1.5"></path>
-            </svg>
-            <input
-              type="text"
-              placeholder="Search concept or tag..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+        {/* Main interactive graph map */}
+        <main className="card-custom graph-container">
+          <svg ref={svgRef} id="knowledge-graph"></svg>
+          <div style={{ position: "absolute", bottom: "24px", left: "24px", display: "flex", gap: "8px" }}>
+            <div className="tag-custom">Zoom: {mappedZoomScale}%</div>
+            <div className="tag-custom">Nodes: {graphData.nodes.length}</div>
           </div>
-          {searchSuggestions.length > 0 && (
-            <div className="suggest-list">
-              <p style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--text-muted)", margin: "10px 0 5px" }}>Suggested</p>
-              {searchSuggestions.map((node) => (
-                <div
-                  key={node.id}
-                  className="suggest-item"
-                  onClick={() => handleSuggestionClick(node.slug)}
-                >
-                  {node.title.split(" (")[0]}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        </main>
 
-        {/* Selected Node details Panel */}
-        <div
-          className={`card-custom wiki-map-detail-card ${activeNodeDetails ? "" : "is-empty"}`}
-          style={{
-            border: "1px solid var(--border)", 
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
-            background: "var(--surface)" 
-          }}
-        >
-          {activeNodeDetails ? (
-            <div className="wiki-map-detail-content">
+        {/* Sidebar Right info panel */}
+        <aside className="sidebar-right">
+          {/* Search Panel */}
+          <div className="card-custom" style={{ padding: "20px", overflow: "visible" }}>
+            <div className="search-box">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="7" cy="7" r="5" stroke="#888" strokeWidth="1.5"></circle>
+                <path d="M11 11L14 14" stroke="#888" strokeWidth="1.5"></path>
+              </svg>
+              <input
+                type="text"
+                placeholder="Search concept or tag..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            {searchSuggestions.length > 0 && (
+              <div className="suggest-list">
+                <p style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--text-muted)", margin: "10px 0 5px" }}>Suggested</p>
+                {searchSuggestions.map((node) => (
+                  <div
+                    key={node.id}
+                    className="suggest-item"
+                    onClick={() => handleSuggestionClick(node.slug)}
+                  >
+                    {node.title.split(" (")[0]}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Selected Node details Panel */}
+          <div
+            className={`card-custom wiki-map-detail-card ${activeNodeDetails ? "" : "is-empty"}`}
+            style={{
+              border: "1px solid var(--border)",
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
+              background: "var(--surface)"
+            }}
+          >
+            {activeNodeDetails ? (
+              <div className="wiki-map-detail-content">
               {/* Content Preview Area */}
               <div className="wiki-map-detail-main">
                 {/* Category Pill */}
@@ -664,34 +665,35 @@ export default function WikiMap() {
                   Open Wiki
                 </Link>
               </div>
-            </div>
-          ) : (
-            <div
-              id="node-info-empty"
-              className="text-zinc-400 text-sm flex flex-col items-center justify-center flex-grow text-center py-20"
-              style={{ height: "100%" }}
-            >
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--border)"
-                strokeWidth="1.5"
-                style={{ marginBottom: "16px" }}
+              </div>
+            ) : (
+              <div
+                id="node-info-empty"
+                className="text-zinc-400 text-sm flex flex-col items-center justify-center flex-grow text-center py-20"
+                style={{ height: "100%" }}
               >
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 8v4M12 16h.01"></path>
-              </svg>
-              <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>Select a node to view connections and metadata.</span>
-              <span className="text-xs opacity-60 mt-2" style={{ color: "var(--text-faint)" }}>Double click to open note page directly.</span>
-            </div>
-          )}
-        </div>
-      </aside>
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--border)"
+                  strokeWidth="1.5"
+                  style={{ marginBottom: "16px" }}
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 8v4M12 16h.01"></path>
+                </svg>
+                <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>Select a node to view connections and metadata.</span>
+                <span className="text-xs opacity-60 mt-2" style={{ color: "var(--text-faint)" }}>Double click to open note page directly.</span>
+              </div>
+            )}
+          </div>
+        </aside>
+      </div>
 
       {/* Dynamic bottom updates log */}
-      <div className="bottom-section col-span-3">
+      <div className="bottom-section wiki-map-bottom-section">
         <div className="section-header">
           <h2>Latest Wiki Updates</h2>
           <hr />

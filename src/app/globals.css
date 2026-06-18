@@ -134,6 +134,7 @@ body {
   display: grid;
   grid-template-columns: 260px 1fr 300px;
   gap: 20px;
+  align-items: start;
 }
 
 .container-overview {
@@ -142,6 +143,11 @@ body {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 20px;
+}
+
+.wiki-map-bottom-section {
+  max-width: 1400px;
+  margin: 20px auto 0;
 }
 
 /* Card classes */
@@ -615,6 +621,11 @@ nav .nav-pill-group a:hover {
   background-image: radial-gradient(var(--dots-color) 1px, transparent 0);
   background-size: 32px 32px;
   overflow: hidden;
+  align-self: start;
+  height: clamp(560px, calc(100vh - 140px), 760px);
+  min-height: 560px;
+  position: sticky;
+  top: 88px;
 }
 
 /* Sidebar Right search and active node info */
@@ -1005,6 +1016,10 @@ footer {
 .container-custom-wide .sidebar-right {
   align-self: start;
   min-height: 0;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  position: sticky;
+  top: 88px;
 }
 
 /* D3 Knowledge Graph styling */
@@ -2356,10 +2371,17 @@ footer {
     margin-bottom: 0;
   }
   .graph-container {
+    height: auto;
     min-height: 62vh;
+    position: relative;
+    top: auto;
   }
   .container-custom-wide .sidebar-right {
     display: flex !important;
+    max-height: none;
+    overflow-y: visible;
+    position: relative;
+    top: auto;
   }
   /* The detail card uses align-self: flex-start on desktop (so it hugs its
      content in the sidebar). On mobile that leaves it narrow/left-aligned —
@@ -2407,4 +2429,3 @@ footer {
     font-size: 12px;
   }
 }
-
