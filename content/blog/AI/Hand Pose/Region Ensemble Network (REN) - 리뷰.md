@@ -1,3 +1,7 @@
+---
+created: 2026-01-19
+---
+
 논문 주소: [https://arxiv.org/abs/1702.02447](https://arxiv.org/abs/1702.02447)
 
 ### 1. 서론 및 문제 제기
