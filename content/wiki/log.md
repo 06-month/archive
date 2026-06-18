@@ -129,3 +129,20 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
   - **② 데이터 갭 [[DINO]] → 해소**: 직전 ingest로 concepts [[DINO]](DINO+DINOv2) 생성, VGGT·4DGT·StreamSplat·MoVieS 백본 링크 연결.
   - **③ 평문 다출현 CroCo·MASt3R → 해소**: research [[CroCo]]·[[MASt3R]] 생성.
 - 잔여 데이터갭 후보(pixelSplat·SpatialTracker·CUT3R 평문)는 raw 미수집이라 보류 — 다음 ingest 대상. 재검 결과 **노트 내 미해결 wikilink 0, 오링크 0**.
+
+## [2026-06-18] ingest | Ex4DGS (완전 명시적 동적 4D GS, NeurIPS'24)
+- 멱등성 가드: 신규 raw(`raw/Ex4DGS.md` 19p) — sources 미등재 → 처음 ingest. 부록(ablation·occlusion·장기영상·per-scene 분해표) 포함 전체 통독. [통과]/research.
+- **research 신규**: [[Ex4DGS]](Lee et al., GIST, NeurIPS'24) — 동적 가우시안을 sparse 키프레임에만 저장+보간(**CHip 위치·Slerp 회전·GMM opacity**), 마스크 없이 정적/동적 자동 분리(이미지공간 이동량 상위 2%), progressive training + point-backtracking pruning. 희소 point cloud(첫 프레임 COLMAP) 강건, 62fps(2080Ti)/120fps(4090), 115MB. + source [[2026-06-18-Ex4DGS-논문]].
+- **영역**: 방사장 NVS(§B② 3D Vision) — 최적화 기반 동적 4DGS, [[Relaxed-Rigidity-동적GS]]와 같은 그룹.
+- **핵심 연결**: [[Relaxed-Rigidity-동적GS]]와 **동일 저자(GIST Lee·Jeon)** — RR이 Ex4DGS(spline base)에 plug-in 정규화 부착. RR 노트의 평문 "Ex4DGS"를 [[Ex4DGS]] 링크로 승격(양방향 연결).
+- cross-link: [[3D-Gaussian-Splatting]](기반)·[[NeRF]](implicit 동적 대조)·[[Relaxed-Rigidity-동적GS]](확장)·[[방사장-볼륨렌더링]]·[[구면조화함수-SH]]·[[SfM-COLMAP]](concepts) + feed-forward 4D 대조 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]](최적화 vs feed-forward).
+- index: 방사장 NVS 동적에 Ex4DGS 편입. 전부 통독·압축(≤200줄).
+
+## [2026-06-18] ingest | 3D-4DGS (하이브리드 3D-4D GS, 2025)
+- 멱등성 가드: 신규 raw(`raw/3D-4DGS.md` 16p) — sources 미등재 → 처음 ingest. 부록(CUDA rasterization Alg.1·per-scene 곡선) 포함 전체 통독. [통과]/research.
+- **research 신규**: [[3D-4DGS]](Oh et al., SKKU·Yonsei, arXiv'25) — 정적=3D·동적=4D 가우시안 **하이브리드**. 전부 4D로 시작 → **시간축 scale > τ(=정적) 가우시안을 매 densification마다 4D→3D 변환**(μ_t 폐기·R4D→q3D). 정적 3D 매 iter 갱신 + opacity reset 제거로 4DGS 5.5h → **12분**(3~5× 가속), 208 FPS, N3V 32.25dB. 통합 CUDA rasterization(4D를 시각 t에서 slice). + source [[2026-06-18-3D-4DGS-논문]].
+- **영역**: 방사장 NVS(§B② 3D Vision) — 최적화 기반 동적 4DGS, [[Ex4DGS]]·[[Relaxed-Rigidity-동적GS]]와 같은 그룹.
+- **핵심 연결**: [[Ex4DGS]]를 직접 비교 baseline으로 사용(둘 다 최적화 기반 동적 4DGS) — Ex4DGS 노트에 [[3D-4DGS]] peer 역링크 추가(양방향).
+- cross-link: [[3D-Gaussian-Splatting]]·[[NeRF]]·[[Ex4DGS]]·[[Relaxed-Rigidity-동적GS]] + concepts [[방사장-볼륨렌더링]]·[[구면조화함수-SH]]·[[SfM-COLMAP]] + feed-forward 4D 대조 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]].
+- index: 방사장 NVS 동적에 3D-4DGS 편입(`동적 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]`). 전부 통독·압축(≤200줄).
+- 후속 후보: 기반 **4DGS(Yang et al., 4D rotor)**·**4DGaussians(deformation)** — Ex4DGS·3D-4DGS·4DGT·DGS-LRM 등 다수 노트서 평문 다출현, 동적 GS 뿌리로 ingest 가치(현재 raw 미수집이라 평문 유지).

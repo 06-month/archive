@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 export default function About() {
   return (
     <div className="container-overview about-page">
@@ -15,33 +13,35 @@ export default function About() {
             Jun Jeon
           </h1>
           <p className="profile-lead">
-            Undergraduate student in Computer Engineering at Hanbat National University, working as an Undergraduate Researcher at UNIST Vision &amp; Learning Lab.
+            Computer Engineering undergraduate at Hanbat National University and Undergraduate Researcher at UNIST Vision &amp; Learning Lab.
           </p>
           <div className="profile-meta-list">
             <div>
               <span>Current Focus</span>
-              <strong>3D hand pose estimation and reconstruction</strong>
+              <strong>Dynamic 3D/4D scene representation</strong>
             </div>
             <div>
               <span>Research Interests</span>
-              <strong>3D scene reconstruction, neural rendering, NVS, 3DGS</strong>
+              <strong>Gaussian Splatting, neural rendering, NVS</strong>
             </div>
           </div>
           <div className="interest-chip-row">
-            <span>3D Computer Vision</span>
+            <span>Spatial Intelligence</span>
+            <span>Dynamic Scene Representation</span>
+            <span>Gaussian Splatting</span>
             <span>Neural Rendering</span>
             <span>Novel View Synthesis</span>
-            <span>3D Gaussian Splatting</span>
+            <span>Motion-Aware Understanding</span>
           </div>
           <div className="contact-links">
             <a href="https://github.com/06-month" className="contact-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="mailto:junjeon@edu.hanbat.ac.kr" className="contact-btn">Email Contact</a>
-            <a href="https://06-month.github.io/home/Jun%20Jeon%20CV.pdf?v=10" className="contact-btn" target="_blank" rel="noopener noreferrer">Curriculum Vitae</a>
+            <a href="/JunJeon_CV.pdf" className="contact-btn" target="_blank" rel="noopener noreferrer">Curriculum Vitae</a>
           </div>
         </div>
         <div className="hero-meta mt-8">
           <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-secondary)" }}>
-            Hanbat National University / Daejeon, South Korea · Undergraduate Researcher, UNIST Vision &amp; Learning Lab
+            Hanbat National University / Computer Engineering · Undergraduate Researcher, UNIST Vision &amp; Learning Lab
           </span>
         </div>
       </section>
@@ -58,7 +58,11 @@ export default function About() {
             />
             <div className="avatar-info">
               <h3>Jun Jeon</h3>
-              <p>3D Computer Vision / AI Research Student</p>
+              <p>
+                3D/4D Scene Representation
+                <br />
+                / AI Research Student
+              </p>
             </div>
           </div>
         </div>
@@ -83,7 +87,7 @@ export default function About() {
             <h4 className="timeline-title">Undergraduate Researcher / Intern</h4>
             <div className="timeline-subtitle">UNIST Vision &amp; Learning Lab (UVLL)</div>
             <p className="timeline-desc">
-              Advised by Prof. Seungryul Baek while enrolled at Hanbat National University. Working on 3D hand pose estimation and hand mesh reconstruction.
+              Advised by Prof. Seungryul Baek at Ulsan National Institute of Science and Technology. Undergraduate research on 3D hand pose estimation and 3D hand reconstruction.
             </p>
           </div>
 
@@ -92,7 +96,7 @@ export default function About() {
             <h4 className="timeline-title">Undergraduate Researcher</h4>
             <div className="timeline-subtitle">AiRLab, Hanbat National University</div>
             <p className="timeline-desc">
-              Advised by Prof. Dong-Geol Choi. Studied semantic segmentation, domain adaptation, representation learning, and federated learning.
+              Advised by Prof. Dong-Geol Choi. Undergraduate research on computer vision, image classification, and semantic segmentation.
             </p>
           </div>
           
@@ -101,7 +105,7 @@ export default function About() {
             <h4 className="timeline-title">B.S. in Computer Engineering</h4>
             <div className="timeline-subtitle">Hanbat National University</div>
             <p className="timeline-desc">
-              Current GPA: <strong>3.79 / 4.5</strong>. Focused coursework in computer vision, machine learning, and systems engineering.
+              Current GPA: <strong>3.79 / 4.5</strong> with Major GPA: <strong>3.79 / 4.5</strong>. Relevant coursework includes Artificial Intelligence, Computer Vision, and Reinforcement Learning.
             </p>
           </div>
           
@@ -110,7 +114,7 @@ export default function About() {
             <h4 className="timeline-title">Previous Undergraduate Coursework in Software Engineering</h4>
             <div className="timeline-subtitle">Pai Chai University</div>
             <p className="timeline-desc">
-              Completed initial software engineering coursework. GPA: <strong>4.14 / 4.5</strong>, with foundations in software design, logic, and data structures.
+              Completed undergraduate coursework in Software Engineering. GPA: <strong>4.14 / 4.5</strong>, Major GPA: <strong>4.32 / 4.5</strong>.
             </p>
           </div>
         </div>
@@ -133,7 +137,7 @@ export default function About() {
               Balanced Knowledge Distillation (BKD) for Long-Tail Federated Learning Based on CLIP2FL
             </h3>
             <p className="pub-authors">
-              <em>Jun Jeon</em>, Minu Baek, Sangkeum Lee
+              <em>Jun Jeon</em>, Minu Baek, Sangkeum Lee†
             </p>
           </div>
         </div>
@@ -150,17 +154,17 @@ export default function About() {
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Research</span>
-              <span className="project-date mono">2026.05 - Present</span>
+              <span className="project-date mono">2026.06 - Present</span>
             </div>
             <div className="project-body">
-              <h3>3D Low-Light Enhancement for Robust NVS</h3>
-              <p>Independent experimental study investigating low-light degradation and baseline methods for robust Novel View Synthesis and 3D Gaussian Splatting.</p>
+              <h3>Dynamic Scene Representation Study</h3>
+              <p>Independent study on Gaussian Splatting-based dynamic scene representation, dynamic novel view synthesis, and efficiency issues in 3D/4D reconstruction pipelines.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">3DGS</span>
-            <span className="tech-badge">Low-Light</span>
-            <span className="tech-badge">PyTorch</span>
+            <span className="tech-badge">3D/4D Scene Representation</span>
+            <span className="tech-badge">Gaussian Splatting</span>
+            <span className="tech-badge">Neural Rendering</span>
           </div>
         </div>
 
@@ -168,29 +172,29 @@ export default function About() {
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Research</span>
-              <span className="project-date mono">2026.04 - Present</span>
+              <span className="project-date mono">2026.05 - Present</span>
             </div>
             <div className="project-body">
-              <h3>Geometry-Preserving Synthetic-to-Real Dataset Refinement</h3>
-              <p>Independent project on geometry-preserving dataset refinement for 3D hand reconstruction under sim-to-real gaps.</p>
+              <h3>3D Low-Light Enhancement for Robust Novel View Synthesis</h3>
+              <p>Independent experimental study analyzing challenge tasks, datasets, and baseline methods for robust 3D reconstruction under real-world visual degradations.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">3D Hand Recon</span>
-            <span className="tech-badge">Domain Adaptation</span>
-            <span className="tech-badge">PyTorch</span>
+            <span className="tech-badge">Novel View Synthesis</span>
+            <span className="tech-badge">3D Reconstruction</span>
+            <span className="tech-badge">NTIRE 2026</span>
           </div>
         </div>
 
         <div className="project-card project-card-compact flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
-              <span className="tag-custom">Engineering</span>
+              <span className="tag-custom">Capstone</span>
               <span className="project-date mono">2026.03 - Present</span>
             </div>
             <div className="project-body">
               <h3>On-Device Human Pose Estimation</h3>
-              <p>Capstone AI pipeline for real-time exercise posture coaching with on-device pose keypoints.</p>
+              <p>Capstone design AI pipeline for real-time exercise posture coaching with on-device pose estimation, joint-angle features, and model-based feedback logic.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
@@ -208,7 +212,7 @@ export default function About() {
             </div>
             <div className="project-body">
               <h3>Satellite Image Building Area Segmentation</h3>
-              <p>AiRLab seminar project on semantic segmentation for building extraction from satellite imagery.</p>
+              <p>AiRLab lab coding seminar project on semantic segmentation of building regions from satellite imagery using deep learning models.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
@@ -221,36 +225,36 @@ export default function About() {
         <div className="project-card project-card-compact flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
-              <span className="tag-custom">Academic</span>
-              <span className="project-date mono">2025.11 - 2025.12</span>
-            </div>
-            <div className="project-body">
-              <h3>Satellite Cloud Semantic Segmentation</h3>
-              <p>Course project implementing multi-class satellite cloud and shadow segmentation models.</p>
-            </div>
-          </div>
-          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">Computer Vision</span>
-            <span className="tech-badge">PyTorch</span>
-            <span className="tech-badge">Satellite</span>
-          </div>
-        </div>
-
-        <div className="project-card project-card-compact flex flex-col justify-between">
-          <div>
-            <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Research</span>
               <span className="project-date mono">2025.10 - 2025.12</span>
             </div>
             <div className="project-body">
               <h3>CLIP2FL-based Federated Learning Research</h3>
-              <p>Balanced Knowledge Distillation framework for long-tail federated learning, later published at KICS Winter 2026.</p>
+              <p>Federated learning research on CLIP2FL with balanced knowledge distillation, resulting in a KICS Winter Conference 2026 publication.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
             <span className="tech-badge">Federated Learning</span>
             <span className="tech-badge">CLIP</span>
             <span className="tech-badge">BKD</span>
+          </div>
+        </div>
+
+        <div className="project-card project-card-compact flex flex-col justify-between">
+          <div>
+            <div className="project-meta flex justify-between items-center mb-4">
+              <span className="tag-custom">Academic</span>
+              <span className="project-date mono">2025.11 - 2025.12</span>
+            </div>
+            <div className="project-body">
+              <h3>Satellite Cloud Semantic Segmentation</h3>
+              <p>Computer vision term project on semantic segmentation of satellite images for thick cloud, thin cloud, and cloud shadow classes.</p>
+            </div>
+          </div>
+          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
+            <span className="tech-badge">Computer Vision</span>
+            <span className="tech-badge">Semantic Seg</span>
+            <span className="tech-badge">Satellite</span>
           </div>
         </div>
       </div>
@@ -266,13 +270,14 @@ export default function About() {
         
         <div className="skills-container">
           <div className="skills-category">
-            <h4>3D Computer Vision Core</h4>
+            <h4>Research Interests</h4>
             <div className="skills-list">
-              <span className="skill-tag">3D Gaussian Splatting</span>
+              <span className="skill-tag">3D/4D Scene Reconstruction</span>
+              <span className="skill-tag">Dynamic Scene Representation</span>
+              <span className="skill-tag">Gaussian Splatting</span>
               <span className="skill-tag">Neural Rendering</span>
               <span className="skill-tag">Novel View Synthesis</span>
-              <span className="skill-tag">Camera Geometry</span>
-              <span className="skill-tag">Multi-View Geometry</span>
+              <span className="skill-tag">Motion-Aware Scene Understanding</span>
             </div>
           </div>
 
@@ -280,10 +285,8 @@ export default function About() {
             <h4>Deep Learning &amp; Computer Vision</h4>
             <div className="skills-list">
               <span className="skill-tag">PyTorch</span>
-              <span className="skill-tag">OpenCV</span>
               <span className="skill-tag">NumPy</span>
-              <span className="skill-tag">Semantic Segmentation</span>
-              <span className="skill-tag">Federated Learning</span>
+              <span className="skill-tag">OpenCV</span>
             </div>
           </div>
 
@@ -321,7 +324,7 @@ export default function About() {
               <li>
                 <strong>1st Place (Grand Prize)</strong>
                 <span>Open Source Software Utilization Competition (Nov. 2025)</span>
-                <span className="text-zinc-400">Hanbat National University — "Budgetly" OCR finance app</span>
+                <span className="text-zinc-400">Hanbat National University — &quot;Budgetly&quot; OCR finance app</span>
               </li>
             </ul>
           </div>
@@ -351,7 +354,7 @@ export default function About() {
         </div>
         
         <div>
-          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.06.14</span>
+          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.06.18</span>
         </div>
       </section>
     </div>

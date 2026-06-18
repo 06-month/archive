@@ -41,12 +41,14 @@ tags: [index]
 ## research — 3D Vision / 3DGS / NeRF / Scene Reconstruction
 
 ### 방사장 NVS (Radiance Field)
-**계보**: [[NeRF]] (2020, 연속 MLP) → [[3D-Gaussian-Splatting|3DGS]] (2023, 명시적·실시간) → 응용 [[lighthouseGS]] · [[CoherentRaster]] · 동적 [[Relaxed-Rigidity-동적GS]]
+**계보**: [[NeRF]] (2020, 연속 MLP) → [[3D-Gaussian-Splatting|3DGS]] (2023, 명시적·실시간) → 응용 [[lighthouseGS]] · [[CoherentRaster]] · 동적 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]
 - [[NeRF]] — 연속 5D MLP + 볼륨 렌더링. 위치 인코딩·계층 샘플링 (ECCV'20)
 - [[3D-Gaussian-Splatting]] — 비등방 3D 가우시안 + 타일 래스터화, 실시간 (SIGGRAPH'23)
 - [[lighthouseGS]] — 실내 파노라마 모바일 캡처용 3DGS, plane scaffold·SfM-free (2026)
 - [[CoherentRaster]] — 라이트필드 디스플레이용 서브픽셀 3DGS, cross-view reuse·view-coherent remapping (SIGGRAPH'26)
-- [[Relaxed-Rigidity-동적GS]] — 동적(4D) GS, ray-based grouping 모션 정규화, plug-in (2026)
+- [[Ex4DGS]] — 완전 명시적 동적(4D) GS, 키프레임 보간(CHip·Slerp·GMM)+정적/동적 분리, 62fps (NeurIPS'24)
+- [[3D-4DGS]] — 하이브리드: 정적=3D·동적=4D 가우시안 적응 분리(시간축 scale 임계), 4DGS 대비 3~5× 빠른 12분 학습 (2025)
+- [[Relaxed-Rigidity-동적GS]] — 동적(4D) GS, ray-based grouping 모션 정규화, plug-in(Ex4DGS 등에 부착) (2026)
 
 ### 3D 손/인체 복원 (Mesh Recovery)
 **계보**: [[HMR]] (2018, 인체 SMPL 회귀) → [[HaMeR]] (2024, ViT 손) → 대안 백본 [[Hamba]] (Mamba+graph) · full-stack [[WiLoR]] (검출+정렬)
@@ -73,7 +75,7 @@ tags: [index]
 - [[MoVieS]] — VGGT 기반 dynamic splatter pixel, NVS·깊이·tracking 통합 1초, zero-shot scene flow (2026)
 - [[StreamSplat]] — uncalibrated 스트림 온라인 동적 3DGS, 양방향 deformation + adaptive fusion, 1200× (ICLR'26)
 
-- _sources_: 방사장 [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]
+- _sources_: 방사장 [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]
 - `Zotero/`는 **ingest 대상 아님** (raw/ 전용 — [[raw-wiki-규칙]] §A 참조)
 
 ## concepts — 공통 개념 (courses ↔ research)

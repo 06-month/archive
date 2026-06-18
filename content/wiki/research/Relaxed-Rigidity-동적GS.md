@@ -41,7 +41,7 @@ tags:
 $$L=(1-\lambda_{dssim})L_1+\lambda_{dssim}L_{dssim}+\lambda_{MCR}L_{MCR}+\lambda_{SR}L_{SR}$$
 
 ## 결과
-- **모델 비종속**: 4개 baseline에 그대로 부착 — RTD·MoDec-GS·Grid4D(deformation-field), Ex4DGS(spline). 구조 변경 0.
+- **모델 비종속**: 4개 baseline에 그대로 부착 — RTD·MoDec-GS·Grid4D(deformation-field), [[Ex4DGS]](spline). 구조 변경 0.
 - 정량(Table 1·2): 전 baseline·전 데이터셋 일관된 향상. **D-NeRF 평균 +1.19 dB**, MoDec-GS +2.35 dB, Grid4D+Ours가 최고 PSNR **42.20**. 도전적 NeRF-DS(반사체)서 더 큰 개선.
 - 데이터셋: D-NeRF(합성 8씬 360° 단안), HyperNeRF·NeRF-DS(실제, vrig/반사).
 - 비용: 학습 시간 2–3×(래스터화 중 공분산·SVD), 단 **렌더링 비용은 불변**(구조 동일). RG가 KNN보다 6–25% 빠름.
