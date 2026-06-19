@@ -106,7 +106,7 @@ export default async function BlogDetail({ params }: PageProps) {
                 style={{ width: "32px", height: "32px", borderRadius: "50%", objectFit: "cover" }}
               />
               <span className="author-name" style={{ fontSize: "13.5px", fontWeight: 600 }}>
-                JunJeon
+                Jun Jeon
               </span>
             </div>
 
