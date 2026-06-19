@@ -146,3 +146,14 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - cross-link: [[3D-Gaussian-Splatting]]·[[NeRF]]·[[Ex4DGS]]·[[Relaxed-Rigidity-동적GS]] + concepts [[방사장-볼륨렌더링]]·[[구면조화함수-SH]]·[[SfM-COLMAP]] + feed-forward 4D 대조 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]].
 - index: 방사장 NVS 동적에 3D-4DGS 편입(`동적 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]`). 전부 통독·압축(≤200줄).
 - 후속 후보: 기반 **4DGS(Yang et al., 4D rotor)**·**4DGaussians(deformation)** — Ex4DGS·3D-4DGS·4DGT·DGS-LRM 등 다수 노트서 평문 다출현, 동적 GS 뿌리로 ingest 가치(현재 raw 미수집이라 평문 유지).
+
+## [2026-06-19] lint | all 영역 건강 진단
+- 진단만(자동 수정 X). 노트 47개·sources 24개 스캔.
+- **모순 0 / 미처리 raw 0**(top-level raw 31건 전부 sources 등재) / **압축 위반 0**(최대 콘텐츠 노트 85줄, 모든 노트 outgoing link ≥3).
+- **고립 1**: [[CoherentRaster]] — index·log만 링크, peer 노트 역링크 0(out=8인데 backlink 콘텐츠 0).
+- **데이터 갭(raw 미수집)**: 최우선 **4DGS(Yang et al., 4D rotor)** 9개 노트 평문 언급·무페이지. 그 외 deformation/Deformable3D(7)·pixelSplat(4)·SpatialTracker(4)·4DGaussians(3)·CUT3R(2)·L4GM(2).
+- 잔여 오링크 0(직전 L4GM alias→평문 교정 확인). 모호 사례 로그 비어있음.
+
+## [2026-06-19] fix | CoherentRaster 고립 해소 (lint 후속)
+- 직전 lint 권고①. peer 역링크 0 → 2개 추가: [[3D-Gaussian-Splatting]] 후속/응용 줄 + [[lighthouseGS]] 관계 줄에 [[CoherentRaster]] 역링크(양방향화). 콘텐츠 backlink 0→2.
+- 데이터 갭(4DGS 등)은 raw 미수집이라 미조치(평문 유지) — 자동 박제 안 함(§A Q0).

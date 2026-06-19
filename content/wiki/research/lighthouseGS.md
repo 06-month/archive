@@ -51,4 +51,5 @@ $$L_{geo}=\lambda_{normal}(L_{cos}+L_{flat}+L_{smooth})+\lambda_{d2n}L_{d2n}\ (\
 ## 한계·관계
 - 거친 단안 사전지식 의존(Table 4서 backbone 교체에 강건함은 보임). 평면 가정 — 곡면/소프트 가구도 일부 일반화.
 - **기반**: [[3D-Gaussian-Splatting]] 직접 확장. **선행**: [[NeRF]]. **개념**: [[방사장-볼륨렌더링]]·[[구면조화함수-SH]]·[[SfM-COLMAP]](SfM 실패를 우회) (concepts)
+- **같은 3DGS 렌더링 응용**: [[CoherentRaster]] (라이트필드 디스플레이 실시간 합성 — 본 노트는 실내 파노라마, peer 응용)
 - **출처 메타**: [[2026-06-13-LighthouseGS-논문]]

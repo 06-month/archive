@@ -1,7 +1,3 @@
----
-created: 2026-02-06
----
-
 논문 주소: [https://arxiv.org/abs/1606.06854](https://arxiv.org/abs/1606.06854)
 
 ### 1. 배경

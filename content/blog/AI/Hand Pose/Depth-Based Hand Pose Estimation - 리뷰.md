@@ -1,7 +1,3 @@
----
-created: 2026-01-19
----
-
 논문 주소: [https://arxiv.org/abs/1504.06378](https://arxiv.org/abs/1504.06378)
 
 ### 1. 서론

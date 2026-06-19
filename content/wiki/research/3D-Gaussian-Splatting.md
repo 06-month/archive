@@ -81,5 +81,5 @@ SfM 초기화 · densification(clone/split) · **비등방 공분산** · splat 
 ## 관련
 - **개념 기반**: [[방사장-볼륨렌더링]] · [[구면조화함수-SH]] · [[SfM-COLMAP]] (concepts)
 - **선행/대조**: [[NeRF]] — 연속 MLP 표현, 본 논문이 속도로 추월한 대상
-- **후속/응용**: [[lighthouseGS]] · [[Relaxed-Rigidity-동적GS]] (3DGS 변형·확장)
+- **후속/응용**: [[lighthouseGS]] · [[Relaxed-Rigidity-동적GS]] · [[CoherentRaster]] (3DGS 변형·확장 — CoherentRaster는 라이트필드 디스플레이용 서브픽셀 래스터화)
 - **출처 메타**: [[2026-06-13-3DGS-논문]]
