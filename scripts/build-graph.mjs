@@ -208,9 +208,13 @@ async function main() {
     let paperLink = null;
     let paperId = null;
 
-    // Check if the content starts with a paper link line
+    // Check if the content starts with a paper link line.
+    // Skip leading blank lines first (e.g. the blank line left after a
+    // frontmatter block) so the paper link is still detected.
     const lines = content.split('\n');
-    const firstLine = lines[0] ? lines[0].trim() : '';
+    let firstIdx = 0;
+    while (firstIdx < lines.length && lines[firstIdx].trim() === '') firstIdx++;
+    const firstLine = lines[firstIdx] ? lines[firstIdx].trim() : '';
     const paperMatch = firstLine.match(/^(?:논문\s*주소|논문\u00A0주소|논문주소)\s*:\s*(?:\[([^\]]+)\]\(([^)]+)\)|(https?:\/\/[^\s\n]+))/i);
     if (paperMatch) {
       paperLink = paperMatch[2] || paperMatch[3] || paperMatch[1];
@@ -220,7 +224,8 @@ async function main() {
       } else {
         paperId = paperMatch[1] || 'Link';
       }
-      lines.shift();
+      // Drop the leading blank lines + the paper link line itself.
+      lines.splice(0, firstIdx + 1);
       while (lines.length > 0 && lines[0].trim() === '') {
         lines.shift();
       }

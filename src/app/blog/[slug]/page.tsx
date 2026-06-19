@@ -99,11 +99,14 @@ export default async function BlogDetail({ params }: PageProps) {
             </h1>
             
             <div className="article-author-info flex items-center gap-3 mt-2">
-              <div className="author-avatar" style={{ width: "32px", height: "32px", borderRadius: "50%", background: "linear-gradient(135deg, var(--accent) 0%, #00B1A5 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: "white" }}>
-                J
-              </div>
+              <img
+                src="/junjeon.jpg"
+                alt="Jun Jeon"
+                className="author-avatar"
+                style={{ width: "32px", height: "32px", borderRadius: "50%", objectFit: "cover" }}
+              />
               <span className="author-name" style={{ fontSize: "13.5px", fontWeight: 600 }}>
-                Reviewed by Jun Jeon
+                JunJeon
               </span>
             </div>
 
