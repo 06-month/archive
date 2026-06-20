@@ -842,6 +842,11 @@ td {
   padding-left: 20px;
 }
 
+/* Tailwind preflight resets ol markers; restore numbers for ordered lists. */
+.wiki-body ol {
+  list-style: decimal;
+}
+
 .wiki-body li {
   position: relative;
   margin-bottom: 8px;
@@ -1175,15 +1180,29 @@ footer {
   margin-bottom: 20px;
 }
 
+.article-body ol {
+  list-style: decimal;
+  padding-left: 22px;
+  margin-bottom: 20px;
+}
+
 .article-body li {
   position: relative;
-  padding-left: 20px;
   margin-bottom: 10px;
   font-size: 14.5px;
   color: var(--text-secondary);
 }
 
-.article-body li::before {
+/* Custom dot marker only for unordered lists; ordered lists keep numbers. */
+.article-body ul li {
+  padding-left: 20px;
+}
+
+.article-body ol li {
+  padding-left: 4px;
+}
+
+.article-body ul li::before {
   content: '';
   position: absolute;
   left: 6px;
