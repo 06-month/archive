@@ -56,5 +56,5 @@ tags: [research, 3D-reconstruction, pointmap, MVS, SfM, camera-pose, depth, CroC
 ## 관련
 - **계보(연구 후계)**: [[VGGT]] — pairwise+전역정렬을 단일 트랜스포머로 / [[MONST3R]] — per-timestep 포인트맵 동적 확장 / [[POMATO]] — 포인트맵 매칭 헤드로 동적 대응 / [[MoRe]] — VGGT 기반 동적 4D. 모두 DUSt3R 포인트맵 표현 계승.
 - **개념(다른 영역)**: [[ViT]] — Siamese 인코더 / [[Transformer]] — cross-attention 디코더 / [[SfM-COLMAP]] — DUSt3R가 대체하는 전통 SfM/MVS.
-- **응용 연결**: [[NeRF]]·[[3D-Gaussian-Splatting]] — 포인트맵·복원 카메라는 방사장 초기화 입력.
+- **응용 연결**: [[NeRF]]·[[3D-Gaussian-Splatting]] — 포인트맵·복원 카메라는 Radiance Field 초기화 입력.
 - **출처 메타**: [[2026-06-16-DUSt3R-논문]]

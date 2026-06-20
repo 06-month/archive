@@ -37,7 +37,7 @@ COLMAP 대신 평면 정렬된 dense 3D점 + 법선 $\mathcal{S}=(\mathcal{X}_T,
 ## 목적함수
 $$L=L_{color}+L_{geo},\quad L_{color}=\lambda_{l1}L_{l1}+\lambda_{DSSIM}L_{DSSIM}\ (0.8,0.2)$$
 $$L_{geo}=\lambda_{normal}(L_{cos}+L_{flat}+L_{smooth})+\lambda_{d2n}L_{d2n}\ (\lambda_{normal}{=}0.05,\ \lambda_{d2n}{=}0.2)$$
-색은 [[구면조화함수-SH|SH]] 계수로 표현, 렌더는 3DGS와 동일한 $\alpha$-blending([[방사장-볼륨렌더링]]).
+색은 [[구면조화함수-SH|SH]] 계수로 표현, 렌더는 3DGS와 동일한 $\alpha$-blending([[Radiance Field-Volume Rendering]]).
 
 ## 결과
 - 정량(Table 1): Real-world **PSNR 25.06**(3DGS† 20.60), Synthetic **28.86**(3DGS† 24.10) — 전 지표 SOTA. († = 공정비교 위해 baseline도 plane scaffold로 초기화.)
@@ -50,6 +50,6 @@ $$L_{geo}=\lambda_{normal}(L_{cos}+L_{flat}+L_{smooth})+\lambda_{d2n}L_{d2n}\ (\
 
 ## 한계·관계
 - 거친 단안 사전지식 의존(Table 4서 backbone 교체에 강건함은 보임). 평면 가정 — 곡면/소프트 가구도 일부 일반화.
-- **기반**: [[3D-Gaussian-Splatting]] 직접 확장. **선행**: [[NeRF]]. **개념**: [[방사장-볼륨렌더링]]·[[구면조화함수-SH]]·[[SfM-COLMAP]](SfM 실패를 우회) (concepts)
+- **기반**: [[3D-Gaussian-Splatting]] 직접 확장. **선행**: [[NeRF]]. **개념**: [[Radiance Field-Volume Rendering]]·[[구면조화함수-SH]]·[[SfM-COLMAP]](SfM 실패를 우회) (concepts)
 - **같은 3DGS 렌더링 응용**: [[CoherentRaster]] (라이트필드 디스플레이 실시간 합성 — 본 노트는 실내 파노라마, peer 응용)
 - **출처 메타**: [[2026-06-13-LighthouseGS-논문]]

@@ -40,6 +40,6 @@ tags: [research, 4DGS, dynamic-scene, novel-view-synthesis, hybrid-representatio
 - **직접 기반/대조**: 직접 4D 최적화 **4DGS**(Yang et al., 4D rotor)를 정적/동적 하이브리드로 개선(같은 코드베이스). deformation-field 계열(4DGaussians·4D-RotorGS·STG)과 함께 동적 GS 패러다임.
 - **동적 GS peer(research)**: [[Ex4DGS]] — **직접 비교 baseline**(둘 다 최적화 기반 동적 4DGS; Ex4DGS는 키프레임 보간, 3D-4DGS는 시간축 scale 하이브리드. 3D-4DGS가 더 빠름) / [[Relaxed-Rigidity-동적GS]] — 모션 정규화 plug-in 동적 GS.
 - **기반(다른 영역 연결)**: [[3D-Gaussian-Splatting]] — 정적 3DGS 원본을 시공간 하이브리드로 / [[NeRF]] — implicit 동적(D-NeRF·K-Planes·HexPlane) 대조.
-- **개념(다른 영역)**: [[방사장-볼륨렌더링]] — alpha compositing / [[구면조화함수-SH]] — 시점의존 색(변환 시 보존) / [[SfM-COLMAP]] — 초기화.
+- **개념(다른 영역)**: [[Radiance Field-Volume Rendering]] — alpha compositing / [[구면조화함수-SH]] — 시점의존 색(변환 시 보존) / [[SfM-COLMAP]] — 초기화.
 - **대조(feed-forward 4D)**: [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]] — feed-forward(초 단위) vs 3D-4DGS의 per-scene 최적화(분 단위 고화질).
 - **출처 메타**: [[2026-06-18-3D-4DGS-논문]]

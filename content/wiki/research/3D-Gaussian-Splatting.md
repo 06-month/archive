@@ -10,7 +10,7 @@ tags: [research, 3DGS, radiance-field, novel-view-synthesis, real-time-rendering
 
 > Kerbl, Kopanas, Leimkühler, Drettakis. *"3D Gaussian Splatting for Real-Time Radiance Field Rendering"*, ACM ToG 42(4) / SIGGRAPH 2023. arXiv:2308.04079.
 
-**한 줄 요약**: 장면을 수백만 개의 **비등방성(anisotropic) 3D 가우시안**으로 명시적 표현하고, **타일 기반 미분가능 래스터라이저**로 렌더링하여 — NeRF급 품질을 **실시간(≥30fps, 1080p)** 과 **수 분의 학습 시간**으로 달성한 방사장 신규시점합성(NVS) 기법. (출처: [[2026-06-13-3DGS-논문]])
+**한 줄 요약**: 장면을 수백만 개의 **비등방성(anisotropic) 3D 가우시안**으로 명시적 표현하고, **타일 기반 미분가능 래스터라이저**로 렌더링하여 — NeRF급 품질을 **실시간(≥30fps, 1080p)** 과 **수 분의 학습 시간**으로 달성한 Radiance Field 신규시점합성(NVS) 기법. (출처: [[2026-06-13-3DGS-논문]])
 
 ## 문제의식
 - NeRF 계열(특히 Mip-NeRF360)은 최고 품질이지만 학습 **최대 48시간**, 렌더링 10s/frame로 느림.
@@ -19,7 +19,7 @@ tags: [research, 3DGS, radiance-field, novel-view-synthesis, real-time-rendering
 - → 연속 표현의 최적화 친화성 + 점 기반의 빠른 래스터화를 **둘 다** 취하자.
 
 ## 3대 기여 (논문 직접 인용 ≤3줄)
-> ① anisotropic 3D Gaussian을 고품질 비정형 방사장 표현으로 도입
+> ① anisotropic 3D Gaussian을 고품질 비정형 Radiance Field 표현으로 도입
 > ② adaptive density control과 결합한 3D Gaussian 속성 최적화
 > ③ 가시성 인식·비등방 스플래팅·빠른 역전파를 지원하는 GPU 미분가능 렌더러
 
@@ -60,7 +60,7 @@ warm-up 후 **100 iter마다** 밀도 조정. 뷰공간 위치 그래디언트 $
 - 핵심 차별점: 그래디언트 받는 splat **개수 제한 없음** → 임의 깊이 복잡도 장면을 하이퍼파라미터 튜닝 없이 학습.
 
 ## 학습 디테일
-- Loss: $L=(1-\lambda)L_1+\lambda L_{\text{D-SSIM}}$, $\lambda=0.2$. (출처: [[방사장-볼륨렌더링]] 의 $\alpha$-blending image formation 공유)
+- Loss: $L=(1-\lambda)L_1+\lambda L_{\text{D-SSIM}}$, $\lambda=0.2$. (출처: [[Radiance Field-Volume Rendering]] 의 $\alpha$-blending image formation 공유)
 - 활성화: $\alpha$ 는 sigmoid$[0,1)$, 스케일은 exponential.
 - **SH warm-up**: 0차(diffuse 색)만 먼저 최적화 → 1000 iter마다 한 밴드씩 추가(총 4밴드) → 각도 정보 부족 시 base color 발산 방지.
 - 해상도 warm-up: 1/4 해상도로 시작, 250·500 iter에서 업샘플.
@@ -79,7 +79,8 @@ SfM 초기화 · densification(clone/split) · **비등방 공분산** · splat 
 - 관측 부족 영역 아티팩트, 길쭉한/얼룩진(splotchy) 가우시안, **popping**(guard band 제거 + 단순 가시성 정렬 탓), 정규화 부재, **높은 메모리**, 대형 장면은 위치 LR 감소 필요.
 
 ## 관련
-- **개념 기반**: [[방사장-볼륨렌더링]] · [[구면조화함수-SH]] · [[SfM-COLMAP]] (concepts)
+- **개념 기반**: [[Radiance Field-Volume Rendering]] · [[구면조화함수-SH]] · [[SfM-COLMAP]] (concepts)
 - **선행/대조**: [[NeRF]] — 연속 MLP 표현, 본 논문이 속도로 추월한 대상
 - **후속/응용**: [[lighthouseGS]] · [[Relaxed-Rigidity-동적GS]] · [[CoherentRaster]] (3DGS 변형·확장 — CoherentRaster는 라이트필드 디스플레이용 서브픽셀 래스터화)
 - **출처 메타**: [[2026-06-13-3DGS-논문]]
+- **블로그 리뷰**: [[3D Gaussian Splatting for Real-Time Radiance Field Rendering - 리뷰]] (한국어 정독 리뷰)

@@ -43,6 +43,6 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 ## 관련
 - **직접 기반**: [[VGGT]] — 이미지 인코더·feature backbone·depth head 초기화(motion head는 pointmap head 초기화). [[DUSt3R]] 계보의 GS·모션 확장.
 - **동적 peer**: [[4DGT]]·[[DGS-LRM]]·[[StreamSplat]] — feed-forward 4D GS 클러스터 / [[MoRe]]·[[POMATO]]·[[MONST3R]] — 동적 복원 대조.
-- **개념(다른 영역)**: [[ViT]]·[[Transformer]] — 백본·AdaLN / [[방사장-볼륨렌더링]] — 3DGS rasterization / [[위치인코딩-positional-encoding]] — Plücker·sinusoidal time.
-- **표현 기반**: [[3D-Gaussian-Splatting]] — splatter pixel의 토대 / [[NeRF]] — 동적 NVS 방사장 계보.
+- **개념(다른 영역)**: [[ViT]]·[[Transformer]] — 백본·AdaLN / [[Radiance Field-Volume Rendering]] — 3DGS rasterization / [[위치인코딩-positional-encoding]] — Plücker·sinusoidal time.
+- **표현 기반**: [[3D-Gaussian-Splatting]] — splatter pixel의 토대 / [[NeRF]] — 동적 NVS Radiance Field 계보.
 - **출처 메타**: [[2026-06-16-MoVieS-논문]]

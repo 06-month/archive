@@ -42,6 +42,6 @@ tags: [research, 4DGS, dynamic-scene, novel-view-synthesis, keyframe-interpolati
 - **직접 확장 관계**: [[Relaxed-Rigidity-동적GS]] — **같은 저자(Lee·Jeon, GIST)**. Relaxed Rigidity는 Ex4DGS(spline 기반)를 포함한 4D GS baseline에 plug-in 모션 정규화를 부착해 개선. 본 노트는 그 base model.
 - **peer(최적화 기반 동적 4DGS)**: [[3D-4DGS]] — Ex4DGS를 직접 비교 baseline으로 삼아 더 빠른 학습(12분) 주장. 키프레임 보간(Ex4DGS) vs 시간축 scale 하이브리드(3D-4DGS)의 표현 차이.
 - **기반(다른 영역 연결)**: [[3D-Gaussian-Splatting]] — 명시적 가우시안·rasterization 원본을 시간축으로 확장 / [[NeRF]] — 능가 대상인 implicit 동적 NVS(DyNeRF·HexPlane·K-Planes).
-- **개념(다른 영역)**: [[방사장-볼륨렌더링]] — α-blending(point-backtracking 가중 근거) / [[구면조화함수-SH]] — 시점의존 색 / [[SfM-COLMAP]] — 첫 프레임 point cloud 초기화.
+- **개념(다른 영역)**: [[Radiance Field-Volume Rendering]] — α-blending(point-backtracking 가중 근거) / [[구면조화함수-SH]] — 시점의존 색 / [[SfM-COLMAP]] — 첫 프레임 point cloud 초기화.
 - **대조(feed-forward 4D)**: [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]] — 이들은 학습형 feed-forward(초 단위), Ex4DGS는 **per-scene 최적화**(고화질·명시적). feed-forward 군이 비교·능가하려는 최적화 기반 4DGS 계열.
 - **출처 메타**: [[2026-06-18-Ex4DGS-논문]]

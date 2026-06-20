@@ -92,3 +92,7 @@ $$C(\mathbf{r})=\int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}(r(t), d
 
 
 
+
+---
+
+**관련 위키**: [[NeRF]](본 논문 정제 노트 — Radiance Field NVS 계보 진입점) · 후속 [[3D-Gaussian-Splatting]](실시간 대안) · 개념 [[Radiance Field-Volume Rendering]]·[[위치인코딩-positional-encoding]].

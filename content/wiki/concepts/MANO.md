@@ -36,3 +36,4 @@ $$M(\vec\beta,\vec\theta)=W\big(\bar T+B_S(\vec\beta)+B_P(\vec\theta),\ J(\vec\b
 ## 관련
 - [[SMPL]] (concepts) — 몸 버전(같은 정식화), SMPL+H로 통합
 - [[HMR]] · [[HaMeR]] · [[WiLoR]] (research) — 이미지에서 MANO/SMPL 파라미터 회귀
+- **블로그 리뷰**: [[Modeling and Capturing Hands and Bodies Together (MANO) - 리뷰]] (한국어 정독 리뷰)

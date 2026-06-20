@@ -71,7 +71,7 @@ tags: [research, 3DGS, light-field-display, rasterization, real-time-rendering, 
 
 ## 관련
 - **기반**: [[3D-Gaussian-Splatting]] — 타일 래스터화·서브픽셀 확장의 토대. 본 논문은 단일시점 3DGS의 **다중시점 확장** 문제를 푼다.
-- **개념(다른 영역)**: [[구면조화함수-SH]] — 클러스터 공유되는 시점의존 색 / [[방사장-볼륨렌더링]] — $\alpha$-blending image formation 공유 / [[SfM-COLMAP]] — 3DGS 초기화 입력.
-- **선행/대조**: [[NeRF]] — 방사장 표현 계보. 서브픽셀 선행 DirectL(Yang 2024)·MPI(Kim 2025)와 대비.
+- **개념(다른 영역)**: [[구면조화함수-SH]] — 클러스터 공유되는 시점의존 색 / [[Radiance Field-Volume Rendering]] — $\alpha$-blending image formation 공유 / [[SfM-COLMAP]] — 3DGS 초기화 입력.
+- **선행/대조**: [[NeRF]] — Radiance Field 표현 계보. 서브픽셀 선행 DirectL(Yang 2024)·MPI(Kim 2025)와 대비.
 - **동적 확장 단서**: [[Relaxed-Rigidity-동적GS]] (정적→동적 확장 방향).
 - **출처 메타**: [[2026-06-16-CoherentRaster-논문]]

@@ -326,3 +326,7 @@ Alpha Blending을 하려면 앞쪽 가우시안부터 뒤쪽 가우시안 순서
 
 
 
+
+---
+
+**관련 위키**: [[3D-Gaussian-Splatting]](본 논문 정제 노트 — 계보·후속 연구 그래프) · 선행 [[NeRF]] · 개념 [[Radiance Field-Volume Rendering]]·[[구면조화함수-SH]]·[[SfM-COLMAP]].

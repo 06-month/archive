@@ -29,7 +29,7 @@ tags:
 ### ① Ray-based Gaussian Grouping (§3.2)
 - 각 픽셀 광선이 관통하는 가우시안 중 **α-blending 기여 가중치** $w_i=T_i(1-e^{-\alpha_i})$ 가 임계 $\tau$ 초과인 것만 그룹 $\mathcal{N}_j=\{\mathcal{G}_i\mid w_i>\tau\}$ 로 선택.
 - **래스터화의 정렬·블렌딩(가시성)을 그룹핑 함수로 재활용** → 추가 연산 없음. 투과율 $T_i$ 가 가림막 뒤에서 급감 → 자연히 **비가림 표면**의 인접 가우시안만 분리(전경/배경 뒤섞임 방지). 그룹 크기 적응적.
-- KNN 거리 그룹핑 대비: 물리적으로 가깝지만 구조적으로 독립인 부분의 오결합을 회피. (기반: [[3D-Gaussian-Splatting]]의 $\alpha$-blending, [[방사장-볼륨렌더링]])
+- KNN 거리 그룹핑 대비: 물리적으로 가깝지만 구조적으로 독립인 부분의 오결합을 회피. (기반: [[3D-Gaussian-Splatting]]의 $\alpha$-blending, [[Radiance Field-Volume Rendering]])
 
 ### ② 느슨한 강체성 = 두 정규화
 - **Motion Coherence Regularization (MCR, §3.3)**: 그룹 내 변위 $\mathbf{d}_{i,t}=\mu_{i,t+\Delta t}-\mu_{i,t}$ 와 그룹 평균 $\bar{\mathbf{d}}$ 의 **방향만** 코사인 유사도로 정렬: $L_{MCR}=1-\frac{\mathbf{d}_{i,t}\cdot\bar{\mathbf{d}}}{\|\mathbf{d}_{i,t}\|\|\bar{\mathbf{d}}\|+\epsilon}$. **크기(magnitude)는 제약 안 함** → 강체 병진으로 오인하지 않고 비균일 모션 허용. ($\|\mathbf{d}\|>10^{-4}$ 인 움직이는 가우시안만.)
@@ -50,5 +50,5 @@ $$L=(1-\lambda_{dssim})L_1+\lambda_{dssim}L_{dssim}+\lambda_{MCR}L_{MCR}+\lambda
 ## 관련
 - **기반/확장**: [[3D-Gaussian-Splatting]](정적 원본)을 **동적·다중 baseline**으로 확장. cf. [[lighthouseGS]](정적 실내 응용)
 - **데이터·계보**: [[NeRF]] 파생 동적 벤치마크(D-NeRF/HyperNeRF/NeRF-DS)
-- **개념**: [[방사장-볼륨렌더링]](α-blending 가중치가 그룹핑 근거) · [[SfM-COLMAP]](실제 데이터 포즈) (concepts)
+- **개념**: [[Radiance Field-Volume Rendering]](α-blending 가중치가 그룹핑 근거) · [[SfM-COLMAP]](실제 데이터 포즈) (concepts)
 - **출처 메타**: [[2026-06-13-RelaxedRigidity-논문]]

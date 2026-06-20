@@ -38,7 +38,7 @@ tags: [research, 3D-reconstruction, gaussian-splatting, feed-forward, LRM, spars
 
 ## 관련
 - **직접 후계(연구)**: [[4DGT]]·[[DGS-LRM]] — GS-LRM의 정적 pixel-aligned GS를 **동적·deformable·4D** 로 확장(둘 다 본 노트를 기반으로 인용). [[MoVieS]] — GS-LRM 재구현을 정적 baseline으로 사용.
-- **계보 형제**: LRM·Instant3D(triplane NeRF LRM, 본 논문이 GS로 대체)·pixelSplat·LGM(concurrent pixel-aligned GS). [[VGGT]]·[[DUSt3R]] — feed-forward 복원의 다른 분기(pointmap·카메라까지 예측).
-- **표현 기반(다른 영역 연결)**: [[3D-Gaussian-Splatting]] — 예측 표현 / [[NeRF]] — triplane-NeRF LRM 대조 / [[방사장-볼륨렌더링]] — splatting image formation.
+- **계보 형제**: LRM·Instant3D(triplane NeRF LRM, 본 논문이 GS로 대체)·pixelSplat·LGM(concurrent pixel-aligned GS). [[MVSplat]] — 같은 sparse-view feed-forward GS·동일 RealEstate10K 벤치마크지만 **cost volume 매칭**으로 차별(본 논문은 self-attention 회귀). [[VGGT]]·[[DUSt3R]] — feed-forward 복원의 다른 분기(pointmap·카메라까지 예측).
+- **표현 기반(다른 영역 연결)**: [[3D-Gaussian-Splatting]] — 예측 표현 / [[NeRF]] — triplane-NeRF LRM 대조 / [[Radiance Field-Volume Rendering]] — splatting image formation.
 - **개념(다른 영역)**: [[ViT]]·[[Transformer]] — patchify·self-attention 백본 / [[위치인코딩-positional-encoding]] — Plücker ray spatial embedding / [[SfM-COLMAP]] — known pose 입력 / [[구면조화함수-SH]] — zero-order SH 색.
 - **출처 메타**: [[2026-06-17-GS-LRM-논문]]

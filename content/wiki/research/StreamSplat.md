@@ -44,5 +44,5 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 ## 관련
 - **표현 기반**: [[3D-Gaussian-Splatting]] — 동적·온라인 3DGS / [[NeRF]] — 동적 NVS 계보(Omnimotion·RoDynRF 대조).
 - **동적 peer**: [[4DGT]]·[[DGS-LRM]]·[[MoVieS]] — feed-forward 4D GS 클러스터(StreamSplat은 **온라인·uncalibrated** 차별) / [[MONST3R]] — scene-coordinate 동적 복원 직접 비교 / [[MoRe]] — 스트리밍 4D 대조(grouped causal vs bidirectional deformation).
-- **개념(다른 영역)**: [[Transformer]] — encoder/decoder·[[DINO|DINOv2]] 조건 / [[방사장-볼륨렌더링]] — 3DGS α-blending image formation / [[ViT]] — patch encoder.
+- **개념(다른 영역)**: [[Transformer]] — encoder/decoder·[[DINO|DINOv2]] 조건 / [[Radiance Field-Volume Rendering]] — 3DGS α-blending image formation / [[ViT]] — patch encoder.
 - **출처 메타**: [[2026-06-16-StreamSplat-논문]]

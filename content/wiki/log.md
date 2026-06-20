@@ -21,7 +21,7 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 
 ## [2026-06-13] ingest | 3D Gaussian Splatting (14p 논문)
 - raw/3dgs.md → [통과] → research (research 영역 첫 자료)
-- 생성: research [[3D-Gaussian-Splatting]] + source [[2026-06-13-3DGS-논문]], concepts [[방사장-볼륨렌더링]]·[[구면조화함수-SH]]
+- 생성: research [[3D-Gaussian-Splatting]] + source [[2026-06-13-3DGS-논문]], concepts [[Radiance Field-Volume Rendering]]·[[구면조화함수-SH]]
 - index 갱신(research·concepts). 압축 2357줄→4노트(각 ≤200줄), cross-link 타영역(concepts↔research) ≥1 충족.
 - 미해결 forward link: [[NeRF]]·[[lighthouseGS]]·[[Relaxed-Rigidity-동적GS]] (raw 대기 중 — 다음 ingest에서 해소).
 
@@ -39,7 +39,7 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - raw/Relaxed Rigidity…GS.md → [통과] → research
 - 생성: research [[Relaxed-Rigidity-동적GS]] + source [[2026-06-13-RelaxedRigidity-논문]]
 - [[Relaxed-Rigidity-동적GS]] forward link 해소. 압축 2977줄→2노트.
-- research 일괄 ingest 완료: 4논문(NeRF·3DGS·lighthouseGS·동적GS) + concepts 3(방사장·SH·위치인코딩). 미처리 raw 0(Zotero 2건 제외).
+- research 일괄 ingest 완료: 4논문(NeRF·3DGS·lighthouseGS·동적GS) + concepts 3(Radiance Field·SH·위치인코딩). 미처리 raw 0(Zotero 2건 제외).
 
 ## [2026-06-13] lint | all
 - 노트 24개. 모순 0, 압축위반 0(전부 ≤200줄·cross-link≥3), 고립 0(raw-wiki-규칙=1은 헌법, CLAUDE.md서 참조).
@@ -74,7 +74,7 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 ## [2026-06-16] ingest | CoherentRaster (LFD용 3DGS, SIGGRAPH'26)
 - 멱등성 가드: 신규 raw(`raw/CoherentRaster.md`, 14p) — 부록 포함 전체 통독 후 ingest. [통과]/research.
 - **research 신규**: [[CoherentRaster]] — 라이트필드 디스플레이 서브픽셀 3DGS. ① Cross-view Coherent Attribute Reuse(클러스터별 공분산·깊이·SH 재사용) ② View-coherent Remapping(시점 정렬 룩업 Ψ로 warp coalescing 복원). full-frame 3DGS 대비 7.6×, 4K 71뷰 23 FPS. + source 노트 [[2026-06-16-CoherentRaster-논문]].
-- cross-link: [[3D-Gaussian-Splatting]](기반)·[[구면조화함수-SH]]·[[방사장-볼륨렌더링]]·[[SfM-COLMAP]](concepts)·[[NeRF]]·[[Relaxed-Rigidity-동적GS]]. index 방사장 계보에 응용으로 편입.
+- cross-link: [[3D-Gaussian-Splatting]](기반)·[[구면조화함수-SH]]·[[Radiance Field-Volume Rendering]]·[[SfM-COLMAP]](concepts)·[[NeRF]]·[[Relaxed-Rigidity-동적GS]]. index Radiance Field 계보에 응용으로 편입.
 
 ## [2026-06-16] ingest | VGGT + MonST3R (DUSt3R 계보 2논문)
 - 멱등성 가드: 신규 raw 2건(`raw/VGGT.md` 20p·`raw/MONST3R.md` 24p) — 부록 포함 전체 통독 후 ingest. 둘 다 [통과]/research.
@@ -92,8 +92,8 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 ## [2026-06-16] ingest | 4DGT + DGS-LRM + MoVieS + StreamSplat (feed-forward 4D GS 클러스터)
 - 멱등성 가드: 신규 raw 4건(`raw/4DGT.md` 20p·`raw/DGS-LRM.md` 15p·`raw/MoVieS.md` 18p·`raw/StreamSplat.md` 24p) — 부록 포함 전체 통독 후 ingest. 모두 [통과]/research. (4DGT·DGS-LRM·MoVieS는 직전 turn에 삭제됐다 재생성된 raw, sources 미등재 → 처음 ingest)
 - **research 신규 4** (feed-forward 동적/4D Gaussian 복원): [[4DGT]](Meta, NeurIPS'25) — 4DGS(2DGS+life-span/velocity)로 정적·동적 통일, opacity-histogram density control + multi-level spatiotemporal attention, 실세계 posed 단안 학습 / [[DGS-LRM]](Meta, 2025) — per-pixel deformable 3DGS + 3D scene flow, temporal tokenization, Kubric 멀티뷰+GT flow 학습, flow chaining 3D tracking / [[MoVieS]](PKU·ByteDance·CMU, 2026) — VGGT 백본 + dynamic splatter pixel(정적GS+deformation), depth/splatter/motion 3헤드(AdaLN), NVS·깊이·tracking 통합 1초+zero-shot scene flow/seg / [[StreamSplat]](UBC·Vector·NTU, ICLR'26) — uncalibrated 스트림 온라인 동적 3DGS, orthographic canonical + probabilistic position sampling + bidirectional deformation + adaptive Gaussian fusion(opacity life-cycle), 1200×. + source 4.
-- cross-link: 4편 상호(feed-forward 4D GS 클러스터) + [[3D-Gaussian-Splatting]]·[[NeRF]](표현/방사장) + [[VGGT]]·[[DUSt3R]]·[[MONST3R]]·[[MoRe]]·[[POMATO]](DUSt3R 계보 동적) + [[Relaxed-Rigidity-동적GS]](동적GS) + [[ViT]]·[[Transformer]]·[[방사장-볼륨렌더링]]·[[위치인코딩-positional-encoding]](concepts). MoVieS는 [[VGGT]] 백본 직접 차용.
-- index: research에 신규 그룹 "Feed-forward 4D/동적 GS 복원(방사장×DUSt3R 교차)" 추가. 미해결 forward link [[GS-LRM]] — 4DGT·DGS-LRM 공통 정적 LRM 기반(raw 미수집, lint 갭 예상). 전부 통독·압축(각 ≤200줄).
+- cross-link: 4편 상호(feed-forward 4D GS 클러스터) + [[3D-Gaussian-Splatting]]·[[NeRF]](표현/Radiance Field) + [[VGGT]]·[[DUSt3R]]·[[MONST3R]]·[[MoRe]]·[[POMATO]](DUSt3R 계보 동적) + [[Relaxed-Rigidity-동적GS]](동적GS) + [[ViT]]·[[Transformer]]·[[Radiance Field-Volume Rendering]]·[[위치인코딩-positional-encoding]](concepts). MoVieS는 [[VGGT]] 백본 직접 차용.
+- index: research에 신규 그룹 "Feed-forward 4D/동적 GS 복원(Radiance Field×DUSt3R 교차)" 추가. 미해결 forward link [[GS-LRM]] — 4DGT·DGS-LRM 공통 정적 LRM 기반(raw 미수집, lint 갭 예상). 전부 통독·압축(각 ≤200줄).
 
 ## [2026-06-17] 누락보고 | GS-LRM raw 부재 (DGS-LRM과 혼동 방지)
 - 사용자 `/ingest GS-LRM.md` 요청했으나 `raw/GS-LRM.md` 미존재. 유사명 `raw/DGS-LRM.md`(이미 박제, Deformable)와 **별개 논문**(정적 GS-LRM, Zhang et al. ECCV'24)임을 보고하고 임의 대체 박제 안 함. 변환 후 재요청 안내.
@@ -102,7 +102,7 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - 멱등성 가드: 신규 raw(`raw/GS-LRM.md` 22p, 13:48 생성) — sources에 `GS-LRM.md` 미등재(DGS-LRM.md와 구별) → 처음 ingest. 부록(pseudo code·Gaussian parameterization) 포함 전체 통독. [통과]/research.
 - **research 신규**: [[GS-LRM]](Adobe·Cornell, ECCV'24) — 2~4 posed sparse 이미지 → **per-pixel 3D Gaussian** 을 단순 트랜스포머(patchify→self-attention→linear decode)로 0.23s 예측. Plücker ray 채널결합 pose conditioning, ray distance로 가우시안 중심 unproject. 객체(Objaverse)·장면(RealEstate10K) 통합, +4dB(Triplane-LRM)·+8dB(LGM)·+2.2dB(pixelSplat). + source [[2026-06-17-GS-LRM-논문]].
 - **forward link 해소**: 직전 turn [[4DGT]]·[[DGS-LRM]]이 가리키던 미해결 [[GS-LRM]] 링크가 뿌리 노트 생성으로 연결됨.
-- cross-link: [[4DGT]]·[[DGS-LRM]]·[[MoVieS]](후계)·[[StreamSplat]] + [[3D-Gaussian-Splatting]]·[[NeRF]](표현/대조) + [[VGGT]]·[[DUSt3R]](feed-forward 다른 분기) + [[ViT]]·[[Transformer]]·[[위치인코딩-positional-encoding]]·[[SfM-COLMAP]]·[[구면조화함수-SH]]·[[방사장-볼륨렌더링]](concepts).
+- cross-link: [[4DGT]]·[[DGS-LRM]]·[[MoVieS]](후계)·[[StreamSplat]] + [[3D-Gaussian-Splatting]]·[[NeRF]](표현/대조) + [[VGGT]]·[[DUSt3R]](feed-forward 다른 분기) + [[ViT]]·[[Transformer]]·[[위치인코딩-positional-encoding]]·[[SfM-COLMAP]]·[[구면조화함수-SH]]·[[Radiance Field-Volume Rendering]](concepts).
 - index: 그룹명을 "Feed-forward GS 복원(LRM 계보: 정적→4D/동적)"으로 재편, GS-LRM을 뿌리로 명시. 압축(≤200줄).
 
 ## [2026-06-17] lint | all
@@ -133,18 +133,18 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 ## [2026-06-18] ingest | Ex4DGS (완전 명시적 동적 4D GS, NeurIPS'24)
 - 멱등성 가드: 신규 raw(`raw/Ex4DGS.md` 19p) — sources 미등재 → 처음 ingest. 부록(ablation·occlusion·장기영상·per-scene 분해표) 포함 전체 통독. [통과]/research.
 - **research 신규**: [[Ex4DGS]](Lee et al., GIST, NeurIPS'24) — 동적 가우시안을 sparse 키프레임에만 저장+보간(**CHip 위치·Slerp 회전·GMM opacity**), 마스크 없이 정적/동적 자동 분리(이미지공간 이동량 상위 2%), progressive training + point-backtracking pruning. 희소 point cloud(첫 프레임 COLMAP) 강건, 62fps(2080Ti)/120fps(4090), 115MB. + source [[2026-06-18-Ex4DGS-논문]].
-- **영역**: 방사장 NVS(§B② 3D Vision) — 최적화 기반 동적 4DGS, [[Relaxed-Rigidity-동적GS]]와 같은 그룹.
+- **영역**: Radiance Field NVS(§B② 3D Vision) — 최적화 기반 동적 4DGS, [[Relaxed-Rigidity-동적GS]]와 같은 그룹.
 - **핵심 연결**: [[Relaxed-Rigidity-동적GS]]와 **동일 저자(GIST Lee·Jeon)** — RR이 Ex4DGS(spline base)에 plug-in 정규화 부착. RR 노트의 평문 "Ex4DGS"를 [[Ex4DGS]] 링크로 승격(양방향 연결).
-- cross-link: [[3D-Gaussian-Splatting]](기반)·[[NeRF]](implicit 동적 대조)·[[Relaxed-Rigidity-동적GS]](확장)·[[방사장-볼륨렌더링]]·[[구면조화함수-SH]]·[[SfM-COLMAP]](concepts) + feed-forward 4D 대조 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]](최적화 vs feed-forward).
-- index: 방사장 NVS 동적에 Ex4DGS 편입. 전부 통독·압축(≤200줄).
+- cross-link: [[3D-Gaussian-Splatting]](기반)·[[NeRF]](implicit 동적 대조)·[[Relaxed-Rigidity-동적GS]](확장)·[[Radiance Field-Volume Rendering]]·[[구면조화함수-SH]]·[[SfM-COLMAP]](concepts) + feed-forward 4D 대조 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]](최적화 vs feed-forward).
+- index: Radiance Field NVS 동적에 Ex4DGS 편입. 전부 통독·압축(≤200줄).
 
 ## [2026-06-18] ingest | 3D-4DGS (하이브리드 3D-4D GS, 2025)
 - 멱등성 가드: 신규 raw(`raw/3D-4DGS.md` 16p) — sources 미등재 → 처음 ingest. 부록(CUDA rasterization Alg.1·per-scene 곡선) 포함 전체 통독. [통과]/research.
 - **research 신규**: [[3D-4DGS]](Oh et al., SKKU·Yonsei, arXiv'25) — 정적=3D·동적=4D 가우시안 **하이브리드**. 전부 4D로 시작 → **시간축 scale > τ(=정적) 가우시안을 매 densification마다 4D→3D 변환**(μ_t 폐기·R4D→q3D). 정적 3D 매 iter 갱신 + opacity reset 제거로 4DGS 5.5h → **12분**(3~5× 가속), 208 FPS, N3V 32.25dB. 통합 CUDA rasterization(4D를 시각 t에서 slice). + source [[2026-06-18-3D-4DGS-논문]].
-- **영역**: 방사장 NVS(§B② 3D Vision) — 최적화 기반 동적 4DGS, [[Ex4DGS]]·[[Relaxed-Rigidity-동적GS]]와 같은 그룹.
+- **영역**: Radiance Field NVS(§B② 3D Vision) — 최적화 기반 동적 4DGS, [[Ex4DGS]]·[[Relaxed-Rigidity-동적GS]]와 같은 그룹.
 - **핵심 연결**: [[Ex4DGS]]를 직접 비교 baseline으로 사용(둘 다 최적화 기반 동적 4DGS) — Ex4DGS 노트에 [[3D-4DGS]] peer 역링크 추가(양방향).
-- cross-link: [[3D-Gaussian-Splatting]]·[[NeRF]]·[[Ex4DGS]]·[[Relaxed-Rigidity-동적GS]] + concepts [[방사장-볼륨렌더링]]·[[구면조화함수-SH]]·[[SfM-COLMAP]] + feed-forward 4D 대조 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]].
-- index: 방사장 NVS 동적에 3D-4DGS 편입(`동적 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]`). 전부 통독·압축(≤200줄).
+- cross-link: [[3D-Gaussian-Splatting]]·[[NeRF]]·[[Ex4DGS]]·[[Relaxed-Rigidity-동적GS]] + concepts [[Radiance Field-Volume Rendering]]·[[구면조화함수-SH]]·[[SfM-COLMAP]] + feed-forward 4D 대조 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]].
+- index: Radiance Field NVS 동적에 3D-4DGS 편입(`동적 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]`). 전부 통독·압축(≤200줄).
 - 후속 후보: 기반 **4DGS(Yang et al., 4D rotor)**·**4DGaussians(deformation)** — Ex4DGS·3D-4DGS·4DGT·DGS-LRM 등 다수 노트서 평문 다출현, 동적 GS 뿌리로 ingest 가치(현재 raw 미수집이라 평문 유지).
 
 ## [2026-06-19] lint | all 영역 건강 진단
@@ -157,3 +157,32 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 ## [2026-06-19] fix | CoherentRaster 고립 해소 (lint 후속)
 - 직전 lint 권고①. peer 역링크 0 → 2개 추가: [[3D-Gaussian-Splatting]] 후속/응용 줄 + [[lighthouseGS]] 관계 줄에 [[CoherentRaster]] 역링크(양방향화). 콘텐츠 backlink 0→2.
 - 데이터 갭(4DGS 등)은 raw 미수집이라 미조치(평문 유지) — 자동 박제 안 함(§A Q0).
+
+## [2026-06-20] ingest | 동적 GS 뿌리 4 + 정적 구조/feed-forward 2 (신규 raw 6건)
+- 멱등성 가드: 신규 raw 6건(`raw/4DGS.md` 15p·`Deformable3DGS.md` 15p·`native4DGS.md` 26p·`SpacetimeGS.md` 27p·`Scaffold-GS.md` 14p·`MVSplat.md` 23p) — sources 미등재 → 처음 ingest. 부록·참조 포함 전부 전체 통독. 모두 [통과]/research. lint(2026-06-19) 데이터 갭(4DGS·deformation·pixelSplat) 직접 해소.
+- **동적 GS 모션 뿌리 4**: [[4DGS]](Wu, canonical+HexPlane deformation) · [[Deformable3DGS]](Yang, 순수 MLP 변형장+AST) · [[native4DGS]](Yang Fudan, native 4D primitive+4DSH) · [[SpacetimeGS]](Li OPPO, 시간opacity+다항식모션+feature splatting). 기존 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]가 인용하던 평문 baseline을 실노트로 승격.
+- **⚠️ 동명 disambiguation**: "4DGS"가 둘 — [[4DGS]](Wu et al., CVPR'24, deformation)와 [[native4DGS]](Yang et al., ICLR'24 확장, native 4D primitive)는 별개 논문. 양 노트에 `[!warning]` 콜아웃 + 상호 인용 명시. [[4DGS]] 문제의식 줄에 native4DGS 역링크 추가.
+- **정적 구조 1**: [[Scaffold-GS]](Lu, anchor+neural Gaussian view-adaptive, 저장 4~10×↓) — Radiance Field NVS에 편입, 압축/anchor 계보로 [[native4DGS]] 4DGSC와 연결. **feed-forward 1**: [[MVSplat]](Chen, cost volume sparse-view→GS, pixelSplat 10×↓) — feed-forward GS 섹션 편입, [[GS-LRM]]·[[DUSt3R]]/[[VGGT]] 대조.
+- index: Radiance Field NVS에 Scaffold-GS + 신규 "동적 GS 모션 표현 뿌리(최적화 기반 4D)" 하위섹션 + feed-forward GS에 MVSplat 추가. sources 줄 6건 등재. 전부 ≤200줄 압축.
+- 잔여: pixelSplat·Splatter Image·4D-Rotor-GS 등 평문 다출현 — raw 미수집이라 보류(다음 ingest 후보).
+
+## [2026-06-20] lint | all 영역 건강 진단 (6건 ingest 후)
+- 진단만. 콘텐츠 노트 53 + sources 30 스캔.
+- **모순 0 / 미처리 raw 0 / 압축 위반 0 / 오링크 0**(최대 콘텐츠 85줄, 신규 6노트 ≤50줄).
+- **고립 1**: [[MVSplat]] — index·log만 링크, peer 역링크 0(out 풍부하나 backlink 콘텐츠 0). 직전 ingest 신규.
+- **데이터 갭(raw 미수집)**: 최우선 **pixelSplat**(6노트, [[MVSplat]] 직접 baseline). 그 외 **HexPlane**(8)·**K-Planes**(6, NeRF voxel분해 → concepts 후보)·4DGaussians(4)·Dynamic3DGS/DynMF(4)·SpatialTracker(4)·4D-Rotor-GS(3)·CUT3R(2)·Splatter Image(1).
+- 모호 사례 로그 비어있음.
+
+## [2026-06-20] fix | MVSplat 고립 해소 (lint 후속)
+- 직전 lint 권고①. peer 역링크 0 → 2개 추가: [[GS-LRM]] 계보형제 줄 + [[DGS-LRM]] 계보 줄에 [[MVSplat]] 역링크(같은 feed-forward GS, cost volume vs self-attention 대조 명시). 콘텐츠 backlink 0→2.
+- 데이터 갭(pixelSplat·HexPlane·K-Planes 등)은 raw 미수집이라 미조치(평문 유지, §A Q0).
+
+## [2026-06-20] 연결 | blog 리뷰 ↔ wiki 교차링크 (본문 미수정)
+- 사용자 요청: blog 게시글을 위키와 연결만(ingest 아님). 6개 블로그 글 끝에 "관련 위키" 푸터 추가(blog→wiki), 본문 무수정.
+- **blog→wiki**: NeRF리뷰→[[NeRF]] / 3DGS리뷰→[[3D-Gaussian-Splatting]] / MANO리뷰→[[MANO]] / 손포즈 3편(Depth-Based·Model-based·REN)→손복원 클러스터([[MANO]]·[[HaMeR]]·[[Hamba]]·[[WiLoR]]·[[HMR]]·[[SMPL]]) 선행으로 연결.
+- **wiki→blog**(1:1 대응 3개): [[NeRF]]·[[3D-Gaussian-Splatting]]·[[MANO]] 관련 섹션에 "블로그 리뷰" 역링크 추가. 양방향 오링크 0.
+
+## [2026-06-20] lint | all 영역 건강 진단 (방사장→Radiance Field 치환 후)
+- 진단만. **모순 0 / 미처리 raw 0 / 압축 위반 0 / 고립 0 / 미해소 위키링크 0**(전 vault — 노트명 변경 `방사장-볼륨렌더링`→`Radiance Field-Volume Rendering` 27개 링크 정합 확인).
+- 잔여 '방사장'·'볼륨렌더링' 0(raw 제외). MVSplat 고립도 직전 fix로 해소 유지.
+- **데이터 갭(raw 미수집, 변동 없음)**: pixelSplat·HexPlane·K-Planes·Dynamic3DGS/DynMF·SpatialTracker·4D-Rotor·CUT3R·Splatter Image. 모호 로그 비어있음.

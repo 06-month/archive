@@ -49,5 +49,5 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 - **표현 기반**: [[3D-Gaussian-Splatting]] — 2DGS+시간속성으로 4D 확장 / [[NeRF]] — 4D NeRF(느림) 대비 GS의 빠른 렌더.
 - **계보**: [[GS-LRM]](정적 LRM 백본 차용)·L4GM(합성 4D LRM)의 실세계 단안 후계. [[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]] 와 같은 **feed-forward 4D GS** 클러스터.
 - **동적 peer**: [[MONST3R]]·[[MoRe]]·[[Relaxed-Rigidity-동적GS]] — 동적 장면 복원 대조(4DGT는 GS·life-span, MonST3R는 pointmap).
-- **개념(다른 영역)**: [[ViT]]·[[Transformer]] — 백본 / [[방사장-볼륨렌더링]] — GS rasterization image formation / [[위치인코딩-positional-encoding]] — Plücker+timestamp 4D 인코딩.
+- **개념(다른 영역)**: [[ViT]]·[[Transformer]] — 백본 / [[Radiance Field-Volume Rendering]] — GS rasterization image formation / [[위치인코딩-positional-encoding]] — Plücker+timestamp 4D 인코딩.
 - **출처 메타**: [[2026-06-16-4DGT-논문]]

@@ -48,5 +48,5 @@ tags: [research, dynamic-scene, point-tracking, pointmap-matching, video-depth, 
 - **직접 기반(research)**: [[DUSt3R]] — 포인트맵·2-디코더 구조·confidence 손실 계승 / [[MONST3R]] — **초기화 체크포인트**이자 직접 비교 대상(optical flow 정적마스크를 pointmap matching으로 대체).
 - **동적 peer**: [[MoRe]] — 같은 동적 4D 복원이나 MoRe는 VGGT 기반 attention-forcing, POMATO는 DUSt3R 기반 매칭 헤드. / [[VGGT]] — 정적 다중뷰 계보 형제.
 - **개념(다른 영역)**: [[ViT]] — weight-sharing 인코더 / [[SfM-COLMAP]] — 대체하는 전통 매칭+삼각측량.
-- **응용 연결**: [[NeRF]]·[[3D-Gaussian-Splatting]] — 동적 장면 복원의 방사장 배경(Shape of Motion 등 4D GS와 대비).
+- **응용 연결**: [[NeRF]]·[[3D-Gaussian-Splatting]] — 동적 장면 복원의 Radiance Field 배경(Shape of Motion 등 4D GS와 대비).
 - **출처 메타**: [[2026-06-16-POMATO-논문]]

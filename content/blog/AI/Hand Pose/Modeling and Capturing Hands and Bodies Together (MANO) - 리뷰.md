@@ -193,3 +193,6 @@ E=Edata+λcouplingEcoupling+λshapeEshape+λposeEpose+λrEr
 본 논문은 손 포착을 단순한 관절 회귀 문제가 아닌, 통계적 변형 모델, 저차원 포즈 공간, 전신과의 결합 문제로 재정의한 연구이다.
 
 MANO와 SMPL+H는 이후 손 포즈 추정 및 전신-손 통합 포착 연구에서 사실상의 표준 모델로 자리잡게 된다.
+---
+
+**관련 위키**: [[MANO]](본 논문 정제 노트) · [[SMPL]](전신 모델, SMPL+H의 토대) · MANO를 출력으로 쓰는 현대 손 복원 [[HaMeR]]·[[Hamba]]·[[WiLoR]].

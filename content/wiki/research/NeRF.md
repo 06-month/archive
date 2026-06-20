@@ -11,17 +11,17 @@ tags: [research, NeRF, radiance-field, novel-view-synthesis, volume-rendering, M
 
 > Mildenhall, Srinivasan, Tancik, Barron, Ramamoorthi, Ng. *"NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis"*, ECCV 2020. arXiv:2003.08934.
 
-**한 줄 요약**: 장면을 **연속 5D 함수**(위치+방향 → 색+밀도)로 보고, 이를 작은 **MLP** 하나에 통째로 인코딩한 뒤 **볼륨 렌더링**으로 미분가능하게 렌더링해 — RGB 사진 + 카메라 포즈만으로 사실적 신규시점합성(NVS)을 달성한 방사장의 출발점. (출처: [[2026-06-13-NeRF-논문]])
+**한 줄 요약**: 장면을 **연속 5D 함수**(위치+방향 → 색+밀도)로 보고, 이를 작은 **MLP** 하나에 통째로 인코딩한 뒤 **Volume Rendering**으로 미분가능하게 렌더링해 — RGB 사진 + 카메라 포즈만으로 사실적 신규시점합성(NVS)을 달성한 Radiance Field의 출발점. (출처: [[2026-06-13-NeRF-논문]])
 
-## 핵심 표현: 5D 신경 방사장
+## 핵심 표현: 5D 신경 Radiance Field
 - 함수 $F_\Theta:(\mathbf{x},\mathbf{d})\to(\mathbf{c},\sigma)$. 입력 = 3D 위치 $\mathbf{x}=(x,y,z)$ + 2D 시선 방향 $\mathbf{d}=(\theta,\phi)$, 출력 = RGB 색 $\mathbf{c}$ + 볼륨 밀도 $\sigma$.
 - **멀티뷰 일관성 강제**: $\sigma$ 는 **위치 $\mathbf{x}$ 에만** 의존(기하는 시점 불변), $\mathbf{c}$ 는 위치+방향에 의존(반사 등 시점의존 효과).
 - **MLP 구조**: $\gamma(\mathbf{x})$ → 8×FC(256, ReLU, 5층에 skip-connection) → $\sigma$ + 256 feature → $\gamma(\mathbf{d})$ 와 concat → 1×FC(128) → RGB.
 
-## 볼륨 렌더링 (미분가능)
+## Volume Rendering (미분가능)
 광선 $\mathbf{r}(t)=\mathbf{o}+t\mathbf{d}$ 의 색을 적분으로:
 $$C(\mathbf{r})=\int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}\,dt,\quad T(t)=\exp\!\Big(-\!\int_{t_n}^{t}\!\sigma\,ds\Big)$$
-- **이산화**(구적법, Eq.3): $\hat C=\sum_i T_i(1-e^{-\sigma_i\delta_i})\mathbf{c}_i$ → 전통적 **alpha compositing** $\alpha_i=1-e^{-\sigma_i\delta_i}$ 과 동일. (공통식: [[방사장-볼륨렌더링]])
+- **이산화**(구적법, Eq.3): $\hat C=\sum_i T_i(1-e^{-\sigma_i\delta_i})\mathbf{c}_i$ → 전통적 **alpha compositing** $\alpha_i=1-e^{-\sigma_i\delta_i}$ 과 동일. (공통식: [[Radiance Field-Volume Rendering]])
 - **Stratified sampling**(Eq.2): $[t_n,t_f]$ 를 $N$ 구간으로 나눠 각 구간서 균등 1샘플 → 이산 샘플이지만 학습 전체로는 MLP가 **연속 위치**에서 평가됨.
 
 ## 두 가지 핵심 개선 (이게 없으면 SOTA 안 됨)
@@ -45,6 +45,7 @@ $$C(\mathbf{r})=\int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}\,dt,\qu
 위치 인코딩(PE)·시점의존(VD)이 가장 큰 기여, 그 다음 계층 샘플링(H). $L$ 은 10이 적정($2^L$ 이 입력 최대 주파수 초과하면 이득 포화).
 
 ## 관련
-- **개념 기반**: [[방사장-볼륨렌더링]] · [[위치인코딩-positional-encoding]] · [[SfM-COLMAP]] (concepts)
+- **개념 기반**: [[Radiance Field-Volume Rendering]] · [[위치인코딩-positional-encoding]] · [[SfM-COLMAP]] (concepts)
 - **후속/대조**: [[3D-Gaussian-Splatting]] — 같은 image formation, MLP 대신 명시적 가우시안으로 실시간화. [[lighthouseGS]]
 - **출처 메타**: [[2026-06-13-NeRF-논문]]
+- **블로그 리뷰**: [[NeRF - Representing Scenes as Neural Radiance Fields for View Synthesis - 리뷰]] (한국어 정독 리뷰)

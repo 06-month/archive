@@ -24,5 +24,5 @@ $$\gamma(p)=\big(\sin(2^0\pi p),\cos(2^0\pi p),\dots,\sin(2^{L-1}\pi p),\cos(2^{
 - InstantNGP의 해시 격자 인코딩 등 *학습형 인코딩*으로 발전.
 
 ## 관련
-- [[NeRF]] · [[3D-Gaussian-Splatting]] (research) — 좌표 기반 방사장 표현
-- [[방사장-볼륨렌더링]] — 인코딩된 좌표가 MLP/표현의 입력
+- [[NeRF]] · [[3D-Gaussian-Splatting]] (research) — 좌표 기반 Radiance Field 표현
+- [[Radiance Field-Volume Rendering]] — 인코딩된 좌표가 MLP/표현의 입력

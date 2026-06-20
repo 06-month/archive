@@ -39,8 +39,8 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 - 시간적으로 너무 먼 이산 프레임 처리 불가(연속 영상 가정). 극단적 큰 모션은 합성 데이터 모션 분포 한계로 어려움. 입력 baseline·시점 이탈 시 아티팩트.
 
 ## 관련
-- **표현 기반**: [[3D-Gaussian-Splatting]] — deformable 확장 / [[NeRF]] — 방사장 동적 NVS 계보.
-- **계보**: [[GS-LRM]](정적 pixel-aligned GS LRM)의 **deformable·scene flow** 후계. [[4DGT]]·[[MoVieS]]·[[StreamSplat]] 와 같은 feed-forward 4D GS 클러스터.
+- **표현 기반**: [[3D-Gaussian-Splatting]] — deformable 확장 / [[NeRF]] — Radiance Field 동적 NVS 계보.
+- **계보**: [[GS-LRM]](정적 pixel-aligned GS LRM)의 **deformable·scene flow** 후계. 정적 feed-forward 형제 [[MVSplat]](cost volume sparse-view GS)를 동적으로 확장한 위치. [[4DGT]]·[[MoVieS]]·[[StreamSplat]] 와 같은 feed-forward 4D GS 클러스터.
 - **tracking 대조**: SpatialTracker(단안 3D scene flow)와 직접 비교. [[POMATO]] — pointmap matching 기반 3D tracking 대조(GS vs pointmap).
-- **개념(다른 영역)**: [[Transformer]] — temporal tokenization 백본 / [[방사장-볼륨렌더링]] — GS rasterization / [[위치인코딩-positional-encoding]] — Plücker+timestamp.
+- **개념(다른 영역)**: [[Transformer]] — temporal tokenization 백본 / [[Radiance Field-Volume Rendering]] — GS rasterization / [[위치인코딩-positional-encoding]] — Plücker+timestamp.
 - **출처 메타**: [[2026-06-16-DGS-LRM-논문]]
