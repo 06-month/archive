@@ -1234,6 +1234,10 @@ footer {
   background: #A66BFF;
 }
 
+.article-body ul ul ul ul > li::before {
+  background: #22B8CF;
+}
+
 /* Loose lists wrap each item's text in <p>; keep that text matched to the list
    item (size/color/spacing) instead of inheriting the larger body paragraph,
    which otherwise misaligns the bullet and balloons the line spacing. */
@@ -1253,7 +1257,16 @@ footer {
 .article-body li > ol {
   margin-top: 8px;
   margin-bottom: 0;
+}
+
+/* Bullets sit inside the item padding, so a small indent is enough; ordered
+   sub-lists keep room for their decimal markers. */
+.article-body li > ul {
   padding-left: 6px;
+}
+
+.article-body li > ol {
+  padding-left: 22px;
 }
 
 .article-body blockquote {
