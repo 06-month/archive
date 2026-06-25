@@ -13,12 +13,12 @@ export default function About() {
             Jun Jeon
           </h1>
           <p className="profile-lead">
-            Computer Engineering undergraduate at Hanbat National University and Undergraduate Researcher at UNIST Vision &amp; Learning Lab.
+            Computer Engineering undergraduate at Hanbat National University, studying feed-forward 3DGS and 3D/4D scene reconstruction.
           </p>
           <div className="profile-meta-list">
             <div>
               <span>Current Focus</span>
-              <strong>Dynamic 3D/4D scene representation</strong>
+              <strong>Feed-forward 3DGS · 3D/4D reconstruction</strong>
             </div>
             <div>
               <span>Research Interests</span>
@@ -67,7 +67,7 @@ export default function About() {
         </div>
         <div className="hero-meta mt-8">
           <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-secondary)" }}>
-            Hanbat National University / Computer Engineering · Undergraduate Researcher, UNIST Vision &amp; Learning Lab
+            Hanbat National University / Computer Engineering · Studying Feed-Forward 3DGS &amp; 3D/4D Reconstruction
           </span>
         </div>
       </section>
@@ -109,7 +109,7 @@ export default function About() {
         
         <div className="timeline">
           <div className="timeline-item">
-            <div className="timeline-date">Mar. 2026 - Present</div>
+            <div className="timeline-date">Mar. 2026 - Jun. 2026</div>
             <h4 className="timeline-title">Undergraduate Researcher / Intern</h4>
             <div className="timeline-subtitle">UNIST Vision &amp; Learning Lab (UVLL)</div>
             <p className="timeline-desc">
@@ -380,7 +380,7 @@ export default function About() {
         </div>
         
         <div>
-          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.06.18</span>
+          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.06.25</span>
         </div>
       </section>
     </div>
