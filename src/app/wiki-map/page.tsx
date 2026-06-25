@@ -143,14 +143,20 @@ export default function WikiMap() {
       return Math.min(2.8 + Math.sqrt(degree) * 1.2, 9.0) * nodeCountMultiplier;
     }
 
-    // Force simulation setup
+    // Force simulation setup. Shorter links + softer repulsion + a noticeably
+    // stronger pull toward the center keep connected clusters from drifting off
+    // to the sides, so the linked graph settles into one round, Obsidian-like
+    // mass. Disconnected (degree 0) nodes are pushed out onto an outer ring via
+    // a radial force instead of being pulled to the center, mirroring Obsidian.
+    const ringRadius = 320 * nodeCountMultiplier;
     const simulation = d3.forceSimulation<GraphNode>(nodes)
-      .force("link", d3.forceLink<GraphNode, GraphEdge>(links).id((d) => d.id).distance(120 * nodeCountMultiplier).strength(0.18))
-      .force("charge", d3.forceManyBody<GraphNode>().strength((d) => d.degree === 0 ? -15 : -140 - d.degree * 30))
+      .force("link", d3.forceLink<GraphNode, GraphEdge>(links).id((d) => d.id).distance(70 * nodeCountMultiplier).strength(0.22))
+      .force("charge", d3.forceManyBody<GraphNode>().strength((d) => d.degree === 0 ? -30 : -90 - d.degree * 20))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("x", d3.forceX<GraphNode>(width / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
-      .force("y", d3.forceY<GraphNode>(height / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
-      .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 12 * nodeCountMultiplier));
+      .force("x", d3.forceX<GraphNode>(width / 2).strength((d) => d.degree === 0 ? 0 : 0.07))
+      .force("y", d3.forceY<GraphNode>(height / 2).strength((d) => d.degree === 0 ? 0 : 0.07))
+      .force("radial", d3.forceRadial<GraphNode>(ringRadius, width / 2, height / 2).strength((d) => d.degree === 0 ? 0.8 : 0))
+      .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 7 * nodeCountMultiplier));
 
     // Pre-run simulation for near-final layout; remaining energy creates Obsidian-like settling
     for (let i = 0; i < 200; i++) {
