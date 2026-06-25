@@ -77,9 +77,9 @@ export default function Home() {
     const nodeCountMultiplier = Math.max(0.65, Math.min(1.2, Math.sqrt(40 / nodes.length)));
 
     function getNodeRadius(degree: number) {
-      if (degree <= 1) return 1.6 * nodeCountMultiplier;
-      if (degree <= 2) return 2.4 * nodeCountMultiplier;
-      return Math.min(2.8 + Math.sqrt(degree) * 1.2, 9.0) * nodeCountMultiplier;
+      if (degree <= 1) return 1.2 * nodeCountMultiplier;
+      if (degree <= 2) return 1.7 * nodeCountMultiplier;
+      return Math.min(2.0 + Math.sqrt(degree) * 0.85, 6.5) * nodeCountMultiplier;
     }
 
     // Area color map (same as wiki-map categories)
@@ -90,14 +90,19 @@ export default function Home() {
       system: "#d97706",
     };
 
-    // Force simulation
+    // Force simulation. Matches the wiki-map layout: loose links + moderate
+    // repulsion + strong center gravity collapse the connected graph into one
+    // compact, roughly round central mass, while disconnected (degree 0) nodes
+    // sit on an outer ring via a radial force.
+    const ringRadius = 150 * nodeCountMultiplier;
     const simulation = d3.forceSimulation<MiniGraphNode>(nodes)
-      .force("link", d3.forceLink<MiniGraphNode, MiniGraphEdge>(links).id((d) => d.id).distance(120 * nodeCountMultiplier).strength(0.18))
-      .force("charge", d3.forceManyBody<MiniGraphNode>().strength((d) => d.degree === 0 ? -15 : -140 - d.degree * 30))
+      .force("link", d3.forceLink<MiniGraphNode, MiniGraphEdge>(links).id((d) => d.id).distance(44 * nodeCountMultiplier).strength(0.14))
+      .force("charge", d3.forceManyBody<MiniGraphNode>().strength((d) => d.degree === 0 ? -30 : -52 - d.degree * 11))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("x", d3.forceX<MiniGraphNode>(width / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
-      .force("y", d3.forceY<MiniGraphNode>(height / 2).strength((d) => d.degree === 0 ? 0.20 : 0.02))
-      .force("collide", d3.forceCollide<MiniGraphNode>().radius((d) => getNodeRadius(d.degree) + 12 * nodeCountMultiplier));
+      .force("x", d3.forceX<MiniGraphNode>(width / 2).strength((d) => d.degree === 0 ? 0 : 0.37))
+      .force("y", d3.forceY<MiniGraphNode>(height / 2).strength((d) => d.degree === 0 ? 0 : 0.37))
+      .force("radial", d3.forceRadial<MiniGraphNode>(ringRadius, width / 2, height / 2).strength((d) => d.degree === 0 ? 0.8 : 0))
+      .force("collide", d3.forceCollide<MiniGraphNode>().radius((d) => getNodeRadius(d.degree) + 8 * nodeCountMultiplier));
 
     // Pre-run for near-final layout
     for (let i = 0; i < 200; i++) {
