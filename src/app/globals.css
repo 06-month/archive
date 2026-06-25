@@ -1203,16 +1203,18 @@ footer {
   color: var(--text-secondary);
 }
 
-/* Custom dot marker only for unordered lists; ordered lists keep numbers. */
-.article-body ul li {
+/* Custom dot marker only for unordered lists; ordered lists keep numbers.
+   Use the child combinator so a <ul> nested inside an <ol> (or vice versa)
+   doesn't pick up the other list type's padding and collide the bullet. */
+.article-body ul > li {
   padding-left: 20px;
 }
 
-.article-body ol li {
+.article-body ol > li {
   padding-left: 4px;
 }
 
-.article-body ul li::before {
+.article-body ul > li::before {
   content: '';
   position: absolute;
   left: 6px;
@@ -1224,11 +1226,11 @@ footer {
 }
 
 /* Color the bullet differently per nesting depth so sub-levels read clearly. */
-.article-body ul ul li::before {
+.article-body ul ul > li::before {
   background: #FF9F43;
 }
 
-.article-body ul ul ul li::before {
+.article-body ul ul ul > li::before {
   background: #A66BFF;
 }
 
