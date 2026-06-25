@@ -13,7 +13,9 @@ export default function About() {
             Jun Jeon
           </h1>
           <p className="profile-lead">
-            Computer Engineering undergraduate at Hanbat National University, studying feed-forward 3DGS and 3D/4D scene reconstruction.
+            Computer Engineering undergraduate at Hanbat National University,
+            <br />
+            studying feed-forward 3DGS and 3D/4D scene reconstruction.
           </p>
           <div className="profile-meta-list">
             <div>
