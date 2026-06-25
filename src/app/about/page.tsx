@@ -133,7 +133,7 @@ export default function About() {
             <h4 className="timeline-title">B.S. in Computer Engineering</h4>
             <div className="timeline-subtitle">Hanbat National University</div>
             <p className="timeline-desc">
-              Current GPA: <strong>3.79 / 4.5</strong> with Major GPA: <strong>3.79 / 4.5</strong>. Relevant coursework includes Artificial Intelligence, Computer Vision, and Reinforcement Learning.
+              Current GPA: <strong>3.85 / 4.5</strong> with Major GPA: <strong>3.82 / 4.5</strong>. Relevant coursework includes Artificial Intelligence, Computer Vision, Reinforcement Learning, and Metaverse and Digital Space Theory.
             </p>
           </div>
           
@@ -382,7 +382,7 @@ export default function About() {
         </div>
         
         <div>
-          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.06.25</span>
+          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.06.26</span>
         </div>
       </section>
     </div>
