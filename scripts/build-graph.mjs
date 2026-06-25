@@ -4,6 +4,11 @@ import matter from 'gray-matter';
 import { marked } from 'marked';
 import katex from 'katex';
 
+// Source notes come from an Obsidian vault where a single newline is meant to be
+// a line break (e.g. inside blockquotes used as pseudo-diagrams). Mirror that so
+// `> a\n> b` keeps each line on its own row instead of collapsing into one para.
+marked.setOptions({ gfm: true, breaks: true });
+
 // Recursively get files from directory
 async function getFiles(dir) {
   try {

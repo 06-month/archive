@@ -38,7 +38,7 @@ tags: [research, 3DGS, feed-forward, cost-volume, MVS, generalizable]
 ## 관련
 - **기반**: [[3D-Gaussian-Splatting]] — 미분 splatting 토대. 본 논문은 그 **feed-forward·sparse-view** 일반화.
 - **개념(다른 영역)**: [[SfM-COLMAP]] — MVS/plane-sweep는 SfM 기하의 매칭 사촌(단 GT depth 불필요·미분가능) / [[Radiance Field-Volume Rendering]] — $\alpha$-blending / [[구면조화함수-SH]] — 색 표현 / [[ViT]]·[[Transformer]] — Swin 백본.
-- **feed-forward GS 계보**: [[GS-LRM]](Transformer 회귀 정적 GS) · [[DGS-LRM]](feed-forward 동적) — MVSplat은 **명시적 cost volume 매칭**으로 차별. pixelSplat·Splatter Image·latentSplat 동류.
+- **feed-forward GS 계보**: [[pixelSplat]](본 논문의 직접 baseline — 확률적 깊이+epipolar) · [[GS-LRM]](Transformer 회귀 정적 GS) · [[DGS-LRM]](feed-forward 동적) — MVSplat은 **명시적 cost volume 매칭**으로 차별. Splatter Image·latentSplat 동류.
 - **기하 추정 대조**: [[DUSt3R]]·[[MASt3R]]·[[VGGT]](pointmap 직접 회귀) vs MVSplat(cost volume 매칭) — feed-forward 3D의 두 갈래.
 - **구조·압축**: [[Scaffold-GS]](anchor view-adaptive) — 정적 GS 효율화 이웃.
 - **출처 메타**: [[2026-06-20-MVSplat-논문]]

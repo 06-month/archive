@@ -76,7 +76,8 @@ tags: [index]
 - [[MoRe]] — VGGT 기반, attention-forcing 모션분리 + grouped causal attention 스트리밍 + BA-like refinement (2026)
 
 ### Feed-forward GS 복원 (LRM 계보: 정적 → 4D/동적)
-**계보**: 매칭 기반 [[MVSplat]] · LRM 기반 [[GS-LRM]] (2024, 정적 뿌리·per-pixel GS LRM) → 동적/4D 후계 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]]. posed/uncalibrated 영상 → GS를 feed-forward 예측, 최적화 기반 대비 수백~수천배 빠름. Radiance Field([[3D-Gaussian-Splatting]]) × DUSt3R 계보([[VGGT]]) 교차.
+**계보**: 시초 [[pixelSplat]] · 매칭 기반 [[MVSplat]] · LRM 기반 [[GS-LRM]] (2024, 정적 뿌리·per-pixel GS LRM) → 동적/4D 후계 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]]. posed/uncalibrated 영상 → GS를 feed-forward 예측, 최적화 기반 대비 수백~수천배 빠름. Radiance Field([[3D-Gaussian-Splatting]]) × DUSt3R 계보([[VGGT]]) 교차.
+- [[pixelSplat]] — **시초**. 이미지 2뷰 → feed-forward 3DGS, epipolar transformer(스케일 모호성)+확률적 깊이 샘플링(reparameterization), light field 대비 ~650× 빠름 (CVPR'24)
 - [[MVSplat]] — sparse(2뷰) → feed-forward 3DGS, plane-sweep **cost volume** 매칭으로 깊이 추정, pixelSplat 대비 10×↓·2× 빠름·일반화 우위 (ECCV'24)
 - [[GS-LRM]] — **정적 뿌리**. 2~4 posed 이미지 → per-pixel 3DGS, 단순 트랜스포머, 객체·장면 통합, 0.23s (ECCV'24)
 - [[4DGT]] — 4DGS(2DGS+life-span/velocity)로 정적·동적 통일, density control, 실세계 단안 학습 (NeurIPS'25)
@@ -84,7 +85,7 @@ tags: [index]
 - [[MoVieS]] — VGGT 기반 dynamic splatter pixel, NVS·깊이·tracking 통합 1초, zero-shot scene flow (2026)
 - [[StreamSplat]] — uncalibrated 스트림 온라인 동적 3DGS, 양방향 deformation + adaptive fusion, 1200× (ICLR'26)
 
-- _sources_: Radiance Field [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]]·[[2026-06-20-Scaffold-GS-논문]] / 동적GS뿌리 [[2026-06-20-4DGS-논문]]·[[2026-06-20-Deformable3DGS-논문]]·[[2026-06-20-native4DGS-논문]]·[[2026-06-20-SpacetimeGS-논문]] / feed-forward GS [[2026-06-20-MVSplat-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]
+- _sources_: Radiance Field [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]]·[[2026-06-20-Scaffold-GS-논문]] / 동적GS뿌리 [[2026-06-20-4DGS-논문]]·[[2026-06-20-Deformable3DGS-논문]]·[[2026-06-20-native4DGS-논문]]·[[2026-06-20-SpacetimeGS-논문]] / feed-forward GS [[2026-06-20-MVSplat-논문]]·[[2026-06-25-pixelSplat-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]
 - `Zotero/`는 **ingest 대상 아님** (raw/ 전용 — [[raw-wiki-규칙]] §A 참조)
 
 ## concepts — 공통 개념 (courses ↔ research)

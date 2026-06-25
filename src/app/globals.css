@@ -877,6 +877,16 @@ td {
   line-height: 1.7;
 }
 
+.wiki-body blockquote p {
+  margin: 0;
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+  /* Notes use blockquotes as pseudo-diagrams; keep the authored indentation. */
+  white-space: pre-wrap;
+  tab-size: 2;
+}
+
 .wiki-body img {
   border-radius: var(--radius-md);
   max-width: 100%;
@@ -1213,6 +1223,28 @@ footer {
   border-radius: 50%;
 }
 
+/* Loose lists wrap each item's text in <p>; keep that text matched to the list
+   item (size/color/spacing) instead of inheriting the larger body paragraph,
+   which otherwise misaligns the bullet and balloons the line spacing. */
+.article-body li > p {
+  font-size: inherit;
+  color: inherit;
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+
+.article-body li > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Nested lists: small top gap, indent the sub-bullets under the parent text. */
+.article-body li > ul,
+.article-body li > ol {
+  margin-top: 8px;
+  margin-bottom: 0;
+  padding-left: 6px;
+}
+
 .article-body blockquote {
   border-left: 4px solid var(--accent);
   background: var(--pill-bg);
@@ -1224,6 +1256,16 @@ footer {
   line-height: 1.7;
 }
 
+.article-body blockquote p {
+  margin: 0;
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+  /* Notes use blockquotes as pseudo-diagrams; keep the authored indentation. */
+  white-space: pre-wrap;
+  tab-size: 2;
+}
+
 .article-body code {
   font-family: "JetBrains Mono", monospace;
   background: var(--pill-bg);
@@ -1232,6 +1274,27 @@ footer {
   font-size: 13.5px;
   border: 1px solid var(--border);
   color: #E91E63;
+}
+
+.article-body pre {
+  background: #1A1A1A;
+  color: #F8F8F2;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  border: 1px solid #333;
+  margin-bottom: 24px;
+}
+
+.article-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
 }
 
 .math-block {

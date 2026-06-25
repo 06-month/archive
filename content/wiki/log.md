@@ -186,3 +186,10 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - 진단만. **모순 0 / 미처리 raw 0 / 압축 위반 0 / 고립 0 / 미해소 위키링크 0**(전 vault — 노트명 변경 `방사장-볼륨렌더링`→`Radiance Field-Volume Rendering` 27개 링크 정합 확인).
 - 잔여 '방사장'·'볼륨렌더링' 0(raw 제외). MVSplat 고립도 직전 fix로 해소 유지.
 - **데이터 갭(raw 미수집, 변동 없음)**: pixelSplat·HexPlane·K-Planes·Dynamic3DGS/DynMF·SpatialTracker·4D-Rotor·CUT3R·Splatter Image. 모호 로그 비어있음.
+
+## [2026-06-25] ingest | pixelSplat (feed-forward generalizable GS 시초)
+- 멱등성 가드: 신규 raw(`raw/PixelSplat.md` 16p) — sources 미등재 → 처음 ingest. 부록(학습 상세·3뷰·아키텍처·한계) 포함 전체 통독. [통과]/research.
+- **lint(2026-06-20) 1순위 데이터 갭 해소**: pixelSplat 6노트 평문 언급 → 정식 노트 [[pixelSplat]] 생성. MVSplat·GS-LRM의 직접 baseline.
+- **핵심**: 이미지 2뷰→feed-forward 3DGS. ① 스케일 모호성=epipolar transformer(삼각측량 깊이 PE) ② local minima=깊이 확률분포+샘플링, reparameterization(α=φ_z, VAE 영감). RE10k 26.09·ACID 28.27, ~650× 빠름. 인코더 DINO ResNet+ViT.
+- 고립 방지: [[MVSplat]]·[[GS-LRM]] 계보 줄의 평문 "pixelSplat"→[[pixelSplat]] 전환(역링크 2). index feed-forward GS에 시초로 편입.
+- 잔여 데이터 갭(다음 후보): HexPlane·K-Planes(concepts 후보)·Dynamic3DGS·SpatialTracker 등.
