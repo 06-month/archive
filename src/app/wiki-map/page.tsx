@@ -150,13 +150,17 @@ export default function WikiMap() {
     // a radial force instead of being pulled to the center, mirroring Obsidian.
     const ringRadius = 320 * nodeCountMultiplier;
     const simulation = d3.forceSimulation<GraphNode>(nodes)
-      .force("link", d3.forceLink<GraphNode, GraphEdge>(links).id((d) => d.id).distance(55 * nodeCountMultiplier).strength(0.45))
-      .force("charge", d3.forceManyBody<GraphNode>().strength((d) => d.degree === 0 ? -30 : -70 - d.degree * 14))
+      // Loose links so sub-communities don't form rigid knots that get expelled
+      // as lobes; strong center gravity then pulls every node toward the middle
+      // and fills a round disc (Obsidian-style). Repulsion + collide keep nodes
+      // from overlapping so the disc spreads evenly instead of balling up.
+      .force("link", d3.forceLink<GraphNode, GraphEdge>(links).id((d) => d.id).distance(32 * nodeCountMultiplier).strength(0.18))
+      .force("charge", d3.forceManyBody<GraphNode>().strength((d) => d.degree === 0 ? -30 : -22 - d.degree * 5))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("x", d3.forceX<GraphNode>(width / 2).strength((d) => d.degree === 0 ? 0 : 0.16))
-      .force("y", d3.forceY<GraphNode>(height / 2).strength((d) => d.degree === 0 ? 0 : 0.16))
+      .force("x", d3.forceX<GraphNode>(width / 2).strength((d) => d.degree === 0 ? 0 : 0.45))
+      .force("y", d3.forceY<GraphNode>(height / 2).strength((d) => d.degree === 0 ? 0 : 0.45))
       .force("radial", d3.forceRadial<GraphNode>(ringRadius, width / 2, height / 2).strength((d) => d.degree === 0 ? 0.8 : 0))
-      .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 7 * nodeCountMultiplier));
+      .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 4 * nodeCountMultiplier));
 
     // Pre-run simulation for near-final layout; remaining energy creates Obsidian-like settling
     for (let i = 0; i < 200; i++) {
