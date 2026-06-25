@@ -138,9 +138,9 @@ export default function WikiMap() {
 
     // Helper to calculate node radius based on connections degree (high contrast hub scaling)
     function getNodeRadius(degree: number) {
-      if (degree <= 1) return 1.6 * nodeCountMultiplier;
-      if (degree <= 2) return 2.4 * nodeCountMultiplier;
-      return Math.min(2.8 + Math.sqrt(degree) * 1.2, 9.0) * nodeCountMultiplier;
+      if (degree <= 1) return 1.2 * nodeCountMultiplier;
+      if (degree <= 2) return 1.7 * nodeCountMultiplier;
+      return Math.min(2.0 + Math.sqrt(degree) * 0.85, 6.5) * nodeCountMultiplier;
     }
 
     // Force simulation setup. Shorter links + softer repulsion + a noticeably
@@ -154,13 +154,13 @@ export default function WikiMap() {
       // as lobes; strong center gravity then pulls every node toward the middle
       // and fills a round disc (Obsidian-style). Repulsion + collide keep nodes
       // from overlapping so the disc spreads evenly instead of balling up.
-      .force("link", d3.forceLink<GraphNode, GraphEdge>(links).id((d) => d.id).distance(32 * nodeCountMultiplier).strength(0.18))
-      .force("charge", d3.forceManyBody<GraphNode>().strength((d) => d.degree === 0 ? -30 : -22 - d.degree * 5))
+      .force("link", d3.forceLink<GraphNode, GraphEdge>(links).id((d) => d.id).distance(44 * nodeCountMultiplier).strength(0.14))
+      .force("charge", d3.forceManyBody<GraphNode>().strength((d) => d.degree === 0 ? -30 : -52 - d.degree * 11))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("x", d3.forceX<GraphNode>(width / 2).strength((d) => d.degree === 0 ? 0 : 0.45))
-      .force("y", d3.forceY<GraphNode>(height / 2).strength((d) => d.degree === 0 ? 0 : 0.45))
+      .force("x", d3.forceX<GraphNode>(width / 2).strength((d) => d.degree === 0 ? 0 : 0.37))
+      .force("y", d3.forceY<GraphNode>(height / 2).strength((d) => d.degree === 0 ? 0 : 0.37))
       .force("radial", d3.forceRadial<GraphNode>(ringRadius, width / 2, height / 2).strength((d) => d.degree === 0 ? 0.8 : 0))
-      .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 4 * nodeCountMultiplier));
+      .force("collide", d3.forceCollide<GraphNode>().radius((d) => getNodeRadius(d.degree) + 8 * nodeCountMultiplier));
 
     // Pre-run simulation for near-final layout; remaining energy creates Obsidian-like settling
     for (let i = 0; i < 200; i++) {
