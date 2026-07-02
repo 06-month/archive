@@ -57,6 +57,7 @@ tags: [index]
 - [[Deformable3DGS]] — (Yang et al.) 단안 동적, 순수 MLP 변형장(고rank)+Annealing Smooth Training (CVPR'24)
 - [[native4DGS]] — (Yang et al., **동명이론**) native 4D primitive(4D 회전)+4D Spherindrical Harmonics, 압축 4DGSC (ICLR'24 확장)
 - [[SpacetimeGS]] — (Li et al.) STG: 시간 opacity+다항식 모션 + feature splatting(SH 대체), 8K@60fps lite (CVPR'24)
+- [[OR2-온라인동적GS|OR²]] — **online 재구성 plug-in**. 관측 오차를 학습 residual map으로 분리 → 정적 영역 시간 일관성↑, 3DGStream/HiCoM/Dynamic3DG 위 부착 (SIGGRAPH'25)
 
 ### 3D 손/인체 복원 (Mesh Recovery)
 **계보**: [[HMR]] (2018, 인체 SMPL 회귀) → [[HaMeR]] (2024, ViT 손) → 대안 백본 [[Hamba]] (Mamba+graph) · full-stack [[WiLoR]] (검출+정렬)

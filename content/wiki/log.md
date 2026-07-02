@@ -193,3 +193,10 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - **핵심**: 이미지 2뷰→feed-forward 3DGS. ① 스케일 모호성=epipolar transformer(삼각측량 깊이 PE) ② local minima=깊이 확률분포+샘플링, reparameterization(α=φ_z, VAE 영감). RE10k 26.09·ACID 28.27, ~650× 빠름. 인코더 DINO ResNet+ViT.
 - 고립 방지: [[MVSplat]]·[[GS-LRM]] 계보 줄의 평문 "pixelSplat"→[[pixelSplat]] 전환(역링크 2). index feed-forward GS에 시초로 편입.
 - 잔여 데이터 갭(다음 후보): HexPlane·K-Planes(concepts 후보)·Dynamic3DGS·SpatialTracker 등.
+
+## [2026-07-01] ingest | OR² (online 동적 3DGS 시간 일관성, SIGGRAPH'25)
+- 멱등성 가드: raw/ 39개 md 중 유일한 미처리 `raw/onlinedynamic3DGS.md`(13p, sources 미등재) → 처음 ingest. 부록 A~E(Algorithm 1·구현·offline/V3/노이즈레벨/뷰수 비교·per-scene 표)+References 전체 통독. [통과]/research.
+- **핵심**: 관측=이상신호+시변오차(센서노이즈, 8-bit<4). online 재구성은 매 프레임 과적합→정적영역 깜빡임. 해결=뷰·프레임별 **학습 residual map** $\hat M^v_t$로 오차 흡수($\tilde I_t=\hat I_t+\hat M_t$), 가우시안은 이상관측만 학습. baseline-무관 plug-in(3DGStream/HiCoM/Dynamic3DG†).
+- 효과: mTV↓(시간일관성), PSNR/SSIM↑, 가우시안 수↓($G_0$0.69×·$G^{new}$0.28×)→학습가속. residual은 학습때만 저장X. SH degree 3 유지·new Gaussian 재사용이 ablation 핵심.
+- cross-link: [[3D-Gaussian-Splatting]]·[[NeRF]] / offline 비교군 [[SpacetimeGS]]·[[4DGS]]·[[Deformable3DGS]]·[[Ex4DGS]]·[[3D-4DGS]] / online 이웃 [[StreamSplat]] / 개념 [[구면조화함수-SH]]·[[SfM-COLMAP]](타영역) / 유사 plug-in [[Relaxed-Rigidity-동적GS]]. index "동적 GS 모션 표현 뿌리(최적화 기반)"에 편입.
+- 잔여 데이터 갭(평문 다출현, raw 미수집): 3DGStream·HiCoM·Dynamic3DGS·HexPlane·K-Planes·NeRFPlayer 등.
