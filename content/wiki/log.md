@@ -200,3 +200,15 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - 효과: mTV↓(시간일관성), PSNR/SSIM↑, 가우시안 수↓($G_0$0.69×·$G^{new}$0.28×)→학습가속. residual은 학습때만 저장X. SH degree 3 유지·new Gaussian 재사용이 ablation 핵심.
 - cross-link: [[3D-Gaussian-Splatting]]·[[NeRF]] / offline 비교군 [[SpacetimeGS]]·[[4DGS]]·[[Deformable3DGS]]·[[Ex4DGS]]·[[3D-4DGS]] / online 이웃 [[StreamSplat]] / 개념 [[구면조화함수-SH]]·[[SfM-COLMAP]](타영역) / 유사 plug-in [[Relaxed-Rigidity-동적GS]]. index "동적 GS 모션 표현 뿌리(최적화 기반)"에 편입.
 - 잔여 데이터 갭(평문 다출현, raw 미수집): 3DGStream·HiCoM·Dynamic3DGS·HexPlane·K-Planes·NeRFPlayer 등.
+
+## [2026-07-14] ingest | C4G (compact query-based feed-forward 4D GS, 2026)
+- 멱등성 가드: raw/ 40개 md 중 유일한 미처리 `raw/C4G.md`(27p, sources 미등재) → 처음 ingest. 본문(§1~5)+부록 A~F(아키텍처·loss·feature lifting·VDM·데이터셋·평가 프로토콜·포즈정렬·ablation·tracking·attention 시각화·한계)+References 전체 통독. [통과]/research.
+- **핵심**: per-pixel 4D의 실패(중복 가우시안 ghost·view-dependent bias occlusion) 원인=표현 과잉 overfit. 해결=timestamp 조건 **learnable query token(N=2048)** 로 전 시간 컨텍스트 aggregate → global motion 학습. [[VGGT]] 백본·L=2 full self-attention·SH degree 0. 2K 가우시안(경쟁 802K의 0.007×↓)·포즈 불필요 SOTA, ∆t 강건.
+- **창발**: 2 attention 층 상보(L1 공간대응·L2 시간근접) → 재활용해 최초 feed-forward 4D feature lifting(query/key 재사용, value만 학습). VDM(Wan2.1-VACE) refine으로 디테일 보강. 정적 선행작 **C3G** 가중치 초기화.
+- cross-link: per-pixel 대조군 [[4DGT]]·[[MoVieS]](겨냥 대상)·[[DGS-LRM]]·[[StreamSplat]] / 백본 [[VGGT]] / 표현 [[3D-Gaussian-Splatting]]·[[NeRF]] / 개념(타영역) [[Transformer]]·[[위치인코딩-positional-encoding]]·[[구면조화함수-SH]]·[[DINO]]·[[Radiance Field-Volume Rendering]]. index "Feed-forward GS 복원(LRM 계보)"에 편입.
+- 잔여 데이터 갭(평문, raw 미수집): C3G(정적 2K 자매작)·NeoVerse·MoGe-2·CowTracker·VACE/Wan 등.
+
+## [2026-07-07] system | Hermes Agent 활용 가이드북 생성
+- 생성: [[Hermes-Agent-활용-가이드북]] — 사용자가 Hermes로 할 수 있는 일을 wiki 운영·코딩·조사·문서화·자동화 중심으로 정리.
+- 공식 Hermes docs(도구·슬래시 커맨드·스킬·메모리·cron)와 현재 vault 규칙([[raw-wiki-규칙]])을 반영.
+- index system 섹션에 신규 운영 문서로 등재.
