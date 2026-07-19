@@ -54,8 +54,17 @@ export default function Sidebar({ type, zoomScale, activeSlug, activeCategory, a
   const currentSlug = pathname.split("/").pop() || "";
   const slugToUse = activeSlug || currentSlug;
   
-  // Grouping items based on type
-  const items = Object.values(contentIndex).filter((item) => item.type === type);
+  // Grouping items based on type.
+  // Paper-metadata "source" notes (wiki/**/sources/*-논문.md, tagged source+paper)
+  // are backing metadata for the graph/backlinks and must never surface in the
+  // browsable listings, so drop them here.
+  const isPaperMeta = (item: IndexItem) => {
+    const t = item.tags || [];
+    return t.includes("source") && t.includes("paper");
+  };
+  const items = Object.values(contentIndex).filter(
+    (item) => item.type === type && !(type === "wiki" && isPaperMeta(item))
+  );
   const currentItem = items.find((item) => item.slug === currentSlug);
   const activeBlogCategory = activeCategory ?? (type === "blog" ? currentItem?.category ?? null : null);
   const activeBlogSubcategory = activeSubcategory ?? (type === "blog" ? currentItem?.subcategory ?? null : null);

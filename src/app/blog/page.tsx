@@ -85,6 +85,7 @@ function BlogListContent() {
     "3d-gaussian-splatting-for-real-time-radiance-field-rendering-리뷰": "3D Gaussian Splatting이 NeRF의 느린 학습·렌더링을 보완하며 실시간 렌더링을 가능하게 한 구조를 정리했습니다.",
     "deformable-3d-gaussians-for-high-fidelity-monocular-dynamic-scene-reconstruction-리뷰": "Deformable 3D Gaussians가 3DGS의 빠른 rasterization을 유지하면서 동적 장면 변형을 deformation field로 모델링하는 방식을 정리했습니다.",
     "4d-gaussian-splatting-for-real-time-dynamic-scene-rendering-리뷰": "4D Gaussian Splatting이 동적 장면을 실시간으로 렌더링하기 위해 시공간 변형을 효율적으로 다루는 방식을 정리했습니다.",
+    "pixelsplat-3d-gaussian-splats-from-image-pairs-for-scalable-generalizable-3d-reconstruction-리뷰": "pixelSplat이 이미지 쌍으로부터 3D Gaussian을 직접 예측해, 장면마다 다시 학습하지 않는 초기의 generalizable feed-forward 3DGS를 제안한 구조를 SfM scale ambiguity와 확률적 depth 예측 중심으로 정리했습니다.",
     "depth-based-hand-pose-estimation-리뷰": "깊이 기반 손 자세 추정 연구의 문제 설정, 평가 방식, 데이터셋 구성을 따라가며 정리한 글입니다.",
     "model-based-deep-hand-pose-estimation-리뷰": "모델 기반 손 자세 추정에서 손 구조와 딥러닝 표현을 결합하는 방식을 정리했습니다.",
     "modeling-and-capturing-hands-and-bodies-together-mano-리뷰": "MANO가 손 형상과 포즈를 어떻게 파라메트릭 모델로 표현하는지 정리한 리뷰입니다.",
