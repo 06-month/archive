@@ -14,7 +14,7 @@ created: 2026-01-19
 
 본 논문은 이러한 문제의식을 바탕으로 Hand Pose Estimation을 하나의 문제로 지정하고, 여러 방법론들을 동일한 기준에서 비교할 수 있는 실질적인 평가 체계를 구축하는 것을 목표로 한다.
 
-![](https://blog.kakaocdn.net/dna/b4IYv8/dJMcai9RXDO/AAAAAAAAAAAAAAAAAAAAANuMQEFvbuetqpL2cfB39CDb_98-7XP6xHmiixtwqYB5/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=3vhInBzN2PDuxiWOtYQo1mjxAyE%3D)
+![](/raw/assets/hand-pose/depth-based/depth-based-01.jpg)
 
 ---
 
@@ -88,7 +88,7 @@ $Max Error=maxj∥∥pj−^pj∥∥2$
 
 이는 깨끗한 배경에서 고립된 손이라는 비교적 예측하기 쉬운 기존 환경과 달리 실제 응용 환경에서의 난이도를 직접적으로 반영한다.
 
-![](https://blog.kakaocdn.net/dna/2o9tm/dJMcai9RZMm/AAAAAAAAAAAAAAAAAAAAAM_-51EC7DRq8mniE6ptGZI6k003W_BGqfW6qcP1Dfjm/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=2LDdeqGveiZiwksUnV3b6C1fWNo%3D)
+![](/raw/assets/hand-pose/depth-based/depth-based-02.jpg)
 
 ---
 
@@ -105,7 +105,7 @@ $d(V1,V2)=∑i,j,k|V1(i,j,k)−V2(i,j,k)|$
 
 이 기준선은 배경 혼잡, 스케일 변화, collision에 자연스럽게 강인하며, 복잡한 전처리 없이도 안정적인 하한 성능을 제공한다.
 
-![](https://blog.kakaocdn.net/dna/cIdraK/dJMcafSUC0G/AAAAAAAAAAAAAAAAAAAAAA-8wiF5nf8bgyp_1iin7J5w1Do7rTs8XFNfEcxsDpMP/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=tV%2F%2BKL8ljuqwxy3e4eI1xxvbYL8%3D)
+![](/raw/assets/hand-pose/depth-based/depth-based-03.jpg)
 
 ---
 

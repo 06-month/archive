@@ -14,7 +14,7 @@ created: 2026-02-06
 
 본 논문은 이러한 문제의식을 바탕으로, 모델 기반 방법의 기하학적 정확성과 학습 기반 방법의 계산 효율성을 동시에 만족시키는 단일 end-to-end 학습 구조를 제시하는 것을 목표로 한다.
 
-![](https://blog.kakaocdn.net/dna/r5GS0/dJMcad1U3Oa/AAAAAAAAAAAAAAAAAAAAACkOOmwoTGXa8n51q_I9t8VkLoti1WO2cQc6Cer-m2B9/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=j%2B5jSKGNwQ%2BQFcdyy0i5VUu%2FPFQ%3D)
+![](/raw/assets/hand-pose/model-based/model-based-01.png)
 
 ---
 
@@ -122,7 +122,7 @@ Feedback-based Hand Pose Estimation과 같은 시도는 generative, discriminati
 
 표준 자세를 Θ = 0이라 정의하고, 모든 관절 각도는 이 기준 대비 상대 회전량으로 표현된다.
 
-![](https://blog.kakaocdn.net/dna/xDvqc/dJMcacaWC1S/AAAAAAAAAAAAAAAAAAAAALNO3pvM-NaP84zaIAcpOT5Oxc1Rt3tm601R0mUB3c_L/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=Vo6T3w4MhFivwaDPFmyLUs2OXWY%3D)
+![](/raw/assets/hand-pose/model-based/model-based-02.png)
 
 #### 4.2 관절 각도 및 뼈 길이 제약
 
@@ -140,7 +140,7 @@ F:RD→RJ×3
 
 #### 4.4 Deep Learning with a Hand Model Layer
 
-![](https://blog.kakaocdn.net/dna/cEYO4H/dJMcahcdE0M/AAAAAAAAAAAAAAAAAAAAABauUJS0mK3-SKqetCKq683I4Mzl-Vdw-1OvW2Wkh_j3/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=dt4FLz9lucZYh1Dye%2BPqu8jLYkY%3D)
+![](/raw/assets/hand-pose/model-based/model-based-03.png)
 
 입력 Depth Image는 손 중심 기준으로 정규화된 128×128 크기의 cube로 처리된다. 네트워크는 3개의 합성곱층과 FC Layer로 구성되며 마지막 FC Layer는 관절 위치가 아닌 포즈 파라미터 Θ를 출력한다.
 

@@ -12,7 +12,7 @@ created: 2026-01-19
 
 본 논문은 "하나의 전역 피처로 모든 관절을 회귀하려는 접근 자체가 부적절하다"는 가설을 세우고, 서로 다른 공간 영역이 서로 다른 관절 정보를 더 잘 설명한다는 직관을 네트워크 구조로 명시적으로 반영한다.
 
-![](https://blog.kakaocdn.net/dna/dsfqTO/dJMcai9R0hE/AAAAAAAAAAAAAAAAAAAAAP3Q3UOwb7oorL5-Znbm9mqpOuihTVjOAiU2jD7E1f1P/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=B9xLtXSLQLURXPjfrWNFdeblQjM%3D)
+![](/raw/assets/hand-pose/ren/ren-01.jpg)
 
 ---
 
@@ -37,13 +37,13 @@ REN의 핵심은 손 전체를 하나의 입력으로 처리하되, 공간적으
 
 residual connection을 통해 깊이가 깊어질수록 발생하는 vanishing gradient 문제를 완화하고, 안정적인 학습을 가능하게 한다.
 
-![](https://blog.kakaocdn.net/dna/btJQ76/dJMcaaYmeIn/AAAAAAAAAAAAAAAAAAAAAGD-GpI7p2-90CY6e-Q2MjUQMQXZprpnhvNNTw2Qho6x/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=E%2FyfaimgyBCIU5Y%2FI9gt8Fw25xw%3D)
+![](/raw/assets/hand-pose/ren/ren-02.jpg)
 
 ---
 
 ### 4. 영역 분할 및 앙상블 전략
 
-![](https://blog.kakaocdn.net/dna/cE4HjZ/dJMcai9R0h7/AAAAAAAAAAAAAAAAAAAAAB3-r3caT7jw3sIM9YAu6WbP5d9CXMr9OO1FLMH9LolG/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=QKl1YnQslwzsZy%2FiaQNi34b2cVg%3D)
+![](/raw/assets/hand-pose/ren/ren-03.jpg)
 
 영역 구성
 

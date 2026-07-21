@@ -15,7 +15,7 @@ created: 2026-02-03
 
 이러한 분리 접근은 특히 다음과 같은 문제를 야기한다
 
-![](https://blog.kakaocdn.net/dna/dSIREV/dJMcac20fZQ/AAAAAAAAAAAAAAAAAAAAANvI6lgvHnfcG8x7EFo34ZUJvggVgkIxEvJTU8M7Xn_x/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=COVqyr8zkHZm7PKdQM94hc2X6iU%3D)
+![](/raw/assets/hand-pose/mano/mano-01.jpg)
 
 ---
 
@@ -55,7 +55,7 @@ MANO는 고해상도 3D 손 스캔 데이터를 기반으로 학습된다.
 
 이 데이터는 손 표면 변형과 관절 회전 간의 통계적 관계를 학습하기 위한 기반이 된다.
 
-![](https://blog.kakaocdn.net/dna/bNCsuN/dJMcai3cXcd/AAAAAAAAAAAAAAAAAAAAADEnsfwqfIKqKCYFRRO_IOnJLD9fD3LqvFqAxkH1R2Fi/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=e7eq3jfyy8GTBi92yXzSFxaR%2BEU%3D)
+![](/raw/assets/hand-pose/mano/mano-02.jpg)
 
 ---
 
@@ -89,7 +89,7 @@ MANO는 중립 손 템플릿을 생성하는 과정에서도 기존 평균 기�
 
 대표적인 예로는 너클의 과도한 돌출, 관절 주변의 비정상적인 볼록 현상 등이 있다.
 
-![](https://blog.kakaocdn.net/dna/rr6re/dJMcahccpVq/AAAAAAAAAAAAAAAAAAAAAM4ec_MMonOwbwtDvhDRP6xfsBTDnX4kKKaijt3OFcbi/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=kp5jTmCiG22JNhIC3obpccTCpHs%3D)
+![](/raw/assets/hand-pose/mano/mano-03.png)
 
 MANO는 이를 해결하기 위해 템플릿 최적화 과정에서 포즈에 따른 가중치 조정을 적용한다.
 
@@ -172,7 +172,7 @@ SMPL+H는 전신과 손을 독립적으로 추정하던 기존 방식과 달리,
 
 이를 통해 시간적으로 부드러운 전신-손 동작을 추정한다.
 
-![](https://blog.kakaocdn.net/dna/6pI4A/dJMcai3cXgV/AAAAAAAAAAAAAAAAAAAAAC7CajbNAaNMT_lm3nc8TWbxlDDOvCt8CmvKtKK-mQVx/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=i9FPDJYXDX2YXg5rClKk2P9PDKQ%3D)
+![](/raw/assets/hand-pose/mano/mano-04.png)
 
 ---
 
