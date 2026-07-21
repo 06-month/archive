@@ -403,13 +403,30 @@ async function main() {
     file.outgoingSlugs = Array.from(outgoing);
   }
 
-  // Pre-calculate degrees for nodes
+  // Paper-metadata "source" notes (wiki/**/sources/*-논문, tagged source+paper)
+  // are backing data for backlinks/link-resolution but should not appear as
+  // nodes in the visible graphs (Overview hero graph + /wiki-map). Exclude them
+  // from the graph nodes/edges, and from the degree counts so the remaining
+  // nodes are sized by their visible connections only. publicFiles is left
+  // intact, so content-index backlinks and link resolution are unaffected.
+  const isPaperMeta = (f) => {
+    const t = f.tags || [];
+    return t.includes('source') && t.includes('paper');
+  };
+  const excludedFromGraph = new Set(
+    publicFiles.filter(isPaperMeta).map(f => f.slug)
+  );
+
+  // Pre-calculate degrees for nodes (ignoring edges to/from excluded nodes)
   const nodeDegrees = {};
   publicFiles.forEach(f => {
-    nodeDegrees[f.slug] = { inDegree: 0, outDegree: f.outgoingSlugs.length };
+    if (excludedFromGraph.has(f.slug)) return;
+    const visibleOutgoing = f.outgoingSlugs.filter(s => !excludedFromGraph.has(s));
+    nodeDegrees[f.slug] = { inDegree: 0, outDegree: visibleOutgoing.length };
   });
 
   publicFiles.forEach(f => {
+    if (excludedFromGraph.has(f.slug)) return;
     f.outgoingSlugs.forEach(targetSlug => {
       if (nodeDegrees[targetSlug]) {
         nodeDegrees[targetSlug].inDegree++;
@@ -419,6 +436,7 @@ async function main() {
 
   // Compile final graph data
   publicFiles.forEach(f => {
+    if (excludedFromGraph.has(f.slug)) return;
     const deg = nodeDegrees[f.slug];
     nodes.push({
       id: f.slug,
@@ -437,6 +455,7 @@ async function main() {
     });
 
     f.outgoingSlugs.forEach(targetSlug => {
+      if (excludedFromGraph.has(targetSlug)) return;
       const targetFile = publicFiles.find(pf => pf.slug === targetSlug);
       if (targetFile) {
         edges.push({
