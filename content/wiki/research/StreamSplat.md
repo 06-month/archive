@@ -35,7 +35,7 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 
 ## 결과
 - **동적 복원**(DAVIS): 키프레임 PSNR 37.83(최적화 DGMarbles 28.38, ~30min) — **0.049s/frame, 1200×**. 중간 프레임(5·8 frame interval)서 2D interpolation(AMT·RIFE 등)·4D 모두 능가. scene-coordinate MonST3R(키프레임만, post-opt 필요)와 키프레임 경쟁하면서 중간 프레임까지 복원.
-- **정적**(RE10K): given-view서 pixelSplat·MVSplat·NoPoSplat 등 정적 baseline 능가, novel-view는 정적 모델이 우세하나 동적 baseline 중 최고(보정 부재로 인한 한계).
+- **정적**(RE10K): given-view서 [[pixelSplat]]·[[MVSplat]]·[[NoPoSplat]] 등 정적 baseline 능가, novel-view는 정적 모델이 우세하나 동적 baseline 중 최고(보정 부재로 인한 한계).
 - **Zero-shot**(DyCheck·NVIDIA): w/o cam이 DGMarbles(w/o cam) 능가, GT intrinsic 쓰는 4DGS 수준 접근. Ablation: 확률 샘플링·pseudo-depth·양방향 field 각각 유효.
 
 ## 한계
@@ -43,6 +43,6 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 
 ## 관련
 - **표현 기반**: [[3D-Gaussian-Splatting]] — 동적·온라인 3DGS / [[NeRF]] — 동적 NVS 계보(Omnimotion·RoDynRF 대조).
-- **동적 peer**: [[4DGT]]·[[DGS-LRM]]·[[MoVieS]] — feed-forward 4D GS 클러스터(StreamSplat은 **온라인·uncalibrated** 차별) / [[MONST3R]] — scene-coordinate 동적 복원 직접 비교 / [[MoRe]] — 스트리밍 4D 대조(grouped causal vs bidirectional deformation).
+- **동적 peer**: [[4DGT]]·[[DGS-LRM]]·[[MoVieS]] — feed-forward 4D GS 클러스터(StreamSplat은 **온라인·uncalibrated** 차별) / [[MONST3R]] — scene-coordinate 동적 복원 직접 비교 / [[MoRe]] — 스트리밍 4D 대조(grouped causal vs bidirectional deformation) / [[OR2-온라인동적GS]] — online 동적 재구성 시간 일관성(최적화 기반 plug-in vs feed-forward 스트리밍).
 - **개념(다른 영역)**: [[Transformer]] — encoder/decoder·[[DINO|DINOv2]] 조건 / [[Radiance Field-Volume Rendering]] — 3DGS α-blending image formation / [[ViT]] — patch encoder.
 - **출처 메타**: [[2026-06-16-StreamSplat-논문]]

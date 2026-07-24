@@ -40,6 +40,8 @@ tags: [index]
 
 ## research — 3D Vision / 3DGS / NeRF / Scene Reconstruction
 
+- **가로지르는 지도(MOC)**: [[VGGT-백본-생태계]] — [[VGGT]]를 백본으로 쓰는 후속작(VGGT-Ω·MoRe·MoVieS·C3G·C4G·NeoVerse)을 클러스터 넘어 재편.
+
 ### Radiance Field NVS (Radiance Field)
 **계보**: [[NeRF]] (2020, 연속 MLP) → [[3D-Gaussian-Splatting|3DGS]] (2023, 명시적·실시간) → 구조화 [[Scaffold-GS]] · 응용 [[lighthouseGS]] · [[CoherentRaster]] · 동적 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]
 - [[NeRF]] — 연속 5D MLP + Volume Rendering. 위치 인코딩·계층 샘플링 (ECCV'20)
@@ -67,7 +69,7 @@ tags: [index]
 - [[WiLoR]] — 검출+복원 full-stack, 다중스케일 refinement, WHIM 2M (2024)
 
 ### Feed-forward 3D 복원 (DUSt3R 계보 — pointmap 직접회귀)
-**계보**: [[CroCo]] (2022, cross-view 사전학습) → [[DUSt3R]] (2024, 뿌리·쌍 pointmap·정적) → 매칭 [[MASt3R]] · 정적 다중뷰 [[VGGT]] · 동적 분기 [[MONST3R]]→[[POMATO]] / [[MoRe]]
+**계보**: [[CroCo]] (2022, cross-view 사전학습) → [[DUSt3R]] (2024, 뿌리·쌍 pointmap·정적) → 매칭 [[MASt3R]] · 정적 다중뷰 [[VGGT]]→스케일업 [[VGGT-Ω]] · 동적 분기 [[MONST3R]]→[[POMATO]] / [[MoRe]]
 - [[CroCo]] — DUSt3R 계보 **사전학습 토대**. cross-view completion(두 뷰로 마스킹 복원), Siamese ViT+cross-attention (NeurIPS'22)
 - [[DUSt3R]] — **뿌리**. 보정·포즈 없는 쌍에서 pointmap 회귀, CroCo+ViT 2-디코더, 3D 전역정렬 (CVPR'24)
 - [[MASt3R]] — DUSt3R+dense feature 매칭 헤드(InfoNCE) + fast reciprocal matching, Map-free localization +30%p (ECCV'24)
@@ -75,19 +77,27 @@ tags: [index]
 - [[MONST3R]] — "Motion DUSt3R", timestep별 pointmap 동적 장면, 소규모 fine-tune + 경량 전역최적화 (ICLR'25)
 - [[POMATO]] — DUSt3R+pointmap matching 헤드(동적 대응) + temporal motion module, 3D point tracking SOTA, MonST3R 초기화 (2025)
 - [[MoRe]] — VGGT 기반, attention-forcing 모션분리 + grouped causal attention 스트리밍 + BA-like refinement (2026)
+- [[VGGT-Ω]] — VGGT 직계 스케일업(0.2B→10B·2K→2M seq, 거듭제곱법칙), register attention·단일 head로 학습 메모리 70%↓, 정적·동적 6벤치 SOTA, register→VLA·언어정렬 (2026)
 
 ### Feed-forward GS 복원 (LRM 계보: 정적 → 4D/동적)
-**계보**: 시초 [[pixelSplat]] · 매칭 기반 [[MVSplat]] · LRM 기반 [[GS-LRM]] (2024, 정적 뿌리·per-pixel GS LRM) → 동적/4D 후계 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]]. posed/uncalibrated 영상 → GS를 feed-forward 예측, 최적화 기반 대비 수백~수천배 빠름. Radiance Field([[3D-Gaussian-Splatting]]) × DUSt3R 계보([[VGGT]]) 교차.
+**계보**: 시초 [[pixelSplat]] · 매칭 기반 [[MVSplat]] · LRM 기반 [[GS-LRM]] (2024, 정적 뿌리·per-pixel GS LRM) · pose-free [[NoPoSplat]] → 동적/4D 후계 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]]·[[C4G]] → 복원+생성 4D 세계모델 [[NeoVerse]]. posed/uncalibrated 영상 → GS를 feed-forward 예측, 최적화 기반 대비 수백~수천배 빠름. Radiance Field([[3D-Gaussian-Splatting]]) × DUSt3R 계보([[VGGT]]) 교차.
 - [[pixelSplat]] — **시초**. 이미지 2뷰 → feed-forward 3DGS, epipolar transformer(스케일 모호성)+확률적 깊이 샘플링(reparameterization), light field 대비 ~650× 빠름 (CVPR'24)
 - [[MVSplat]] — sparse(2뷰) → feed-forward 3DGS, plane-sweep **cost volume** 매칭으로 깊이 추정, pixelSplat 대비 10×↓·2× 빠름·일반화 우위 (ECCV'24)
 - [[GS-LRM]] — **정적 뿌리**. 2~4 posed 이미지 → per-pixel 3DGS, 단순 트랜스포머, 객체·장면 통합, 0.23s (ECCV'24)
+- [[NoPoSplat]] — **pose-free**. unposed sparse(2뷰) → **정준공간** 직접 3DGS(transform-then-fuse 탈피), 광도손실만 학습·intrinsic token·순수 ViT, 저overlap서 pose-required 능가, 66fps (ICLR'25)
+- [[C3G]] — **컴팩트 정적**. per-pixel 탈피, N=2048 query token으로 필수 위치 가우시안(~2K, 65×↓)만, 창발적 attention 재활용 view-invariant feature lifting(C3G-F), 3D 이해·대응 SOTA. [[C4G]]의 정적 선행작 (2026)
 - [[4DGT]] — 4DGS(2DGS+life-span/velocity)로 정적·동적 통일, density control, 실세계 단안 학습 (NeurIPS'25)
 - [[DGS-LRM]] — per-pixel deformable 3DGS + 3D scene flow, Kubric 멀티뷰 학습, flow chaining 3D tracking (2025)
 - [[MoVieS]] — VGGT 기반 dynamic splatter pixel, NVS·깊이·tracking 통합 1초, zero-shot scene flow (2026)
 - [[StreamSplat]] — uncalibrated 스트림 온라인 동적 3DGS, 양방향 deformation + adaptive fusion, 1200× (ICLR'26)
 - [[C4G]] — **per-pixel 탈피**. timestamp 조건 learnable query token(N=2048)으로 global motion aggregate, 2K 가우시안(0.007×↓)·포즈 불필요 SOTA, 최초 feed-forward 4D feature lifting + VDM refine (2026)
+- [[NeoVerse]] — **복원+생성 4D 세계모델**. VGGT Gaussianize + 양방향 모션 pose-free 4DGS 복원 → degradation 시뮬로 novel-view 조건 생성(Wan+Rectified Flow), in-the-wild 단안 1M clip 스케일러블, 복원·생성 SOTA (2026)
 
-- _sources_: Radiance Field [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]]·[[2026-06-20-Scaffold-GS-논문]] / 동적GS뿌리 [[2026-06-20-4DGS-논문]]·[[2026-06-20-Deformable3DGS-논문]]·[[2026-06-20-native4DGS-논문]]·[[2026-06-20-SpacetimeGS-논문]] / feed-forward GS [[2026-06-20-MVSplat-논문]]·[[2026-06-25-pixelSplat-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]·[[2026-07-14-C4G-논문]]
+### 3D 장면 생성 (2D lifting · 파노라마 · inverse rendering)
+**계보**: 위 복원 계열이 관측 영상→기하를 다룬다면, 이 계열은 **2D 생성 prior로 새 장면을 합성**. 파노라마가 2D↔3D 다리.
+- [[OmniX]] — 2D flow matching(Flux) 재활용 통합 파노라마 **생성·인지·완성**, 기하+PBR재질 인지 → relighting/시뮬 가능 **PBR-레디 3D 장면**, circular synchronization·modality-specific LoRA·PanoX 데이터셋 (2026)
+
+- _sources_: Radiance Field [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]]·[[2026-06-20-Scaffold-GS-논문]] / 동적GS뿌리 [[2026-06-20-4DGS-논문]]·[[2026-06-20-Deformable3DGS-논문]]·[[2026-06-20-native4DGS-논문]]·[[2026-06-20-SpacetimeGS-논문]] / feed-forward GS [[2026-06-20-MVSplat-논문]]·[[2026-06-25-pixelSplat-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]·[[2026-07-14-C4G-논문]] / VGGT스케일업 [[2026-07-25-VGGT-Omega-논문]] / 장면생성 [[2026-07-25-OmniX-논문]] / online동적 [[2026-07-01-OR2-논문]] / pose-free GS [[2026-07-25-NoPoSplat-논문]] / 4D세계모델 [[2026-07-25-NeoVerse-논문]] / 컴팩트GS [[2026-07-25-C3G-논문]]
 - `Zotero/`는 **ingest 대상 아님** (raw/ 전용 — [[raw-wiki-규칙]] §A 참조)
 
 ## concepts — 공통 개념 (courses ↔ research)
@@ -98,6 +108,9 @@ tags: [index]
 - [[Radiance Field-Volume Rendering]] — radiance field·$\alpha$-blending. NeRF·3DGS·동적GS 공통 image formation
 - [[구면조화함수-SH]] — 시점의존 색 표현. Radiance Field 연구 공통 도구
 - [[SfM-COLMAP]] — Structure-from-Motion. NeRF·3DGS 초기화 입력
+
+**생성 prior (확산·flow matching)**
+- [[flow-matching-생성prior]] — flow matching·rectified flow·video diffusion·LoRA. 3D→생성 확장 연구(OmniX·NeoVerse·C4G) 공통 도구
 
 **ML 아키텍처 (시퀀스·비전 백본)**
 - [[Transformer]] — attention. 모든 후속 백본의 토대

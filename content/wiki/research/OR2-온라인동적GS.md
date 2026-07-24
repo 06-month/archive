@@ -9,7 +9,7 @@ tags: [research, 3DGS, dynamic, online-reconstruction, streaming, temporal-consi
 # OR² — Compensating Spatiotemporally Inconsistent Observations for Online Dynamic 3DGS
 
 > Yun, Bae, Son, Kim, Lee, Bang, Uh (Yonsei/ETRI), **SIGGRAPH Conference Papers 2025** (arXiv:2505.01235).
-> 프로젝트: https://bbangsik13.github.io/OR2. 기존 online 동적 재구성 방법의 **정적 영역 시간 비일관성(flickering)** 문제를 진단하고, **관측 오차를 분리**하는 plug-in으로 해결. (출처: [[onlinedynamic3DGS]])
+> 프로젝트: https://bbangsik13.github.io/OR2. 기존 online 동적 재구성 방법의 **정적 영역 시간 비일관성(flickering)** 문제를 진단하고, **관측 오차를 분리**하는 plug-in으로 해결. (출처: [[2026-07-01-OR2-논문]])
 
 ## 한 줄 요약
 관측 영상은 이상 신호가 아니라 **시변 오차(센서 노이즈 등)를 포함**하며, online 재구성은 매 순간 한 프레임에 과적합해 이 오차까지 학습 → 정적 영역이 깜빡인다. **학습 가능한 residual map**으로 오차를 따로 흡수해 가우시안이 "이상 관측"만 학습하게 만드는 baseline-무관 plug-in.

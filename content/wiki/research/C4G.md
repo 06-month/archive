@@ -46,14 +46,14 @@ supervision 없이 두 self-attention 층이 상보적:
 - **시간 간격 강건성**(Tab.2, TUM $\Delta t\in\{2,4,6,8\}$): per-pixel 대비 성능 저하 훨씬 적음 — 전 시간 컨텍스트 aggregate 덕.
 - **Point tracking**(Tab.10, ADT·DriveTrack): 가우시안 중심 궤적 전파로 per-pixel baseline 능가(pixel-aligned 아니라 초기 위치 노이즈에도).
 - **4D feature field**(Tab.3–4): 투영 feature가 원본 DINOv3·VGGT feature보다 시간·기하 일관성↑, LSeg 기반 dynamic scene understanding에서 LSeg 자체도 상회.
-- **구현**: $N{=}2048$, $L{=}2$, VGGT 인코더, 224², Spring·Kubric·RealEstate10K, AdamW(디코더 1e-5·백본 1e-7), 4×H100. **정적 사전학습 C3G 가중치로 초기화**(동적 모델링에 집중).
+- **구현**: $N{=}2048$, $L{=}2$, VGGT 인코더, 224², Spring·Kubric·RealEstate10K, AdamW(디코더 1e-5·백본 1e-7), 4×H100. **정적 사전학습 [[C3G]] 가중치로 초기화**(동적 모델링에 집중).
 
 ## 한계 (§F)
 입력뷰에서 한 번도 관측 안 된 영역·극단 시점은 zero-hole 생성 불가(VDM이 채우되 hallucinate). **시간 외삽 불가** — 보간 timestamp로만 학습해 미래 프레임 예측 실패.
 
 ## 관련
-- **직접 계보(sister work)**: **C3G**(An et al. 2025, 정적 장면 2K 가우시안 compact 표현 — 초기화 가중치·query decoder 원형; raw 미수집, 평문) → C4G가 시간 조건 query로 4D 확장.
-- **per-pixel 대조군**: [[4DGT]]·[[MoVieS]]·NeoVerse — feed-forward 4D GS 클러스터, C4G가 겨냥한 duplicated/view-bias 실패의 당사자 / [[DGS-LRM]]·[[StreamSplat]] peer.
+- **직접 계보(sister work)**: [[C3G]](Jeon et al. 2026, 정적 장면 2K 가우시안 compact 표현 — 초기화 가중치·query decoder 원형) → C4G가 시간 조건 query로 4D 확장.
+- **per-pixel 대조군**: [[4DGT]]·[[MoVieS]]·[[NeoVerse]] — feed-forward 4D GS 클러스터, C4G가 겨냥한 duplicated/view-bias 실패의 당사자 / [[DGS-LRM]]·[[StreamSplat]] peer.
 - **백본·기반**: [[VGGT]] — 인코더·기하 사전지식(feature lifting 대상이기도) / [[3D-Gaussian-Splatting]] — 가우시안 표현·rasterization 토대 / [[NeRF]] — 동적 NVS Radiance Field 계보.
-- **개념(다른 영역)**: [[Transformer]] — query-based self-attention 디코더 / [[위치인코딩-positional-encoding]] — sinusoidal time embedding(RoPE보다 우수, Tab.5) / [[구면조화함수-SH]] — SH degree 0 선택 / [[DINO]] — DINOv3 feature lifting / [[Radiance Field-Volume Rendering]] — alpha-blending image formation.
+- **개념(다른 영역)**: [[flow-matching-생성prior]] — VDM(Wan2.1-VACE, flow matching) refine의 개념 앵커 / [[Transformer]] — query-based self-attention 디코더 / [[위치인코딩-positional-encoding]] — sinusoidal time embedding(RoPE보다 우수, Tab.5) / [[구면조화함수-SH]] — SH degree 0 선택 / [[DINO]] — DINOv3 feature lifting / [[Radiance Field-Volume Rendering]] — alpha-blending image formation.
 - **출처 메타**: [[2026-07-14-C4G-논문]]

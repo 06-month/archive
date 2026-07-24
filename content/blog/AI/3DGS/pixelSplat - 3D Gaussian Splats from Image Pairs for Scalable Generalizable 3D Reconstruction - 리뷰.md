@@ -253,7 +253,7 @@ $$
 
 따라서 PixelSplat은 depth를 하나의 값으로 직접 회귀하지 않고, ray 위의 여러 depth 후보에 대한 확률분포를 예측한다.
 
-![[Pasted image 20260719175211.png]]
+![[pixelSplat_image2.png]]
 
 먼저 near plane $d_{near}$와 far plane $d_{far}$ 사이를 $Z$개의 depth bucket으로 나눈다.
 

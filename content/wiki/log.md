@@ -212,3 +212,52 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - 생성: [[Hermes-Agent-활용-가이드북]] — 사용자가 Hermes로 할 수 있는 일을 wiki 운영·코딩·조사·문서화·자동화 중심으로 정리.
 - 공식 Hermes docs(도구·슬래시 커맨드·스킬·메모리·cron)와 현재 vault 규칙([[raw-wiki-규칙]])을 반영.
 - index system 섹션에 신규 운영 문서로 등재.
+
+## [2026-07-25] ingest | VGGT-Ω + OmniX (신규 raw 2건)
+- 멱등성 가드: raw/ 41개 md 중 미처리 2건(`raw/VGGT-Ω.md` 28p·`raw/OmniX.md` 26p, sources 미등재) → 처음 ingest. 나머지 39건 skip. 부록·References 포함 전체 통독. 둘 다 [통과]/research.
+- **[[VGGT-Ω]]**: [[VGGT]] 직계 스케일업(Oxford·Meta 동일팀). 모델 0.2B→10B·데이터 2K→2M seq 거듭제곱법칙. 효율 3종(register attention 25% 대체·단일 dense head·pixel-shuffle)로 학습메모리 70%↓→15× 데이터. 동적 주석 파이프라인(VLM·Grounding DINO·COLMAP·앙상블 필터, 40M→0.8M seq) + teacher-student 자기지도. Sintel 카메라 AUC@3° 22.5→40.0(+77%), MegaSaM 50×↑, 1000+프레임/A100. register→VLA(LIBERO 97.1→98.5)·언어정렬. index "Feed-forward 3D 복원(DUSt3R 계보)"에 편입.
+- cross-link: [[VGGT]]·[[DUSt3R]]·[[MASt3R]]·[[MONST3R]]/파생대조 [[MoRe]]·[[MoVieS]]/개념(타영역) [[DINO]]·[[Transformer]]·[[ViT]]/응용 [[3D-Gaussian-Splatting]]·[[NeRF]].
+- **[[OmniX]]**: 신규 하위영역(3D 장면 생성·파노라마 2D-lifting·inverse rendering). 2D flow matching(Flux.1-dev) 재활용 통합 파노라마 생성·인지·완성. 기하+PBR재질(albedo·roughness·metallic) 인지→PBR-레디 3D 장면. Circular Synchronization(seam 근본해결)·Separate-Adapter(모달리티별 LoRA)·PanoX 데이터셋(UE5 합성, 실내외+재질주석 최초). 생성·내재분해 SOTA. index에 신규 섹션 "3D 장면 생성" 추가.
+- cross-link: 개념(타영역) [[Transformer]]·[[ViT]]/2D-lifting 이웃 [[3D-Gaussian-Splatting]]/기하인지 대조 [[VGGT-Ω]]/image formation [[NeRF]].
+- 잔여 concepts 갭(평문, 페이지 없음): flow matching·rectified flow / inverse rendering·PBR / LoRA / register token. 향후 ingest 시 신설 검토.
+- 압축: VGGT-Ω 3811줄→노트 ~70줄, OmniX 1840줄→노트 ~55줄(각 ≤200줄·직접인용 ≤3줄·cross-link 타영역 ≥1 충족). 미처리 raw 0.
+
+## [2026-07-25] fix | VGGT-Ω sources 유니코드 정규화 교정
+- 멱등성 스캔이 `raw/VGGT-Ω.md`를 미처리로 오탐 → 원인: 파일명 Ω는 **U+2126(OHM SIGN, e2 84 a6)**, 노트 `sources:`는 **U+03A9(GREEK OMEGA, ce a9)** — 시각 동일·코드포인트 상이(NFC에서 U+2126→U+03A9 분해라 불일치 발생).
+- 조치: `wiki/research/VGGT-Ω.md`·source meta 2파일의 `sources:` 값을 raw 실제 파일명 코드포인트(U+2126)로 교정. 재스캔 결과 VGGT-Ω 정상 매칭. (wiki 내부 wikilink/파일명은 U+03A9로 일관 유지 — 외부 참조인 sources만 교정.)
+
+## [2026-07-25] ingest | NoPoSplat + NeoVerse (신규 raw 2건)
+- 멱등성 가드: raw/ 43개 md 중 미처리 2건(`raw/NoPoSplat.md` 21p·`raw/NeoVerse.md` 15p, sources 미등재) → 처음 ingest. 나머지 skip. 부록·References 포함 전체 통독. 둘 다 [통과]/research.
+- **[[NoPoSplat]]**: pose-free generalizable 3DGS(ETH·NVIDIA, ICLR'25). 첫 뷰를 **정준공간**으로 앵커, 모든 뷰 가우시안을 그 안에서 직접 예측(transform-then-fuse 탈피)→포즈 불필요. 광도손실만 학습(GT depth 불요), intrinsic token으로 스케일 모호성 해결, 순수 ViT(기하 prior 없음). 저overlap서 pose-required([[pixelSplat]]·[[MVSplat]]) 능가, 2단계 포즈추정(PnP+광도 refine)으로 DUSt3R·MASt3R·RoMa 상회. 66fps. index "Feed-forward GS 복원(LRM 계보)"에 편입.
+- cross-link: [[pixelSplat]]·[[MVSplat]]·[[GS-LRM]]/DUSt3R교차 [[DUSt3R]]·[[MASt3R]]/개념(타영역) [[ViT]]·[[SfM-COLMAP]]·[[구면조화함수-SH]]/후속 [[NeoVerse]]·[[VGGT]].
+- **[[NeoVerse]]**: 복원+생성 하이브리드 4D 세계모델(CASIA·CreateAI, 2026). [[VGGT]] Gaussianize + **양방향 모션 모델링**(4DGT 단방향 대조)으로 pose-free feed-forward 4DGS 복원. **온라인 degradation 시뮬**(Gaussian culling·average geometry filter)로 단안 영상만으로 학습쌍 생성→in-the-wild 1M clip 스케일러블. degraded novel-view 렌더 조건으로 Wan-T2V+Rectified Flow 생성(control branch만 학습). 정적(VRNeRF·ScanNet++)·동적(ADT·DyCheck) 복원 + 생성(VBench) SOTA. index "Feed-forward GS 복원(LRM 계보)" 4D에 편입.
+- cross-link: 백본 [[VGGT]]/4D peer [[4DGT]]·[[MoVieS]]·[[StreamSplat]]·[[C4G]]/pose-free 대조 [[NoPoSplat]]·[[MONST3R]]/표현 [[3D-Gaussian-Splatting]]/개념(타영역) [[DINO]]·[[Transformer]]·[[ViT]].
+- 잔여 concepts 갭(평문, 페이지 없음): rectified flow / video diffusion(Wan) / LoRA / ControlNet식 control branch — [[OmniX]]·[[C4G]]와 공유. 향후 신설 검토.
+- 압축: NoPoSplat 1876줄→노트 ~70줄, NeoVerse 2185줄→노트 ~70줄(각 ≤200줄·직접인용 ≤3줄·cross-link 타영역 ≥1 충족). 미처리 raw 0.
+
+## [2026-07-25] ingest | C3G (컴팩트 2K 가우시안 정적 GS)
+- 멱등성 가드: NoPoSplat·NeoVerse ingest 후 재스캔에서 `raw/C3G.md`(28p, 3597줄) 신규 출현(세션 중 Drive 동기화, 02:44 생성). sources 미등재 → 처음 ingest. 부록 A~F 포함 전체 통독. [통과]/research.
+- **[[C3G]]**: KAIST CVLAB·ETH·Sony. per-pixel 대신 **N=2048 학습가능 query token**으로 필수 위치 컴팩트 가우시안(~2K, LSM 65×↓·메모리 4.1MB)만 예측. 광도손실만 학습해도 **각 토큰이 뷰 간 일관 영역에 attend하는 창발** → 이 attention 재활용(C3G-F, value projection만 학습)해 임의 2D 피처(LSeg·MaskCLIP·DINOv2/v3·VGGT tracking)를 view-invariant 3D로 압축 없이 lift. VGGT 인코더·SH degree 0·RAIN-GS low-pass. NVS 경쟁적(2K vs 수백만), 3D open-vocab seg·다중뷰 대응(PCK) SOTA. index "Feed-forward GS 복원(LRM 계보)"에 편입.
+- **갭 해소**: [[C4G]] 노트가 평문 참조하던 "정적 선행작 C3G"(같은 KAIST CVLAB, C4G가 C3G 가중치로 초기화)를 [[C3G]] 링크로 승격. 겸사겸사 C4G 노트의 NeoVerse 평문도 [[NeoVerse]] 링크로 교정.
+- cross-link: 직계후속 [[C4G]]/대조 [[NoPoSplat]]·[[pixelSplat]]·[[MVSplat]]·[[GS-LRM]]/백본 [[VGGT]]/표현 [[3D-Gaussian-Splatting]]/개념(타영역) [[DINO]]·[[구면조화함수-SH]]·[[Transformer]]·[[ViT]].
+- 압축: C3G 3597줄→노트 ~75줄(≤200줄·직접인용 ≤3줄·cross-link 타영역 ≥1 충족). 미처리 raw 0.
+
+## [2026-07-25] lint | all 영역 건강 진단 (신규 5건 ingest 후)
+- 모순 0 / 미처리 raw 0 / 압축 룰 위반 0(콘텐츠 노트 전부 ≤200줄·cross-link ≥3, rulebook만 예외=거버넌스 문서) / 모호 로그 비어있음.
+- **깨진 링크 1(상)**: [[OR2-온라인동적GS]]의 출처 인용이 raw 파일명(`onlinedynamic3DGS`)을 가리켜 미해결 — research 노트 37개 중 유일하게 **source-meta 노트 없음**(2026-07-01 ingest 시 누락). 조치: `sources/2026-07-01-OR2-논문.md` 신설 + OR² 인용 링크 교정 + index _sources_ 등재.
+- **고립(중)**: 확립된 노트 중 peer 역링크 0 = [[OR2-온라인동적GS]](2026-07-01, 동적GS뿌리 클러스터인데 peer 무연결)·[[OmniX]](신규 단독 하위영역). 금세션 신규(VGGT-Ω·C3G·NoPoSplat·NeoVerse)는 inbound 낮으나 정상(누적 예정).
+- **데이터 갭(중)**: 생성형 확산 prior 개념군(flow matching[OmniX·C4G]·rectified flow[NeoVerse]·video diffusion/VDM[NeoVerse·C4G]·control branch·LoRA) — research 3+노트가 의존하나 concepts 페이지 없음. 후보: [[flow-matching-생성prior]] 신설. (baseline 평문 AnySplat·MegaSaM·Splatt3R·DA3·PI3는 raw 미수집이라 유지.)
+- 진단만, 자동수정 X. 조치는 사용자 승인 후 별도.
+
+## [2026-07-25] fix | lint 권고 3건 일괄 조치 (사용자 승인)
+- **깨진 링크/source-meta 누락 해소**: [[2026-07-01-OR2-논문]] source-meta 신설(기존 OR² 노트·log 기반, raw 재읽기 없이) → OR² 인용 링크를 raw 파일명(onlinedynamic3DGS) 대신 이 source-meta로 교정, index _sources_ 등재. research/source-meta 37:37 일치.
+- **데이터 갭 해소**: concepts [[flow-matching-생성prior]] 신설(flow matching·rectified flow·video diffusion·LoRA·control branch 앵커). [[OmniX]]·[[NeoVerse]]·[[C4G]] 3노트의 평문 생성개념을 이 페이지로 양방향 링크(각 노트 개념 line 교정). index concepts에 "생성 prior" 소섹션 추가.
+- **고립 해소**: [[OR2-온라인동적GS]]에 peer 역링크 부여([[StreamSplat]]·[[NeoVerse]]→OR², 0→2). [[OmniX]]도 [[NeoVerse]]·concepts→링크로 0→2. flow-matching 페이지 inbound 3.
+- **부수 정리**: [[StreamSplat]] 본문 평문 pixelSplat·MVSplat·NoPoSplat를 위키링크화. lint 로그 내 자기참조 raw 파일명 표기를 코드/평문으로 정리(broken link 재생성 방지).
+- 재검: 미해결 wikilink 0(blog 리뷰·asset embed 제외), 미처리 raw 0, ≥200줄 콘텐츠 노트 0.
+
+## [2026-07-25] system | VGGT 백본 생태계 MOC 신설 (lint C-tier 제안)
+- 생성: [[VGGT-백본-생태계]] — [[VGGT]]를 백본/인코더로 쓰는 후속작을 index 클러스터 넘어 "무엇을 VGGT 위에 얹었는가" 축으로 재편한 MOC(가로지르는 지도). 뿌리 [[VGGT]] + ①스케일업 [[VGGT-Ω]] ②동적/스트리밍 [[MoRe]] ③Gaussianize [[MoVieS]]·[[C3G]]·[[C4G]]·[[NeoVerse]]. 대비군(VGGT 백본 아님) [[NoPoSplat]]·[[DUSt3R]]·[[MASt3R]] 명시.
+- 등재: index research 섹션 상단에 MOC 포인터 1줄, [[VGGT]] 노트 관련에 "후속 생태계(MOC)" 링크(inbound 확보).
+- 부수 효과: MOC가 6개 VGGT 의존 노트(신규 4건 포함)에 inbound 부여 → 금세션 신규 노트 고립도 추가 완화.
+- 개념(타영역) [[DINO]]·[[Transformer]]·[[ViT]] 링크로 §C cross-link 규칙 충족. 미해결 wikilink 0 유지.
