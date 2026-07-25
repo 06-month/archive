@@ -41,4 +41,5 @@ tags: [research, 4DGS, dynamic-scene, deformation-field, monocular, real-time-re
 - **개념(다른 영역)**: [[위치인코딩-positional-encoding]] — 변형장 입력 $\gamma(x),\gamma(t)$ 에 직접 사용(고주파 디테일 향상) / [[Radiance Field-Volume Rendering]] — $\alpha$-blending image formation / [[SfM-COLMAP]] — 초기화 + 포즈(부정확성이 본 논문 핵심 난점).
 - **동시기·대조**: [[4DGS]](Wu et al.) — 같은 canonical+deformation이나 **MLP vs HexPlane** 인코더로 분기, 서로 concurrent 인용 / [[NeRF]]·D-NeRF·Nerfies·HyperNeRF(implicit 변형장 선행).
 - **후속 동적 GS**: [[SpacetimeGS]]·[[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]](최적화 기반) / [[DGS-LRM]]·[[4DGT]](feed-forward) — 모두 deformation/명시 4D 계보.
+- **직접 baseline으로 인용됨**: [[ShapeOfMotion]] — 본 논문(D-3DGS)을 단안 4D 비교군으로 삼아, **변형장 대신 SE(3) 모션 기저**로 영속 궤적을 얻는 대안을 제시(큰 모션서 D-3DGS의 구조 붕괴·블러를 지적).
 - **출처 메타**: [[2026-06-20-Deformable3DGS-논문]]

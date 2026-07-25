@@ -55,5 +55,5 @@ supervision 없이 두 self-attention 층이 상보적:
 - **직접 계보(sister work)**: [[C3G]](Jeon et al. 2026, 정적 장면 2K 가우시안 compact 표현 — 초기화 가중치·query decoder 원형) → C4G가 시간 조건 query로 4D 확장.
 - **per-pixel 대조군**: [[4DGT]]·[[MoVieS]]·[[NeoVerse]] — feed-forward 4D GS 클러스터, C4G가 겨냥한 duplicated/view-bias 실패의 당사자 / [[DGS-LRM]]·[[StreamSplat]] peer.
 - **백본·기반**: [[VGGT]] — 인코더·기하 사전지식(feature lifting 대상이기도) / [[3D-Gaussian-Splatting]] — 가우시안 표현·rasterization 토대 / [[NeRF]] — 동적 NVS Radiance Field 계보.
-- **개념(다른 영역)**: [[flow-matching-생성prior]] — VDM(Wan2.1-VACE, flow matching) refine의 개념 앵커 / [[Transformer]] — query-based self-attention 디코더 / [[위치인코딩-positional-encoding]] — sinusoidal time embedding(RoPE보다 우수, Tab.5) / [[구면조화함수-SH]] — SH degree 0 선택 / [[DINO]] — DINOv3 feature lifting / [[Radiance Field-Volume Rendering]] — alpha-blending image formation.
+- **개념(다른 영역)**: [[flow-matching-생성prior]] — VDM(Wan2.1-VACE, flow matching) refine의 개념 앵커 / [[장거리-point-tracking]] — 3D tracking 평가의 개념 앵커 / [[Transformer]] — query-based self-attention 디코더 / [[위치인코딩-positional-encoding]] — sinusoidal time embedding(RoPE보다 우수, Tab.5) / [[구면조화함수-SH]] — SH degree 0 선택 / [[DINO]] — DINOv3 feature lifting / [[Radiance Field-Volume Rendering]] — alpha-blending image formation.
 - **출처 메타**: [[2026-07-14-C4G-논문]]

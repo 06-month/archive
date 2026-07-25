@@ -60,7 +60,7 @@ tags: [research, 3D-reconstruction, feed-forward, transformer, camera-pose, dept
 ## 관련
 - **계보(다른 영역 아님, research)**: [[DUSt3R]]/MASt3R의 **다중프레임·후처리 제거** 후계. pairwise + global alignment를 단일 forward로 대체.
 - **동적 대조**: [[MONST3R]] — 같은 DUSt3R 포인트맵 표현을 **동적 영상**으로 확장(VGGT는 정적 다중뷰 + 다운스트림 동적). 둘 다 "pointmap을 직접 회귀" 패러다임.
-- **개념(다른 영역)**: [[Transformer]]·[[ViT]] — AA 백본의 토대 / [[SfM-COLMAP]] — VGGT가 대체·가속하려는 전통 SfM 파이프라인.
+- **개념(다른 영역)**: [[Transformer]]·[[ViT]] — AA 백본의 토대 / [[SfM-COLMAP]] — VGGT가 대체·가속하려는 전통 SfM 파이프라인 / [[장거리-point-tracking]] — CoTracker2식 트래킹 헤드·TAP-Vid 평가의 개념 앵커.
 - **응용 연결**: [[3D-Gaussian-Splatting]] — 포인트맵은 3DGS 초기화로 직결되는 over-parameterized 표현.
 - **후속 생태계(MOC)**: [[VGGT-백본-생태계]] — VGGT를 백본으로 쓰는 후속작(스케일업·Gaussianize·4D 세계모델) 지도.
 - **출처 메타**: [[2026-06-16-VGGT-논문]]

@@ -261,3 +261,32 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - 등재: index research 섹션 상단에 MOC 포인터 1줄, [[VGGT]] 노트 관련에 "후속 생태계(MOC)" 링크(inbound 확보).
 - 부수 효과: MOC가 6개 VGGT 의존 노트(신규 4건 포함)에 inbound 부여 → 금세션 신규 노트 고립도 추가 완화.
 - 개념(타영역) [[DINO]]·[[Transformer]]·[[ViT]] 링크로 §C cross-link 규칙 충족. 미해결 wikilink 0 유지.
+
+## [2026-07-26] ingest | Shape of Motion (단안 영상 4D 복원 + 장거리 3D 트래킹)
+- 멱등성 가드: raw/ 42개 md 중 유일한 미처리 `raw/ShapeOfMotion.md`(17p, 2202줄, 세션 중 Drive 동기화 출현) → sources 미등재 → 처음 ingest. 본문 + References + Supplement A~G(전처리·학습·평가·시각화·NVIDIA·DynMF 재구현) 전체 통독. [통과]/research.
+- **[[ShapeOfMotion]]**: UC Berkeley(Wang·Ye·Gao·Kanazawa), CVPR'25. 단안 영상 하나에서 **영속 장거리 3D 모션 궤적** 복원. 핵심=(1) 3D 모션을 소수 **SE(3) 모션 기저(B=10)** 선형결합으로 표현→저차원 강체 그룹 소프트 분해, (2) off-the-shelf 노이즈 prior(MegaSaM 포즈·Depth Anything 깊이·TAPIR 2D트랙·Track-Anything 마스크)를 전역 일관 4D로 융합. rigidity·시간평활 정규화. iPhone·Kubric 3D/2D 트래킹·NVS SOTA, per-scene 최적화(A100 2h·140fps). index "동적 GS 모션 표현 뿌리(최적화 기반 4D)"에 **모션 기저 분해** 패러다임으로 편입.
+- cross-link: 최적화 4D 형제 [[4DGS]]·[[Deformable3DGS]](직접 baseline D-3DGS)·[[SpacetimeGS]]·[[native4DGS]]·[[OR2-온라인동적GS]] / feed-forward 트래킹 대비 [[MoVieS]]·[[StreamSplat]]·[[NeoVerse]]·[[C4G]] / 표현 [[3D-Gaussian-Splatting]]·[[NeRF]] / 개념(타영역) [[SfM-COLMAP]]·[[Radiance Field-Volume Rendering]]·[[위치인코딩-positional-encoding]].
+- 잔여 concepts 갭(평문): 장거리 point tracking(TAPIR·CoTracker·TAP-Vid) — MoVieS·StreamSplat·본 논문 공유, 향후 앵커 검토. baseline 평문 MegaSaM·Depth Anything·DynMF·SpatialTracker·DELTA는 raw 미수집이라 유지.
+- 압축: 2202줄→노트 ~55줄(≤200줄·직접인용 ≤3줄·cross-link 타영역 ≥1 충족). 미처리 raw 0.
+
+## [2026-07-26] ingest | LGM + Long-LRM + BTimer (LRM 계보 확장 3건)
+- 멱등성 가드: raw/ 43개 md 중 미처리 3건(`LGM.md` 20p·`Long-LRM.md` 14p·`BTimer.md` 14p, 세션 중 Drive 동기화 출현) → sources 미등재 → 처음 ingest. 부록·References 포함 전체 통독. 모두 [통과]/research, "Feed-forward GS 복원(LRM 계보)"에 편입.
+- **[[LGM]]**(PKU·NTU, ECCV'24): 텍스트/이미지→3D **객체 생성** ~5초. off-the-shelf 멀티뷰 확산(MVDream·ImageDream) 4뷰 → 비대칭 U-Net per-pixel 가우시안(65,536)·512 해상도, grid distortion·camera jitter augmentation, Gaussians→NeRF→mesh 추출. [[GS-LRM]]의 생성 분파. cross-link: [[GS-LRM]]·[[pixelSplat]]·[[flow-matching-생성prior]](멀티뷰 확산)·[[3D-Gaussian-Splatting]]·[[NeRF]]·[[구면조화함수-SH]]·[[Transformer]].
+- **[[Long-LRM]]**(OSU·Adobe, 2025): 32뷰 960×540 → 360° **광범위 장면** 3DGS 1초(GS-LRM 대비 토큰 60×·250K). **Mamba2+트랜스포머 하이브리드**({7M1T}×3)로 선형 복잡도 확보 + token merging(1/4) + Gaussian pruning(opacity L1). depth 정규화(DepthAnything). 최적화 3DGS 대비 800×. cross-link: [[GS-LRM]]·[[BTimer]]·[[Mamba-선형시간시퀀스]]·[[SSM]]·[[Transformer]]·[[3D-Gaussian-Splatting]]·[[Scaffold-GS]]. **개념 교차**: Mamba/SSM(원래 Hamba 손복원 전용)을 3D 장면 복원으로 확장 → 두 concepts 노트에 backlink 추가.
+- **[[BTimer]]**(NVIDIA, NeurIPS'25): **bullet-time 정식화** — context에 목표 timestamp 임베딩 → 그 순간 완전한 3DGS aggregate. 정적·동적 통일·RGB 손실만·GS-LRM ViT 백본. NTE(3D-free) 빠른 모션 보강. curriculum(정적→동적 co-train +PANDA-70M→long-context). 12뷰 150ms. cross-link: [[GS-LRM]]·[[Long-LRM]]·[[ShapeOfMotion]](최적화 대비)·[[4DGT]]·[[MoVieS]]·[[StreamSplat]]·[[NeoVerse]]·[[3D-Gaussian-Splatting]]·[[Transformer]].
+- index: LRM 계보 계보줄에 **스케일업 축**(뷰·범위 Long-LRM / 시간 BTimer / 객체 생성 LGM) 명시 + 항목 3줄. _sources_ 등재. Mamba 개념 index 라인에 Long-LRM 병기.
+- 잔여 평문(raw 미수집): L4GM(4D LGM·BTimer 선행)·LVSM(BTimer NTE 착안)·Gamba/MVGamba(Mamba 객체)·MVDream/ImageDream·DepthAnything. 
+- 압축: LGM 1045→~60줄·Long-LRM 1974→~60줄·BTimer 1223→~60줄(각 ≤200·직접인용 ≤3·cross-link 타영역 ≥1). 미처리 raw 0.
+
+## [2026-07-26] lint | all 영역 건강 진단 (LRM 확장 3건 ingest 후)
+- 규모: research 42(+MOC 1 포함)·source-meta 41·concepts 16·courses 9. 미처리 raw 0 / 미해결 wikilink 0 / ≥200줄 콘텐츠 노트 0 / cross-link <3 노트 0(rulebook 예외) / 모호 로그 비어있음.
+- **모순 후보 1(상)**: [[BTimer]] "단안 동적 실시간 feed-forward **최초**"(arXiv 2412.03526, 2024-12) vs [[DGS-LRM]] "**최초의** feed-forward deformable GS LRM"(arXiv 2506.09997, 2025-06). 범위가 다르고(bullet-time 장면 복원 vs deformable GS+scene flow) 시점도 BTimer가 선행이라 양립 가능하나, **두 노트가 서로를 전혀 참조하지 않아** 교차 독해 시 충돌로 보임. 조치: 양쪽에 범위 한정어 + 상호 링크(또는 `> [!warning] 모순` 콜아웃).
+- **고립(중)**: peer 역링크 0~1 = [[LGM]](0)·[[BTimer]](1)·[[ShapeOfMotion]](1)·[[VGGT-백본-생태계]](1, MOC라 inbound 적은 게 자연스러움)·[[Hermes-Agent-활용-가이드북]](0, system 문서). 앞의 3건은 금일·전일 신규라 out-link만 풍부한 상태 — LRM 계보 peer 간 상호 링크로 해소 가능.
+- **데이터 갭(중)**: ① **포인트 트래킹 개념군**(TAPIR·CoTracker·SpatialTracker·TAP-Vid) — research 7노트(POMATO·NeoVerse·VGGT·MoVieS·DGS-LRM·C4G·ShapeOfMotion) 공유하나 concepts 페이지 없음. 가장 넓게 퍼진 미개설 개념. ② **L4GM** — 4노트(LGM·BTimer·4DGT·DGS-LRM) 평문 공유, 과거 `[[GS-LRM|L4GM]]` 오링크를 유발했던 이력(2026-06-17 교정). ③ MegaSaM(3)·AnySplat(2)·LVSM(2). 전부 raw 미수집이라 현행 평문 유지가 원칙.
+- 진단만, 자동수정 X. 조치는 사용자 승인 후 별도.
+
+## [2026-07-26] fix | lint 권고 3건 일괄 조치 (사용자 승인)
+- **모순 후보 해소(상)**: [[BTimer]]·[[DGS-LRM]] 양쪽 "최초" 주장에 **범위 한정어** 부여(BTimer=bullet-time 장면 NVS·2024-12 선행 / DGS-LRM=deformable GS+scene flow 명시 예측·2025-06 후속) + 두 노트 관련 섹션에 **상호 링크**("최초 범위 대조") 추가 → 교차 독해 시 충돌로 읽히던 문제 제거. 콜아웃 대신 범위 명시를 택함(실제 모순이 아니라 scoping 문제이므로).
+- **데이터 갭 해소(중)**: concepts [[장거리-point-tracking]] 신설 — TAP 문제 정의·난점(장거리 drift·occlusion·2.5D 리프팅 모호성)·주요 방법(TAPIR·CoTracker·SpatialTracker·TAP-Vid·RAFT-3D 지표)·3D 연구에서의 **3역할**(입력 prior / 평가 축 / 부가 출력) + frame-space↔world-space, 2.5D↔4D 대비 구도 정리. research 6노트([[ShapeOfMotion]]·[[MoVieS]]·[[POMATO]]·[[VGGT]]·[[NeoVerse]]·[[C4G]]) + [[DGS-LRM]] 개념/tracking 라인에서 양방향 링크. index concepts에 "모션·대응" 소섹션 추가.
+- **고립 해소(중)**: [[LGM]] 0→1([[GS-LRM]]의 평문 "LGM(concurrent)"을 링크화 + 객체 생성 분기 설명). [[BTimer]] 1→3(GS-LRM "스케일업 후계" 라인 신설 + DGS-LRM 상호 링크). [[Long-LRM]]도 GS-LRM서 역링크 획득. [[ShapeOfMotion]] 1→2([[Deformable3DGS]]에 "직접 baseline으로 인용됨" 추가 — D-3DGS가 ShapeOfMotion의 비교군인 실제 관계).
+- 재검: 미해결 wikilink 0, 미처리 raw 0, ≥200줄 콘텐츠 노트 0, cross-link <3 노트 0.

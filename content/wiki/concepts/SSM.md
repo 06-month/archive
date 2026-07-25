@@ -30,8 +30,9 @@ tags: [concepts, SSM, S4, state-space, long-range, sequence-model, ML]
 
 ## 의미 (왜 공통 개념인가)
 - Transformer의 $O(n^2)$ attention 대안으로 **긴 시퀀스**에 강함. 이 계열이 입력선택성을 더한 [[Mamba-선형시간시퀀스|Mamba(선택적 SSM)]]로 발전.
-- 비전·시간 모델링 백본으로 확장 → 3D 손 복원 [[Hamba]]가 Mamba 블록을 차용.
+- 비전·시간 모델링 백본으로 확장 → 3D 손 복원 [[Hamba]]가 Mamba 블록을 차용. 선형 복잡도가 초장 시퀀스에 유리 → 3D 장면 복원 [[Long-LRM]]도 Mamba2를 차용.
 
 ## 관련
 - [[Mamba-선형시간시퀀스]] · [[Transformer]] (concepts) — 선택적 SSM 후속 / attention 대안
 - [[Hamba]] (research) — SSM/Mamba 기반 3D 손 복원
+- [[Long-LRM]] (research) — Mamba2 하이브리드 광범위 3D 장면 GS 복원

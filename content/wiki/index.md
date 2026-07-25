@@ -54,12 +54,13 @@ tags: [index]
 - [[Relaxed-Rigidity-동적GS]] — 동적(4D) GS, ray-based grouping 모션 정규화, plug-in(Ex4DGS 등에 부착) (2026)
 
 ### 동적 GS 모션 표현 뿌리 (최적화 기반 4D)
-**계보**: [[3D-Gaussian-Splatting|3DGS]]를 4D로 올리는 세 패러다임 — **변형장**([[4DGS]]·[[Deformable3DGS]]) / **native 4D**([[native4DGS]]) / **다항식 모션**([[SpacetimeGS]]). 위 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]가 이들을 baseline·계보로 인용.
+**계보**: [[3D-Gaussian-Splatting|3DGS]]를 4D로 올리는 세 패러다임 — **변형장**([[4DGS]]·[[Deformable3DGS]]) / **native 4D**([[native4DGS]]) / **다항식 모션**([[SpacetimeGS]]) / **모션 기저 분해**([[ShapeOfMotion]]). 위 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]가 이들을 baseline·계보로 인용.
 - [[4DGS]] — (Wu et al.) canonical 가우시안 + HexPlane deformation field, 82fps·O(N+F) (CVPR'24)
 - [[Deformable3DGS]] — (Yang et al.) 단안 동적, 순수 MLP 변형장(고rank)+Annealing Smooth Training (CVPR'24)
 - [[native4DGS]] — (Yang et al., **동명이론**) native 4D primitive(4D 회전)+4D Spherindrical Harmonics, 압축 4DGSC (ICLR'24 확장)
 - [[SpacetimeGS]] — (Li et al.) STG: 시간 opacity+다항식 모션 + feature splatting(SH 대체), 8K@60fps lite (CVPR'24)
 - [[OR2-온라인동적GS|OR²]] — **online 재구성 plug-in**. 관측 오차를 학습 residual map으로 분리 → 정적 영역 시간 일관성↑, 3DGStream/HiCoM/Dynamic3DG 위 부착 (SIGGRAPH'25)
+- [[ShapeOfMotion]] — **단안 영상 4D 복원**. SE(3) 모션 기저(B=10) 선형결합으로 저차원 강체 분해 + off-the-shelf prior(MegaSaM·Depth Anything·TAPIR) 융합 → 영속 **장거리 3D 트래킹**+NVS SOTA, per-scene 최적화 (CVPR'25)
 
 ### 3D 손/인체 복원 (Mesh Recovery)
 **계보**: [[HMR]] (2018, 인체 SMPL 회귀) → [[HaMeR]] (2024, ViT 손) → 대안 백본 [[Hamba]] (Mamba+graph) · full-stack [[WiLoR]] (검출+정렬)
@@ -80,10 +81,13 @@ tags: [index]
 - [[VGGT-Ω]] — VGGT 직계 스케일업(0.2B→10B·2K→2M seq, 거듭제곱법칙), register attention·단일 head로 학습 메모리 70%↓, 정적·동적 6벤치 SOTA, register→VLA·언어정렬 (2026)
 
 ### Feed-forward GS 복원 (LRM 계보: 정적 → 4D/동적)
-**계보**: 시초 [[pixelSplat]] · 매칭 기반 [[MVSplat]] · LRM 기반 [[GS-LRM]] (2024, 정적 뿌리·per-pixel GS LRM) · pose-free [[NoPoSplat]] → 동적/4D 후계 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]]·[[C4G]] → 복원+생성 4D 세계모델 [[NeoVerse]]. posed/uncalibrated 영상 → GS를 feed-forward 예측, 최적화 기반 대비 수백~수천배 빠름. Radiance Field([[3D-Gaussian-Splatting]]) × DUSt3R 계보([[VGGT]]) 교차.
+**계보**: 시초 [[pixelSplat]] · 매칭 기반 [[MVSplat]] · LRM 기반 [[GS-LRM]] (2024, 정적 뿌리·per-pixel GS LRM) · pose-free [[NoPoSplat]] → 스케일업 축: 뷰·범위 [[Long-LRM]] / 시간(동적) [[BTimer]] / 객체 생성 [[LGM]] → 동적/4D 후계 [[4DGT]]·[[DGS-LRM]]·[[MoVieS]]·[[StreamSplat]]·[[C4G]] → 복원+생성 4D 세계모델 [[NeoVerse]]. posed/uncalibrated 영상 → GS를 feed-forward 예측, 최적화 기반 대비 수백~수천배 빠름. Radiance Field([[3D-Gaussian-Splatting]]) × DUSt3R 계보([[VGGT]]) 교차.
 - [[pixelSplat]] — **시초**. 이미지 2뷰 → feed-forward 3DGS, epipolar transformer(스케일 모호성)+확률적 깊이 샘플링(reparameterization), light field 대비 ~650× 빠름 (CVPR'24)
 - [[MVSplat]] — sparse(2뷰) → feed-forward 3DGS, plane-sweep **cost volume** 매칭으로 깊이 추정, pixelSplat 대비 10×↓·2× 빠름·일반화 우위 (ECCV'24)
 - [[GS-LRM]] — **정적 뿌리**. 2~4 posed 이미지 → per-pixel 3DGS, 단순 트랜스포머, 객체·장면 통합, 0.23s (ECCV'24)
+- [[LGM]] — **객체 생성**. 텍스트/이미지 → 멀티뷰 확산(MVDream·ImageDream) 4뷰 → 비대칭 U-Net per-pixel 가우시안(65,536개)·512 해상도·~5초, mesh 추출 (ECCV'24)
+- [[Long-LRM]] — **many-view·광범위**. 32뷰 960×540 → 360° 장면 3DGS 1초, Mamba2+트랜스포머 하이브리드(250K 토큰)·token merging·Gaussian pruning, 최적화 대비 800× (2025)
+- [[BTimer]] — **동적(bullet-time)**. context에 목표 timestamp 임베딩 → 그 순간 완전한 3DGS aggregate, 정적·동적 통일·RGB 손실만, NTE로 빠른 모션 보강, 12뷰 150ms (NeurIPS'25)
 - [[NoPoSplat]] — **pose-free**. unposed sparse(2뷰) → **정준공간** 직접 3DGS(transform-then-fuse 탈피), 광도손실만 학습·intrinsic token·순수 ViT, 저overlap서 pose-required 능가, 66fps (ICLR'25)
 - [[C3G]] — **컴팩트 정적**. per-pixel 탈피, N=2048 query token으로 필수 위치 가우시안(~2K, 65×↓)만, 창발적 attention 재활용 view-invariant feature lifting(C3G-F), 3D 이해·대응 SOTA. [[C4G]]의 정적 선행작 (2026)
 - [[4DGT]] — 4DGS(2DGS+life-span/velocity)로 정적·동적 통일, density control, 실세계 단안 학습 (NeurIPS'25)
@@ -97,7 +101,7 @@ tags: [index]
 **계보**: 위 복원 계열이 관측 영상→기하를 다룬다면, 이 계열은 **2D 생성 prior로 새 장면을 합성**. 파노라마가 2D↔3D 다리.
 - [[OmniX]] — 2D flow matching(Flux) 재활용 통합 파노라마 **생성·인지·완성**, 기하+PBR재질 인지 → relighting/시뮬 가능 **PBR-레디 3D 장면**, circular synchronization·modality-specific LoRA·PanoX 데이터셋 (2026)
 
-- _sources_: Radiance Field [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]]·[[2026-06-20-Scaffold-GS-논문]] / 동적GS뿌리 [[2026-06-20-4DGS-논문]]·[[2026-06-20-Deformable3DGS-논문]]·[[2026-06-20-native4DGS-논문]]·[[2026-06-20-SpacetimeGS-논문]] / feed-forward GS [[2026-06-20-MVSplat-논문]]·[[2026-06-25-pixelSplat-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]·[[2026-07-14-C4G-논문]] / VGGT스케일업 [[2026-07-25-VGGT-Omega-논문]] / 장면생성 [[2026-07-25-OmniX-논문]] / online동적 [[2026-07-01-OR2-논문]] / pose-free GS [[2026-07-25-NoPoSplat-논문]] / 4D세계모델 [[2026-07-25-NeoVerse-논문]] / 컴팩트GS [[2026-07-25-C3G-논문]]
+- _sources_: Radiance Field [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]]·[[2026-06-20-Scaffold-GS-논문]] / 동적GS뿌리 [[2026-06-20-4DGS-논문]]·[[2026-06-20-Deformable3DGS-논문]]·[[2026-06-20-native4DGS-논문]]·[[2026-06-20-SpacetimeGS-논문]] / feed-forward GS [[2026-06-20-MVSplat-논문]]·[[2026-06-25-pixelSplat-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]·[[2026-07-14-C4G-논문]] / VGGT스케일업 [[2026-07-25-VGGT-Omega-논문]] / 장면생성 [[2026-07-25-OmniX-논문]] / online동적 [[2026-07-01-OR2-논문]] / pose-free GS [[2026-07-25-NoPoSplat-논문]] / 4D세계모델 [[2026-07-25-NeoVerse-논문]] / 컴팩트GS [[2026-07-25-C3G-논문]] / 단안4D트래킹 [[2026-07-26-ShapeOfMotion-논문]] / LRM확장 [[2026-07-26-LGM-논문]]·[[2026-07-26-Long-LRM-논문]]·[[2026-07-26-BTimer-논문]]
 - `Zotero/`는 **ingest 대상 아님** (raw/ 전용 — [[raw-wiki-규칙]] §A 참조)
 
 ## concepts — 공통 개념 (courses ↔ research)
@@ -112,12 +116,15 @@ tags: [index]
 **생성 prior (확산·flow matching)**
 - [[flow-matching-생성prior]] — flow matching·rectified flow·video diffusion·LoRA. 3D→생성 확장 연구(OmniX·NeoVerse·C4G) 공통 도구
 
+**모션·대응 (동적 복원 공통)**
+- [[장거리-point-tracking]] — TAP·TAPIR·CoTracker·SpatialTracker·TAP-Vid. 동적 복원의 입력 prior·평가 축·부가 출력 3역할(ShapeOfMotion·MoVieS·DGS-LRM·VGGT 등 7노트 공유)
+
 **ML 아키텍처 (시퀀스·비전 백본)**
 - [[Transformer]] — attention. 모든 후속 백본의 토대
 - [[ViT]] — Vision Transformer. 3D 복원 백본(HaMeR·Hamba·WiLoR)
 - [[DINO]] — 자기지도 ViT(DINO/DINOv2). 동결 피처 백본(VGGT·4DGT·StreamSplat·MoVieS)
 - [[SSM]] — 상태공간모델(S4). 장거리 의존성, 선형
-- [[Mamba-선형시간시퀀스]] — 선택적 SSM(S6). attention 대안, Hamba 차용
+- [[Mamba-선형시간시퀀스]] — 선택적 SSM(S6). attention 대안, Hamba(손 복원)·Long-LRM(3D 장면, 250K 토큰) 차용
 - [[위치인코딩-positional-encoding]] — Fourier features. NeRF·Transformer 공통
 
 **파라메트릭 인체 모델**

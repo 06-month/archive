@@ -44,5 +44,5 @@ tags: [research, 4D-world-model, feed-forward, 4DGS, video-generation, VGGT, bid
 - **표현(research)**: [[3D-Gaussian-Splatting]] — 4D 가우시안(+life span·velocity)의 뿌리.
 - **개념(다른 영역)**: [[DINO]] — VGGT 내 DINOv2 피처 / [[Transformer]]·[[ViT]] — Alternating-Attention·cross-attention 모션 인코딩의 토대.
 - **생성·online 이웃(research)**: [[OmniX]] — 생성 prior 재활용 peer(파노라마 생성 vs 영상 생성) / [[OR2-온라인동적GS]] — online 동적 재구성의 정적 영역 시간 일관성 문제(NeoVerse의 sparse-keyframe 렌더 조건과 상보).
-- **개념(다른 영역)**: [[flow-matching-생성prior]] — rectified flow·video diffusion(Wan)·control branch·LoRA의 개념 앵커.
+- **개념(다른 영역)**: [[flow-matching-생성prior]] — rectified flow·video diffusion(Wan)·control branch·LoRA의 개념 앵커 / [[장거리-point-tracking]] — 3D flow 기반 3D tracking(TAPVid-3D 평가)의 개념 앵커.
 - **출처 메타**: [[2026-07-25-NeoVerse-논문]]

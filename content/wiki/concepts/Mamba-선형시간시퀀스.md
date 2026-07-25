@@ -36,8 +36,9 @@ tags: [concepts, mamba, selective-SSM, S6, sequence-model, long-context, ML]
 - **ablation**: S4→S6 선택성이 큰 향상, $\Delta$ 가 핵심, 상태크기 $N$ 키우면(+1% 파라미터) perplexity 1.0↓ — 단 $B,C$ 도 선택적일 때만.
 
 ## 의미 (왜 공통 개념인가)
-- [[SSM]]의 직계 후속, [[Transformer]]의 attention 대안. 비전·3D로 확장 → 3D 손 복원 [[Hamba]]가 Mamba로 관절 토큰을 모델링.
+- [[SSM]]의 직계 후속, [[Transformer]]의 attention 대안. 비전·3D로 확장 → 3D 손 복원 [[Hamba]]가 Mamba로 관절 토큰을 모델링. **선형 복잡도**가 초장 시퀀스에 유리 → 3D 장면 복원 [[Long-LRM]]이 250K 토큰(32뷰)을 Mamba2+트랜스포머 하이브리드로 처리.
 
 ## 관련
 - [[SSM]] · [[Transformer]] · [[위치인코딩-positional-encoding]] (concepts)
 - [[Hamba]] (research) — Mamba 기반 단일뷰 3D 손 복원
+- [[Long-LRM]] (research) — Mamba2 하이브리드 광범위 3D 장면 복원(선형 복잡도로 long-context)

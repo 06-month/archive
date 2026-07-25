@@ -13,7 +13,7 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 **한 줄 요약**: posed 단안 영상에서 **4D Gaussian Splatting(4DGS)** 을 feed-forward로 예측하는 트랜스포머. 4DGS를 inductive bias로 써서 정적·동적을 **lifespan 차이만으로 통일**, 64프레임 rolling window로 긴 영상까지 초 단위 복원. 최적화 기반 대비 **3 orders of magnitude** 빠름. (출처: [[2026-06-16-4DGT-논문]])
 
 ## 문제의식
-- 단안 동적 영상의 4D 복원은 per-video 최적화라 느림. 합성 객체 데이터 학습(L4GM 등)은 실세계 일반화 갭. 멀티뷰 동기 영상은 양·다양성 부족.
+- 단안 동적 영상의 4D 복원은 per-video 최적화라 느림. 합성 객체 데이터 학습(L4GM=[[LGM]]의 4D 확장 등)은 실세계 일반화 갭. 멀티뷰 동기 영상은 양·다양성 부족.
 - 4DGT는 **실세계 posed 단안 영상만으로** 학습(카메라 보정·6DoF 포즈는 on-device SLAM/offline에서 가정). 핵심 난제 = 단안의 space-time ambiguity 해소 + 트랜스포머 스케일링.
 
 ## 표현: 4D Gaussian (lifespan 통일)

@@ -10,7 +10,7 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 
 > Lin, Lv, Wu, Xu, Nguyen-Phuoc, Tseng, Straub, Khan, Xiao, Yang, Ren, Newcombe, Dong, Li (Meta · UC Merced · UC Santa Barbara). *"DGS-LRM"*, arXiv:2506.09997 (2025).
 
-**한 줄 요약**: posed 단안 영상에서 **per-pixel deformable 3D Gaussian + 3D scene flow** 를 single forward로 예측하는 **최초의** feed-forward deformable GS LRM. 멀티뷰 합성 데이터(Kubric)의 **dense 3D scene flow** 를 주 supervision으로, 실시간(0.6s)에 동적 NVS·장거리 3D tracking 동시 수행. (출처: [[2026-06-16-DGS-LRM-논문]])
+**한 줄 요약**: posed 단안 영상에서 **per-pixel deformable 3D Gaussian + 3D scene flow** 를 single forward로 예측하는 **최초의** feed-forward deformable GS LRM(저자 주장 — **deformable GS + scene flow** 범위. cf. 선행 [[BTimer]](2024-12)는 bullet-time 장면 복원·NVS 범위의 "최초 feed-forward 동적"이라 범위가 달라 양립). 멀티뷰 합성 데이터(Kubric)의 **dense 3D scene flow** 를 주 supervision으로, 실시간(0.6s)에 동적 NVS·장거리 3D tracking 동시 수행. (출처: [[2026-06-16-DGS-LRM-논문]])
 
 ## 문제의식
 - 기존 feed-forward 복원([[GS-LRM]] 등)은 **정적 장면 한정** — 움직이는 물체의 모션 예측 불가. 동적 feed-forward의 난제: 학습 데이터 희소 + 적절한 3D 표현·학습 패러다임 부재.
@@ -41,6 +41,7 @@ tags: [research, 4D-reconstruction, dynamic-scene, gaussian-splatting, feed-forw
 ## 관련
 - **표현 기반**: [[3D-Gaussian-Splatting]] — deformable 확장 / [[NeRF]] — Radiance Field 동적 NVS 계보.
 - **계보**: [[GS-LRM]](정적 pixel-aligned GS LRM)의 **deformable·scene flow** 후계. 정적 feed-forward 형제 [[MVSplat]](cost volume sparse-view GS)를 동적으로 확장한 위치. [[4DGT]]·[[MoVieS]]·[[StreamSplat]] 와 같은 feed-forward 4D GS 클러스터.
-- **tracking 대조**: SpatialTracker(단안 3D scene flow)와 직접 비교. [[POMATO]] — pointmap matching 기반 3D tracking 대조(GS vs pointmap).
+- **"최초" 범위 대조**: [[BTimer]] — 선행(2024-12) feed-forward 동적이나 **bullet-time 장면 NVS** 범위(시간 변형을 명시적으로 표현 못 함). DGS-LRM은 **deformable + scene flow**를 명시 예측하는 첫 GS LRM → 두 주장은 범위가 달라 충돌 아님.
+- **tracking 대조**: SpatialTracker(단안 3D scene flow)와 직접 비교 — [[장거리-point-tracking]] 계열. [[POMATO]] — pointmap matching 기반 3D tracking 대조(GS vs pointmap).
 - **개념(다른 영역)**: [[Transformer]] — temporal tokenization 백본 / [[Radiance Field-Volume Rendering]] — GS rasterization / [[위치인코딩-positional-encoding]] — Plücker+timestamp.
 - **출처 메타**: [[2026-06-16-DGS-LRM-논문]]
