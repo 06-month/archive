@@ -1,5 +1,5 @@
 ---
-created: 2026-06-25
+created: 2026-06-19
 ---
 
 논문 주소: https://arxiv.org/abs/2308.04079 
