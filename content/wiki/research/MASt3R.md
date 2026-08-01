@@ -38,5 +38,5 @@ tags: [research, 3D-reconstruction, image-matching, camera-pose, visual-localiza
 ## 관련
 - **직접 기반(연구)**: [[DUSt3R]] — 구조·pointmap·confidence 손실 계승, 체크포인트 초기화. MASt3R = DUSt3R + 매칭 헤드. / [[CroCo]] — 인코더 사전학습 토대.
 - **계보 형제**: [[VGGT]]·[[MONST3R]]·[[POMATO]] — 같은 DUSt3R 계보(VGGT는 다중뷰 단일 forward, MASt3R는 2뷰 매칭 특화) / [[GS-LRM]] 계보와 함께 feed-forward 3D 복원의 두 축.
-- **개념(다른 영역)**: [[SfM-COLMAP]] — MASt3R가 대체·보강하는 전통 매칭+localization / [[ViT]]·[[Transformer]] — 백본 / [[DINO]] — 대조적 백본 사전학습.
+- **개념(다른 영역)**: [[정보이론-분포거리]] — 매칭 헤드의 **InfoNCE** 대조 학습이 속한 도구 묶음(같은 도구가 탐색·생성에도 쓰임) / [[SfM-COLMAP]] — MASt3R가 대체·보강하는 전통 매칭+localization / [[ViT]]·[[Transformer]] — 백본 / [[DINO]] — 대조적 백본 사전학습.
 - **출처 메타**: [[2026-06-17-MASt3R-논문]]

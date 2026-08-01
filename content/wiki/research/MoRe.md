@@ -46,5 +46,5 @@ tags: [research, 4D-reconstruction, dynamic-scene, streaming, causal-attention, 
 ## 관련
 - **직접 기반(research)**: [[VGGT]] — full-attention 백본이자 attention 혼동 관찰의 출발점. MoRe는 VGGT를 4D로 확장.
 - **동적 peer**: [[MONST3R]] — 동적 4D 선행(전역 최적화 기반) / [[POMATO]] — 동적 peer(DUSt3R 매칭 헤드 vs MoRe의 attention-forcing) / [[DUSt3R]] — 계보 뿌리.
-- **개념(다른 영역)**: [[Transformer]] — causal attention·KV 캐싱은 LLM에서 차용 / [[ViT]] — 이미지 인코더.
+- **개념(다른 영역)**: [[Transformer]] — causal attention·KV 캐싱은 LLM에서 차용 / [[ViT]] — 이미지 인코더 / [[정보이론-분포거리]] — attention 분포를 조작(attention-forcing)해 모션을 분리하는 것도 분포 다루기의 한 형태.
 - **출처 메타**: [[2026-06-16-MoRe-논문]]

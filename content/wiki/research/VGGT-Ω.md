@@ -52,6 +52,6 @@ tags: [research, 3D-reconstruction, feed-forward, transformer, scaling, register
 ## 관련
 - **계보(research)**: [[VGGT]]의 직계 후속(같은 Oxford·Meta 팀) — register attention·단일 head·15× 데이터로 스케일업. [[DUSt3R]]·[[MASt3R]] 뿌리, [[MONST3R]] 동적 분기를 통합적으로 능가.
 - **VGGT 파생과 대조**: [[MoRe]]·[[MoVieS]]가 VGGT 위에 모션 분리·splatter를 얹은 것과 달리, VGGT-Ω는 **백본 자체를 키움**(prediction head 단순화, "backbone 품질이 본질"이라는 설계 철학).
-- **개념(다른 영역)**: [[DINO]] — DINOv3 백본·자기지도 teacher-student의 뿌리 / [[Transformer]]·[[ViT]] — alternating attention·register token의 토대.
+- **개념(다른 영역)**: [[DINO]] — DINOv3 백본·자기지도 teacher-student의 뿌리 / [[Transformer]]·[[ViT]] — alternating attention·register token의 토대 / [[정보이론-분포거리]] — 매칭 손실의 대조 목적과 register↔언어 **CLIP식 InfoNCE** 정렬이 속한 도구 묶음.
 - **응용 연결**: [[3D-Gaussian-Splatting]]·[[NeRF]] — feed-forward 복원은 BA의 고정밀 초기화·프록시로 이들 최적화 렌더링을 보완(경쟁 아님).
 - **출처 메타**: [[2026-07-25-VGGT-Omega-논문]]

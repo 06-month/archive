@@ -2,7 +2,7 @@
 title: Flow Matching·생성 prior (Diffusion/Rectified Flow)
 area: concepts
 created: 2026-07-25
-sources: [OmniX.md, NeoVerse.md, C4G.md]
+sources: [NeoVerse.md, C4G.md]
 tags: [concept, generative-model, flow-matching, rectified-flow, diffusion, video-diffusion, LoRA]
 ---
 
@@ -22,11 +22,11 @@ tags: [concept, generative-model, flow-matching, rectified-flow, diffusion, vide
 - **조건 주입(control branch)**: ControlNet 류 — 생성모델 본체는 동결하고 별도 분기로 조건(depth·mask·카메라 등)을 넣어 제어. distillation 가속과 호환.
 
 ## 이 개념을 쓰는 연구 (research, 다른 영역)
-- [[OmniX]] — **flow matching** 모델(Flux.1-dev)을 파노라마 생성·인지·완성으로 재활용, **modality-specific LoRA**·circular synchronization. 기하+PBR 재질 인지.
 - [[NeoVerse]] — **rectified flow + video diffusion**(Wan-T2V 14B)으로 degraded novel-view를 고품질 영상으로 생성, **control branch만 학습**(본체 동결).
 - [[C4G]] — feed-forward 4D 복원 후 **VDM(video diffusion, Wan2.1-VACE)**으로 디테일 refine. query token 기반 4D feature lifting.
 
 ## 관련
 - **생성 backbone(다른 영역 아님, concept)**: [[Transformer]]·[[ViT]] — DiT의 토대. [[위치인코딩-positional-encoding]] — 시퀀스·2D 위치 조건.
-- **대비 개념(concept)**: [[Radiance Field-Volume Rendering]] — 신경 렌더링(관측 재현) vs 생성 prior(새 콘텐츠 합성)의 대비. OmniX는 신경 렌더링과 PBR 렌더링 간극을 한계로 지적.
-- **주의**: 본 노트는 세 논문(OmniX·NeoVerse·C4G)이 평문으로 의존하던 생성 개념을 묶은 **앵커 노트**. 개별 논문의 전용 raw는 미수집(수학적 정식화는 각 논문 부록 수준으로만 인용).
+- **대안 패러다임(concept)**: [[Drifting-Model-원스텝생성]] — 본 노트의 확산·flow matching이 **추론 시** 다단계 적분(ODE/SDE)을 전제하는 자리를, **학습 시간 분포 진화**로 대체해 1-NFE 추론을 얻음(둘 다 pushforward 관점은 공유). 다단계 refine 비용이 문제될 때의 대안 축.
+- **대비 개념(concept)**: [[Radiance Field-Volume Rendering]] — 신경 렌더링(관측 재현) vs 생성 prior(새 콘텐츠 합성)의 대비.
+- **주의**: 본 노트는 두 논문([[NeoVerse]]·[[C4G]])이 평문으로 의존하던 생성 개념을 묶은 **앵커 노트**. 개별 논문의 전용 raw는 미수집(수학적 정식화는 각 논문 부록 수준으로만 인용).

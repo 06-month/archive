@@ -36,7 +36,7 @@ tags: [research, dynamic-scene, point-tracking, pointmap-matching, video-depth, 
 - **feed-forward**: 전역 정렬 같은 후처리 생략 가능. 6프레임 288×512를 4070 GPU서 **0.7s** (MonST3R 5.8s 대비).
 
 ## 결과
-- **3D point tracking**(TAPVid-3D: PointOdyssey·ADT·PStudio, APD): SOTA. MonST3R 대비 평균 APD **+23.3%(12프레임)/+21.4%(24프레임)**. GT intrinsic 쓰는 SpatialTracker도 능가.
+- **3D point tracking**(TAPVid-3D: PointOdyssey·ADT·PStudio, APD): **2025년 기준 SOTA**. MonST3R 대비 평균 APD **+23.3%(12프레임)/+21.4%(24프레임)**. GT intrinsic 쓰는 SpatialTracker도 능가. → 이후 [[OmniX]](2026)가 ADT·PStudio 포함 TAPVid-3D를 갱신.
 - **video depth**(Sintel·Bonn·KITTI): GA 기반 MonST3R와 대등, KITTI는 능가. 온라인 CUT3R 일관 능가.
 - **카메라 포즈**(TUM·Bonn): 전반 SOTA, RPE-rot에서 MonST3R 대비 **TUM 55.4%·Bonn 13.3%** 개선.
 - **Ablation**: 모션 모듈이 큰 향상(window 6→12 추가 향상). Head3 제거 시 in-the-wild 큰 모션·시점변화에서 포즈·기하 열화, tracking APD 급락(Tab. 5).
@@ -47,6 +47,7 @@ tags: [research, dynamic-scene, point-tracking, pointmap-matching, video-depth, 
 ## 관련
 - **직접 기반(research)**: [[DUSt3R]] — 포인트맵·2-디코더 구조·confidence 손실 계승 / [[MONST3R]] — **초기화 체크포인트**이자 직접 비교 대상(optical flow 정적마스크를 pointmap matching으로 대체).
 - **동적 peer**: [[MoRe]] — 같은 동적 4D 복원이나 MoRe는 VGGT 기반 attention-forcing, POMATO는 DUSt3R 기반 매칭 헤드. / [[VGGT]] — 정적 다중뷰 계보 형제.
+- **후속 갱신(research)**: [[OmniX]](2026) — 같은 계보의 4D 궤적장 확장. POMATO는 **pointmap matching으로 프레임 간 대응**을 얻는 반면 OmniX는 **dense 궤적을 직접 회귀**. TAPVid-3D 중복 서브셋(ADT·PStudio)에서 OmniX가 갱신(§E 우선권 표기).
 - **개념(다른 영역)**: [[장거리-point-tracking]] — 3D point tracking 평가·SpatialTracker 대조의 개념 앵커 / [[ViT]] — weight-sharing 인코더 / [[SfM-COLMAP]] — 대체하는 전통 매칭+삼각측량.
 - **응용 연결**: [[NeRF]]·[[3D-Gaussian-Splatting]] — 동적 장면 복원의 Radiance Field 배경(Shape of Motion 등 4D GS와 대비).
 - **출처 메타**: [[2026-06-16-POMATO-논문]]

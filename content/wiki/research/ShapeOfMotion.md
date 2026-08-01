@@ -38,6 +38,7 @@ tags: [research, 4D-reconstruction, dynamic, monocular, SE3-motion-basis, 3D-tra
 
 ## 관련
 - **계보(research)**: 동적 GS **최적화 기반 4D** 클러스터. 모션 factorization 직접 peer = DynMF(신경망 모션 기저, 본 논문이 재구현·비교). [[Deformable3DGS]] — canonical+변형MLP 방식의 직접 baseline(D-3DGS). [[4DGS]]·[[SpacetimeGS]]·[[native4DGS]] — 최적화 기반 4D 모션 표현 형제 / [[OR2-온라인동적GS]] — 최적화 기반 동적 GS 시간 일관성 이웃(online vs per-scene).
+- **feed-forward 계승(research)**: [[OmniX]] — 본 논문의 **궤적 변환 정식화를 명시 인용**해 feed-forward 궤적장 기저로 옮김(per-scene 최적화 제거). "저차원 모션 기저" 아이디어의 최적화↔feed-forward 양단.
 - **트래킹 대비(research)**: [[MoVieS]] — feed-forward 4D + zero-shot scene flow(Shape of Motion은 최적화 기반, tracking에 특화). [[StreamSplat]]·[[NeoVerse]] — feed-forward 동적, 한계의 대안 방향(SpatialTracker·DELTA 등 frame-space 3D 트래킹과 대비).
 - **표현(research)**: [[3D-Gaussian-Splatting]] — 가우시안 래스터화·alpha compositing / [[NeRF]] — 동적 NeRF baseline(HyperNeRF·DynIBaR·T-NeRF) 계보.
 - **개념(다른 영역)**: [[장거리-point-tracking]] — TAPIR 트랙을 입력 prior로 융합·3D 궤적으로 평가하는 개념 앵커 / [[SfM-COLMAP]] — 카메라 포즈·정적 점군(깊이 정렬) / [[Radiance Field-Volume Rendering]] — α-compositing image formation / [[위치인코딩-positional-encoding]] — DynMF 재구현의 time 입력 인코딩.

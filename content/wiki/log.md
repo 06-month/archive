@@ -217,7 +217,7 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - 멱등성 가드: raw/ 41개 md 중 미처리 2건(`raw/VGGT-Ω.md` 28p·`raw/OmniX.md` 26p, sources 미등재) → 처음 ingest. 나머지 39건 skip. 부록·References 포함 전체 통독. 둘 다 [통과]/research.
 - **[[VGGT-Ω]]**: [[VGGT]] 직계 스케일업(Oxford·Meta 동일팀). 모델 0.2B→10B·데이터 2K→2M seq 거듭제곱법칙. 효율 3종(register attention 25% 대체·단일 dense head·pixel-shuffle)로 학습메모리 70%↓→15× 데이터. 동적 주석 파이프라인(VLM·Grounding DINO·COLMAP·앙상블 필터, 40M→0.8M seq) + teacher-student 자기지도. Sintel 카메라 AUC@3° 22.5→40.0(+77%), MegaSaM 50×↑, 1000+프레임/A100. register→VLA(LIBERO 97.1→98.5)·언어정렬. index "Feed-forward 3D 복원(DUSt3R 계보)"에 편입.
 - cross-link: [[VGGT]]·[[DUSt3R]]·[[MASt3R]]·[[MONST3R]]/파생대조 [[MoRe]]·[[MoVieS]]/개념(타영역) [[DINO]]·[[Transformer]]·[[ViT]]/응용 [[3D-Gaussian-Splatting]]·[[NeRF]].
-- **[[OmniX]]**: 신규 하위영역(3D 장면 생성·파노라마 2D-lifting·inverse rendering). 2D flow matching(Flux.1-dev) 재활용 통합 파노라마 생성·인지·완성. 기하+PBR재질(albedo·roughness·metallic) 인지→PBR-레디 3D 장면. Circular Synchronization(seam 근본해결)·Separate-Adapter(모달리티별 LoRA)·PanoX 데이터셋(UE5 합성, 실내외+재질주석 최초). 생성·내재분해 SOTA. index에 신규 섹션 "3D 장면 생성" 추가.
+- **OmniX(철회)**: 신규 하위영역(3D 장면 생성·파노라마 2D-lifting·inverse rendering). 2D flow matching(Flux.1-dev) 재활용 통합 파노라마 생성·인지·완성. 기하+PBR재질(albedo·roughness·metallic) 인지→PBR-레디 3D 장면. Circular Synchronization(seam 근본해결)·Separate-Adapter(모달리티별 LoRA)·PanoX 데이터셋(UE5 합성, 실내외+재질주석 최초). 생성·내재분해 SOTA. index에 신규 섹션 "3D 장면 생성" 추가.
 - cross-link: 개념(타영역) [[Transformer]]·[[ViT]]/2D-lifting 이웃 [[3D-Gaussian-Splatting]]/기하인지 대조 [[VGGT-Ω]]/image formation [[NeRF]].
 - 잔여 concepts 갭(평문, 페이지 없음): flow matching·rectified flow / inverse rendering·PBR / LoRA / register token. 향후 ingest 시 신설 검토.
 - 압축: VGGT-Ω 3811줄→노트 ~70줄, OmniX 1840줄→노트 ~55줄(각 ≤200줄·직접인용 ≤3줄·cross-link 타영역 ≥1 충족). 미처리 raw 0.
@@ -232,7 +232,7 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - cross-link: [[pixelSplat]]·[[MVSplat]]·[[GS-LRM]]/DUSt3R교차 [[DUSt3R]]·[[MASt3R]]/개념(타영역) [[ViT]]·[[SfM-COLMAP]]·[[구면조화함수-SH]]/후속 [[NeoVerse]]·[[VGGT]].
 - **[[NeoVerse]]**: 복원+생성 하이브리드 4D 세계모델(CASIA·CreateAI, 2026). [[VGGT]] Gaussianize + **양방향 모션 모델링**(4DGT 단방향 대조)으로 pose-free feed-forward 4DGS 복원. **온라인 degradation 시뮬**(Gaussian culling·average geometry filter)로 단안 영상만으로 학습쌍 생성→in-the-wild 1M clip 스케일러블. degraded novel-view 렌더 조건으로 Wan-T2V+Rectified Flow 생성(control branch만 학습). 정적(VRNeRF·ScanNet++)·동적(ADT·DyCheck) 복원 + 생성(VBench) SOTA. index "Feed-forward GS 복원(LRM 계보)" 4D에 편입.
 - cross-link: 백본 [[VGGT]]/4D peer [[4DGT]]·[[MoVieS]]·[[StreamSplat]]·[[C4G]]/pose-free 대조 [[NoPoSplat]]·[[MONST3R]]/표현 [[3D-Gaussian-Splatting]]/개념(타영역) [[DINO]]·[[Transformer]]·[[ViT]].
-- 잔여 concepts 갭(평문, 페이지 없음): rectified flow / video diffusion(Wan) / LoRA / ControlNet식 control branch — [[OmniX]]·[[C4G]]와 공유. 향후 신설 검토.
+- 잔여 concepts 갭(평문, 페이지 없음): rectified flow / video diffusion(Wan) / LoRA / ControlNet식 control branch — OmniX(철회)·[[C4G]]와 공유. 향후 신설 검토.
 - 압축: NoPoSplat 1876줄→노트 ~70줄, NeoVerse 2185줄→노트 ~70줄(각 ≤200줄·직접인용 ≤3줄·cross-link 타영역 ≥1 충족). 미처리 raw 0.
 
 ## [2026-07-25] ingest | C3G (컴팩트 2K 가우시안 정적 GS)
@@ -245,14 +245,14 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 ## [2026-07-25] lint | all 영역 건강 진단 (신규 5건 ingest 후)
 - 모순 0 / 미처리 raw 0 / 압축 룰 위반 0(콘텐츠 노트 전부 ≤200줄·cross-link ≥3, rulebook만 예외=거버넌스 문서) / 모호 로그 비어있음.
 - **깨진 링크 1(상)**: [[OR2-온라인동적GS]]의 출처 인용이 raw 파일명(`onlinedynamic3DGS`)을 가리켜 미해결 — research 노트 37개 중 유일하게 **source-meta 노트 없음**(2026-07-01 ingest 시 누락). 조치: `sources/2026-07-01-OR2-논문.md` 신설 + OR² 인용 링크 교정 + index _sources_ 등재.
-- **고립(중)**: 확립된 노트 중 peer 역링크 0 = [[OR2-온라인동적GS]](2026-07-01, 동적GS뿌리 클러스터인데 peer 무연결)·[[OmniX]](신규 단독 하위영역). 금세션 신규(VGGT-Ω·C3G·NoPoSplat·NeoVerse)는 inbound 낮으나 정상(누적 예정).
+- **고립(중)**: 확립된 노트 중 peer 역링크 0 = [[OR2-온라인동적GS]](2026-07-01, 동적GS뿌리 클러스터인데 peer 무연결)·OmniX(철회)(신규 단독 하위영역). 금세션 신규(VGGT-Ω·C3G·NoPoSplat·NeoVerse)는 inbound 낮으나 정상(누적 예정).
 - **데이터 갭(중)**: 생성형 확산 prior 개념군(flow matching[OmniX·C4G]·rectified flow[NeoVerse]·video diffusion/VDM[NeoVerse·C4G]·control branch·LoRA) — research 3+노트가 의존하나 concepts 페이지 없음. 후보: [[flow-matching-생성prior]] 신설. (baseline 평문 AnySplat·MegaSaM·Splatt3R·DA3·PI3는 raw 미수집이라 유지.)
 - 진단만, 자동수정 X. 조치는 사용자 승인 후 별도.
 
 ## [2026-07-25] fix | lint 권고 3건 일괄 조치 (사용자 승인)
 - **깨진 링크/source-meta 누락 해소**: [[2026-07-01-OR2-논문]] source-meta 신설(기존 OR² 노트·log 기반, raw 재읽기 없이) → OR² 인용 링크를 raw 파일명(onlinedynamic3DGS) 대신 이 source-meta로 교정, index _sources_ 등재. research/source-meta 37:37 일치.
-- **데이터 갭 해소**: concepts [[flow-matching-생성prior]] 신설(flow matching·rectified flow·video diffusion·LoRA·control branch 앵커). [[OmniX]]·[[NeoVerse]]·[[C4G]] 3노트의 평문 생성개념을 이 페이지로 양방향 링크(각 노트 개념 line 교정). index concepts에 "생성 prior" 소섹션 추가.
-- **고립 해소**: [[OR2-온라인동적GS]]에 peer 역링크 부여([[StreamSplat]]·[[NeoVerse]]→OR², 0→2). [[OmniX]]도 [[NeoVerse]]·concepts→링크로 0→2. flow-matching 페이지 inbound 3.
+- **데이터 갭 해소**: concepts [[flow-matching-생성prior]] 신설(flow matching·rectified flow·video diffusion·LoRA·control branch 앵커). OmniX(철회)·[[NeoVerse]]·[[C4G]] 3노트의 평문 생성개념을 이 페이지로 양방향 링크(각 노트 개념 line 교정). index concepts에 "생성 prior" 소섹션 추가.
+- **고립 해소**: [[OR2-온라인동적GS]]에 peer 역링크 부여([[StreamSplat]]·[[NeoVerse]]→OR², 0→2). OmniX(철회)도 [[NeoVerse]]·concepts→링크로 0→2. flow-matching 페이지 inbound 3.
 - **부수 정리**: [[StreamSplat]] 본문 평문 pixelSplat·MVSplat·NoPoSplat를 위키링크화. lint 로그 내 자기참조 raw 파일명 표기를 코드/평문으로 정리(broken link 재생성 방지).
 - 재검: 미해결 wikilink 0(blog 리뷰·asset embed 제외), 미처리 raw 0, ≥200줄 콘텐츠 노트 0.
 
@@ -290,3 +290,64 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - **데이터 갭 해소(중)**: concepts [[장거리-point-tracking]] 신설 — TAP 문제 정의·난점(장거리 drift·occlusion·2.5D 리프팅 모호성)·주요 방법(TAPIR·CoTracker·SpatialTracker·TAP-Vid·RAFT-3D 지표)·3D 연구에서의 **3역할**(입력 prior / 평가 축 / 부가 출력) + frame-space↔world-space, 2.5D↔4D 대비 구도 정리. research 6노트([[ShapeOfMotion]]·[[MoVieS]]·[[POMATO]]·[[VGGT]]·[[NeoVerse]]·[[C4G]]) + [[DGS-LRM]] 개념/tracking 라인에서 양방향 링크. index concepts에 "모션·대응" 소섹션 추가.
 - **고립 해소(중)**: [[LGM]] 0→1([[GS-LRM]]의 평문 "LGM(concurrent)"을 링크화 + 객체 생성 분기 설명). [[BTimer]] 1→3(GS-LRM "스케일업 후계" 라인 신설 + DGS-LRM 상호 링크). [[Long-LRM]]도 GS-LRM서 역링크 획득. [[ShapeOfMotion]] 1→2([[Deformable3DGS]]에 "직접 baseline으로 인용됨" 추가 — D-3DGS가 ShapeOfMotion의 비교군인 실제 관계).
 - 재검: 미해결 wikilink 0, 미처리 raw 0, ≥200줄 콘텐츠 노트 0, cross-link <3 노트 0.
+
+## [2026-07-27] 철회(retract) | OmniX — 동명이 논문 오박제 자료 삭제
+- 사용자 확인: 2026-07-25 ingest한 OmniX는 **의도한 논문이 아니었음**(같은 이름 다른 논문을 raw에 넣은 실수). 관련 wiki 자료 전면 삭제 요청.
+- **오박제된 논문**: "OmniX: From Unified Panoramic Generation and Perception To Graphics-Ready 3D Scenes" (Huang et al., HKU·Kuaishou, arXiv:2510.26800) — 파노라마 생성·인지·PBR.
+- **현재 `raw/OmniX.md`(2026-07-27 교체됨)**: "OmniX: Any-view and Any-time 4D Reconstruction via Feed-forward Trajectory Fields" (Jiang et al., CAS·Tencent Hunyuan, arXiv:2607.10840, 19p/1401줄) — **별개 논문, 아직 미박제**.
+- 삭제: `wiki/research/OmniX.md`, `wiki/research/sources/2026-07-25-OmniX-논문.md`.
+- index: **"3D 장면 생성 (2D lifting·파노라마·inverse rendering)" 섹션 전체 제거**(OmniX 전용 섹션이었음) + _sources_ "장면생성" 항목 제거 + concepts flow-matching 설명에서 OmniX 삭제.
+- 참조 정리: [[NeoVerse]](생성 이웃 링크)·[[2026-07-25-NeoVerse-논문]](갭 문구)·[[flow-matching-생성prior]](본문·frontmatter `sources`)에서 OmniX 제거. flow-matching 앵커는 [[NeoVerse]]·[[C4G]]가 여전히 근거이므로 **노트 자체는 유지**.
+- raw/는 룰 §제약대로 **미수정**(`raw/OmniX.md`·`raw/assets/OmniX/` 보존) — 현재 파일은 의도한 신규 논문이므로 삭제 대상 아님.
+- ⚠️ **멱등성 주의**: 본 log 엔트리와 위 과거 ingest 엔트리에 문자열 `OmniX.md`가 남아 있어, 다음 `/ingest` 스캔이 raw/OmniX.md를 "이미 처리됨"으로 오판할 수 있음. 신규 4D OmniX 박제는 **사용자가 명시 요청**해야 진행(Q0.5 예외 경로).
+- 후속 정리: 과거 ingest/lint 엔트리의 OmniX 노트·source-meta 위키링크를 `OmniX(철회)` 평문으로 중립화(기록 내용은 보존, dangling link만 제거). 미해결 wikilink 0 복구.
+
+## [2026-07-27] ingest | OmniX (4D 궤적장) — 철회 후 올바른 동명 논문 재박제
+- **Q0.5 예외 경로**: log에 `OmniX.md` 문자열이 남아 스캔은 "처리됨"으로 보이나, 이는 2026-07-27 철회된 **다른 논문**(arXiv:2510.26800 파노라마)의 기록. 현재 raw는 별개 논문이고 **사용자가 명시 요청**하여 진행. 19p 전체 통독.
+- **[[OmniX]]**(CASIA·Tencent Hunyuan, arXiv:2607.10840, 2026-07): any-view·any-time **feed-forward 4D 복원**. 동적 전경 모션과 정적 기하를 **명시적으로 분리**, 모션의 희소·저랭크 구조로 상위 20% **dynamic token**만 궤적 변환 기저를 예측(**SSA**) → **DTSH**의 deformable 샘플링으로 per-pixel 궤적·dynamic score 획득(토큰 선택 미분 가능). 단안/시간단절 영상쌍/이미지+영상 혼합 입력, 카메라 모션 180°까지 강건. **UE5 데이터 엔진 80K 장면·1.28M 다중뷰 영상**. dense 궤적·TAPVid-3D SOTA, depth(KITTI 0.024)·포즈(Sintel ATE 0.108) 경쟁력, 2.15s. index "Feed-forward 3D 복원(DUSt3R 계보)"에 **4D 궤적장**으로 편입.
+- **핵심 교차**: [[ShapeOfMotion]]의 궤적 변환 정식화를 **명시 인용**(§3.1) → 최적화 SE(3) 모션 기저를 feed-forward 궤적장 기저로 이식. 양 노트 상호 링크로 "저차원 모션 기저"의 최적화↔feed-forward 축 형성. [[장거리-point-tracking]] 앵커에도 "반복 트래킹→dense 회귀 전환" 사례로 등재.
+- cross-link: [[DUSt3R]]·[[VGGT]]·[[MONST3R]]·[[POMATO]]·[[MoRe]]·[[VGGT-Ω]] / [[ShapeOfMotion]] / 개념(타영역) [[장거리-point-tracking]]·[[Transformer]]·[[ViT]]·[[위치인코딩-positional-encoding]]·[[SfM-COLMAP]].
+- source-meta에 **동명이 논문 주의 콜아웃** 명기(철회된 파노라마 OmniX와 무관함을 영구 기록).
+- 잔여 평문(raw 미수집): DepthAnything3(백본)·VDPM·TraceAnything·St4RTrack·SpatialTrackerV2·π³·PAGE-4D·D4RT.
+- 압축: 1401줄→노트 ~55줄(≤200·직접인용 ≤3·cross-link 타영역 ≥1). 미처리 raw 0.
+
+## [2026-07-27] lint | all 영역 건강 진단 (OmniX 철회·재박제 후)
+- 규모: research 42(MOC 1 포함)·source-meta 41·concepts 17·courses 9·system 2. 미처리 raw 0 / 미해결 wikilink 0 / ≥200줄 콘텐츠 노트 0 / cross-link <3 노트 0 / **frontmatter 필수키(area·created·sources·tags) 누락 0** / 모호 로그 비어있음.
+- **모순 후보 1(상)**: [[POMATO]](2025) "TAPVid-3D 3D point tracking SOTA"(PointOdyssey·ADT·PStudio) vs [[OmniX]](2026) "TAPVid-3D 전부 SOTA"(ADT·DriveTrack·PStudio). **ADT·PStudio 두 서브셋이 겹쳐** 시점 정보 없이는 충돌로 읽힘. OmniX→POMATO 링크는 있으나 POMATO→OmniX 역참조 없음. 2026-07-26 [[BTimer]]/[[DGS-LRM]] 건과 **동일 패턴**(SOTA 주장에 시점·범위 한정어 부재).
+- **고립(중)**: peer 역링크 0~1 = [[Hermes-Agent-활용-가이드북]](0, system 문서)·[[VGGT-Ω]](1)·[[VGGT-백본-생태계]](1, MOC)·[[raw-wiki-규칙]](1, 헌법)·[[블록체인]](1, 과목 허브). **[[VGGT-Ω]]는 OmniX 철회의 부작용** — 삭제된 파노라마 OmniX가 유일한 peer 인바운드("기하 인지 대조")였어서 2→1로 하락. 신규 [[OmniX]](2)는 같은 DUSt3R 계보 2026년 진전이라 연결 여지 있음.
+- **데이터 갭(중)**: ① **SpatialTracker/SpatialTrackerV2** — research 5노트([[OmniX]]·[[POMATO]]·[[ShapeOfMotion]]·[[MoVieS]]·[[DGS-LRM]]) + [[장거리-point-tracking]] 앵커까지 6곳 언급, **현재 위키에서 가장 많이 인용된 미수집 연구**. ② **L4GM** 4노트([[LGM]]·[[4DGT]]·[[BTimer]]·[[DGS-LRM]]). ③ MegaSaM 3노트. 전부 raw 미수집이라 평문 유지가 원칙이나 ①②는 ingest 가치 높음.
+- 진단만, 자동수정 X. 조치는 사용자 승인 후 별도.
+
+## [2026-07-27] fix | lint 권고 3건 + 룰북 개정 (사용자 승인)
+- **룰북 §E 신설(재발 방지, 상)**: [[raw-wiki-규칙]]에 **"우선권 주장 표기(SOTA·최초)"** 섹션 추가 — "최초"는 `저자 주장`+범위·기준연월 한정, "SOTA"는 **벤치마크·서브셋+연도** 명시, 선·후행 노트 **상호 링크**, 갱신 시 선행 노트에 "후속 X가 갱신" 1줄. 판정 기준(범위·시점 다르면 모순 아님 / 같은데 결과 다르면 진짜 모순→콜아웃)도 명문화. CLAUDE.md §6.5로 요약 반영. → 2026-07-26 [[BTimer]]/[[DGS-LRM]], 금일 [[POMATO]]/[[OmniX]] 두 사례의 **개별 수정이 아닌 구조적 예방**.
+- **룰북 Q0.6 신설(멱등성 약점 보강)**: Q0.5에서 "이미 있음"이면 바로 skip하지 않고 **헤더 ~30줄만 읽어 제목·arXiv ID·저자·created·줄수를 대조**. 불일치(동명이 자료 교체)면 처음 보는 raw로 간주 + 기존 박제분 철회 여부 확인. 근거: 2026-07-27 OmniX 오판 사례. "파일명은 키가 아니라 힌트"로 명시. CLAUDE.md §4에도 게이트 순서(Q0→Q0.5→Q0.6) 반영.
+- **모순 후보 해소(상)**: [[POMATO]] "TAPVid-3D SOTA"→**"2025년 기준 SOTA"** + "이후 [[OmniX]](2026)가 ADT·PStudio 포함 갱신" 명시 + 관련에 "후속 갱신" 항목 신설. [[OmniX]]도 **"2026년 기준 SOTA"** + 선행 POMATO와 서브셋 겹침 명시 → 신설 §E를 첫 적용.
+- **고립 해소(중)**: [[VGGT-Ω]] 1→2 — [[OmniX]]에 "2026 계보 진전 대비" 추가(VGGT-Ω=**백본 축** 스케일업 vs OmniX=**출력 축** 궤적장, 상보 관계). OmniX 철회로 잃었던 인바운드를 같은 계보 신규 노트로 복구.
+- **데이터 갭 보강(중)**: SpatialTracker/V2는 raw 미수집이라 페이지 신설 불가(§C 인용 원칙) → 대신 [[장거리-point-tracking]] 앵커의 해당 항목을 **박제된 5노트의 서술로 확장**([[POMATO]]·[[DGS-LRM]]·[[MoVieS]]·[[ShapeOfMotion]]·[[OmniX]] 각각이 보는 위치 + 공통 한계). raw 수집 시 **최우선 ingest 후보**로 유지.
+- 재검: 미해결 wikilink 0, 미처리 raw 0, ≥200줄 노트 0, cross-link <3 노트 0, frontmatter 누락 0.
+
+## [2026-07-31] ingest | GMD + BeyondEntropy (모호 2건 → 사용자 판정 후 박제)
+- 멱등성 가드: 미처리 2건(`raw/GMD.md` 28p·`raw/BeyondEntropy.md` 30p). **둘 다 3D Vision이 아니라** 룰북 §A Q1/§B ④ **[모호]** 판정 → §D에 따라 전체 통독 전에 발췌+2옵션 제시 → 사용자 선택 후 각각 [통과]. 이후 부록·References 포함 전체 통독. 모호 사례 로그 2건 기록(룰북 §D).
+- **[[Drifting-Model-원스텝생성]]** (concepts, GMD): Kaiming He 팀. 확산·flow matching이 **추론 시** 반복 갱신하는 것을 **학습 시간 pushforward 분포 진화**로 옮겨 **1-NFE** 달성. **drifting field**의 반대칭($V_{p,q}=-V_{q,p}$)이 $q=p\Rightarrow V=0$ 평형을 보장, stop-gradient 타깃으로 손실 정의(손실값=$\|V\|^2$). mean-shift식 인력/척력 + softmax 정규화 커널(InfoNCE 유사), 자기지도 피처 공간 필수(latent-MAE > MoCo·SimCLR). ImageNet 256² latent FID **1.54**·pixel **1.61** 원스텝 SOTA, Diffusion Policy 1-NFE 대체. 한계: $V\to0\Rightarrow q\to p$ 역방향 미보장.
+- cross-link: [[flow-matching-생성prior]](직접 대안)·[[Transformer]]·[[ViT]]·[[DINO]] / 연구 연결 [[NeoVerse]]·[[C4G]](다단계 VDM refine을 원스텝으로 바꿀 여지 — 미검증 명시).
+- **[[BeyondEntropy-ICT]]** (research, **도메인 확장**): RLVR의 엔트로피 붕괴↔폭발 딜레마를 **토큰 로짓 분포편차**로 해소. 2차 Rényi $H_2$ + **strategy purity** $\beta$ 기준 분기 이론(고확신→붕괴, 롱테일→폭발), 그룹평균과 **JS divergence** 상위 10% unique token만 갱신(Sparse-GRPO, 보상·advantage·KL 불변). Qwen2.5 0.5B~7B·7벤치서 GRPO/20-Entropy/STAPO 상회, **P@4 상승폭 > P@1**(탐색 다양성). JS > Wasserstein > KL. 한계: 1차 근사가 다토큰 결합·모멘텀 생략(저자도 "국소 진단"이라 명시).
+- **도메인 확장 반영**: CLAUDE.md §1 정체성에 LLM/RL 추가 + 확장 이력 명시, index research에 "LLM/강화학습" 별도 클러스터 신설(3D 계보와 무관함을 주의로 병기). 이후 Q1 판정에서 "3D Vision 아님"만으로 반려 금지.
+- **구조 신설**: `wiki/concepts/sources/` — GMD의 유일한 박제처가 concepts라 `{영역}/sources/` 관례를 concepts에도 적용(기존엔 research·courses만 보유).
+- ⚠️ **raw 데이터 품질**: `raw/GMD.md`에 **null 바이트 8개**가 있어 `file`이 바이너리로 판정, `grep`이 `-a` 없이는 이 파일을 조용히 스킵함(초기 주제어 스캔이 전부 0을 반환한 원인). Read 도구는 정상. raw/ 수정 금지라 원본 유지, source-meta에 경고 기록.
+- 압축: GMD 3451줄→노트 ~45줄, BeyondEntropy 2667줄→노트 ~50줄(각 ≤200·직접인용 ≤3·cross-link 타영역 ≥1). 미처리 raw 0.
+
+## [2026-07-31] lint | all 영역 건강 진단 (GMD·BeyondEntropy ingest 후)
+- 규모: research 43(MOC 1 포함)·research-sources 42·concepts 18·concepts-sources 1·courses 9·system 2. 미처리 raw 0 / 미해결 wikilink 0 / ≥200줄 0 / cross-link <3 노트 0 / frontmatter 누락 0.
+- **모순 0**: §E 우선권 표기 규칙 도입 후 신규 2건 모두 SOTA 주장에 벤치마크·연도를 명시(ImageNet 256² 원스텝 SOTA / Qwen2.5 7벤치)해 충돌 없음. 규칙이 실제로 작동.
+- **단방향 링크 1(중)**: [[Drifting-Model-원스텝생성]]→[[flow-matching-생성prior]]는 "**직접 대안**"으로 2곳 참조하나 **역방향 없음**. flow-matching 앵커만 읽는 독자는 대안 패러다임의 존재를 모름. §E "선·후행 노트 상호 링크" 정신과 어긋남(SOTA 주장은 아니나 같은 territory 관계).
+- **고립(중)**: peer 역링크 ≤1 = [[Hermes-Agent-활용-가이드북]](0, system 문서)·[[BeyondEntropy-ICT]](1)·[[VGGT-백본-생태계]](1, MOC)·[[raw-wiki-규칙]](1, 헌법)·[[블록체인]](1, 과목 허브). **[[BeyondEntropy-ICT]]는 구조적 고립** — LLM/RL 도메인의 유일 노트라 peer가 없음(3D 노트와 계보 무관). 신규 [[Drifting-Model-원스텝생성]]은 2로 정상 안착.
+- **데이터 갭(중)**: ① **SpatialTracker** 6곳(research 5 + 앵커) — 여전히 최다 인용 미수집. ② **Depth Anything** 5곳(Long-LRM·OmniX·4DGT·ShapeOfMotion·StreamSplat) — 신규 ingest로 3→5곳 증가, 여러 4D 논문의 공통 depth prior. ③ L4GM 4곳 ④ MegaSaM 3곳. ⑤ **정보이론 개념군**(KL/JS divergence·엔트로피·InfoNCE)이 이제 5노트(MoRe·MASt3R·VGGT-Ω·BeyondEntropy-ICT·Drifting)에 분산 — 도메인 확장으로 3D와 LLM을 **가로지르는** 개념이 됨.
+- **모호 로그**: 첫 2건 기록됨(GMD·BeyondEntropy). 누적 패턴 판단엔 아직 표본 부족.
+- 진단만, 자동수정 X. 조치는 사용자 승인 후 별도.
+
+## [2026-08-01] fix | lint 권고 3건 조치 (사용자 승인)
+- **단방향 링크 해소(중)**: [[flow-matching-생성prior]]에 "대안 패러다임" 항목 추가 → [[Drifting-Model-원스텝생성]]으로 역링크. 기존엔 Drifting→flow-matching 단방향이라 앵커만 읽는 독자가 대안의 존재를 몰랐음(§E "선·후행 상호 링크" 정신 적용).
+- **정보이론 앵커 신설(중)**: concepts [[정보이론-분포거리]] — 엔트로피($H_1$·2차 Rényi $H_2$)·KL(비대칭 mode-seeking)·JS(대칭·유계)·InfoNCE의 정의와 성질 + **"같은 도구, 다른 목적" 표**(매칭 [[MASt3R]] / 자기지도·언어정렬 [[VGGT-Ω]] / 모션분리 [[MoRe]] / 탐색 [[BeyondEntropy-ICT]] / 생성 [[Drifting-Model-원스텝생성]]·[[flow-matching-생성prior]]) + 실무 선택 기준(대칭성·categorical 어휘·롱테일). 5개 노트에 양방향 링크.
+- **고립 해소(중)**: [[BeyondEntropy-ICT]] 1→2. **구조적 고립**(LLM/RL 도메인 단독 노트라 peer 부재)이었으므로 억지 링크 대신 [[정보이론-분포거리]] 경유로 [[VGGT-Ω]]·[[MASt3R]]와 **수학적 간접 연결**을 명시. 도메인 확장의 다리를 개념 축으로 놓은 셈.
+- index concepts에 "정보이론 (3D ↔ LLM 가로지름)" 소섹션 신설.
+- 재검: 미해결 wikilink 0, 미처리 raw 0, ≥200줄 0, cross-link <3 노트 0, frontmatter 누락 0.
