@@ -15,25 +15,24 @@ export default function About() {
           <p className="profile-lead">
             Computer Engineering undergraduate at Hanbat National University,
             <br />
-            studying feed-forward 3DGS and 3D/4D scene reconstruction.
+            studying feed-forward 3D/4D scene reconstruction and dynamic Gaussian representations.
           </p>
           <div className="profile-meta-list">
             <div>
               <span>Current Focus</span>
-              <strong>Feed-forward 3DGS · 3D/4D reconstruction</strong>
+              <strong>Feed-forward 3D/4D reconstruction · dynamic Gaussians</strong>
             </div>
             <div>
               <span>Research Interests</span>
-              <strong>Gaussian Splatting, neural rendering, NVS</strong>
+              <strong>Dynamic Gaussians, motion modeling, neural rendering</strong>
             </div>
           </div>
           <div className="interest-chip-row">
-            <span>Spatial Intelligence</span>
-            <span>Dynamic Scene Representation</span>
-            <span>Gaussian Splatting</span>
-            <span>Neural Rendering</span>
-            <span>Novel View Synthesis</span>
-            <span>Motion-Aware Understanding</span>
+            <span>Feed-Forward Reconstruction</span>
+            <span>3D/4D Scene Reconstruction</span>
+            <span>Dynamic Gaussian Representations</span>
+            <span>Motion Modeling</span>
+            <span>Efficient Neural Rendering</span>
           </div>
           <div className="contact-links">
             <a href="https://github.com/06-month" className="contact-btn" target="_blank" rel="noopener noreferrer">
@@ -69,7 +68,7 @@ export default function About() {
         </div>
         <div className="hero-meta mt-8">
           <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-secondary)" }}>
-            Hanbat National University / Computer Engineering · Studying Feed-Forward 3DGS &amp; 3D/4D Reconstruction
+            Hanbat National University / Computer Engineering · Studying Feed-Forward 3D/4D Reconstruction &amp; Dynamic Gaussians
           </span>
         </div>
       </section>
@@ -185,36 +184,18 @@ export default function About() {
               <span className="project-date mono">2026.06 - Present</span>
             </div>
             <div className="project-body">
-              <h3>Dynamic Scene Representation Study</h3>
-              <p>Independent study on Gaussian Splatting-based dynamic scene representation, dynamic novel view synthesis, and efficiency issues in 3D/4D reconstruction pipelines.</p>
+              <h3>Feed-Forward 3D/4D Reconstruction Study</h3>
+              <p>Independent literature study and research proposal on compact query-based and dynamic Gaussian reconstruction methods, including 3DGS, Deformable 3DGS, VGGT, C3G, and C4G.</p>
             </div>
           </div>
           <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">3D/4D Scene Representation</span>
+            <span className="tech-badge">Feed-Forward Reconstruction</span>
+            <span className="tech-badge">Dynamic Gaussians</span>
             <span className="tech-badge">Gaussian Splatting</span>
-            <span className="tech-badge">Neural Rendering</span>
           </div>
         </div>
 
         <div className="project-card project-card-featured flex flex-col justify-between">
-          <div>
-            <div className="project-meta flex justify-between items-center mb-4">
-              <span className="tag-custom">Research</span>
-              <span className="project-date mono">2026.05 - Present</span>
-            </div>
-            <div className="project-body">
-              <h3>3D Low-Light Enhancement for Robust Novel View Synthesis</h3>
-              <p>Independent experimental study analyzing challenge tasks, datasets, and baseline methods for robust 3D reconstruction under real-world visual degradations.</p>
-            </div>
-          </div>
-          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">Novel View Synthesis</span>
-            <span className="tech-badge">3D Reconstruction</span>
-            <span className="tech-badge">NTIRE 2026</span>
-          </div>
-        </div>
-
-        <div className="project-card project-card-compact flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Capstone</span>
@@ -300,12 +281,11 @@ export default function About() {
           <div className="skills-category">
             <h4>Research Interests</h4>
             <div className="skills-list">
+              <span className="skill-tag">Feed-Forward Reconstruction</span>
               <span className="skill-tag">3D/4D Scene Reconstruction</span>
-              <span className="skill-tag">Dynamic Scene Representation</span>
-              <span className="skill-tag">Gaussian Splatting</span>
-              <span className="skill-tag">Neural Rendering</span>
-              <span className="skill-tag">Novel View Synthesis</span>
-              <span className="skill-tag">Motion-Aware Scene Understanding</span>
+              <span className="skill-tag">Dynamic Gaussian Representations</span>
+              <span className="skill-tag">Motion Modeling</span>
+              <span className="skill-tag">Efficient Neural Rendering</span>
             </div>
           </div>
 
@@ -382,7 +362,7 @@ export default function About() {
         </div>
         
         <div>
-          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.06.26</span>
+          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.08.01</span>
         </div>
       </section>
     </div>

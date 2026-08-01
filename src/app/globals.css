@@ -1824,7 +1824,7 @@ footer {
 }
 
 .project-card-compact {
-  grid-column: span 3;
+  grid-column: span 4;
 }
 
 .project-card:hover {
