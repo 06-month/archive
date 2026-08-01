@@ -54,13 +54,16 @@ tags: [index]
 - [[Relaxed-Rigidity-동적GS]] — 동적(4D) GS, ray-based grouping 모션 정규화, plug-in(Ex4DGS 등에 부착) (2026)
 
 ### 동적 GS 모션 표현 뿌리 (최적화 기반 4D)
-**계보**: [[3D-Gaussian-Splatting|3DGS]]를 4D로 올리는 세 패러다임 — **변형장**([[4DGS]]·[[Deformable3DGS]]) / **native 4D**([[native4DGS]]) / **다항식 모션**([[SpacetimeGS]]) / **모션 기저 분해**([[ShapeOfMotion]]). 위 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]가 이들을 baseline·계보로 인용.
+**계보**: [[3D-Gaussian-Splatting|3DGS]]를 4D로 올리는 패러다임들 — **변형장**([[4DGS]]·[[Deformable3DGS]]) / **native 4D**([[native4DGS]]) / **다항식 모션**([[SpacetimeGS]]) / **모션 기저 분해**([[ShapeOfMotion]]·[[SC-GS]]·[[MoSca]]) / **anchor 압축**([[4D-Scaffold-GS]]). 위 [[Ex4DGS]]·[[3D-4DGS]]·[[Relaxed-Rigidity-동적GS]]가 이들을 baseline·계보로 인용.
 - [[4DGS]] — (Wu et al.) canonical 가우시안 + HexPlane deformation field, 82fps·O(N+F) (CVPR'24)
 - [[Deformable3DGS]] — (Yang et al.) 단안 동적, 순수 MLP 변형장(고rank)+Annealing Smooth Training (CVPR'24)
 - [[native4DGS]] — (Yang et al., **동명이론**) native 4D primitive(4D 회전)+4D Spherindrical Harmonics, 압축 4DGSC (ICLR'24 확장)
 - [[SpacetimeGS]] — (Li et al.) STG: 시간 opacity+다항식 모션 + feature splatting(SH 대체), 8K@60fps lite (CVPR'24)
 - [[OR2-온라인동적GS|OR²]] — **online 재구성 plug-in**. 관측 오차를 학습 residual map으로 분리 → 정적 영역 시간 일관성↑, 3DGStream/HiCoM/Dynamic3DG 위 부착 (SIGGRAPH'25)
 - [[ShapeOfMotion]] — **단안 영상 4D 복원**. SE(3) 모션 기저(B=10) 선형결합으로 저차원 강체 분해 + off-the-shelf prior(MegaSaM·Depth Anything·TAPIR) 융합 → 영속 **장거리 3D 트래킹**+NVS SOTA, per-scene 최적화 (CVPR'25)
+- [[SC-GS]] — **편집 가능 동적 GS**. 모션=희소 제어점(~512)·외형=조밀 가우시안 분해, 제어점 6-DoF를 LBS 보간 + ARAP 국소강체 정규화 → control graph 조작으로 **학습 밖 모션 편집**, D-NeRF PSNR 43.31 (CVPR'24)
+- [[MoSca]] — **casual 단안 pose-free 시스템**. 2D foundation prior(깊이·장거리 트랙)를 curve-distance 그래프로 3D lift + DQB·ARAP 정련 → **전 시점 가우시안 전역 융합**, tracklet BA로 포즈 자체 해결, DyCheck 19.32 (2024)
+- [[4D-Scaffold-GS]] — **저장 효율 4D anchor**. 가우시안 수는 유지하고 격자 4D anchor 특징으로 압축 + **dynamic-aware anchor growing**(시간 커버리지 보정 그래디언트), 동적영역 28.86@149MB vs 4DGS 27.65@6GB (2025)
 
 ### 3D 손/인체 복원 (Mesh Recovery)
 **계보**: [[HMR]] (2018, 인체 SMPL 회귀) → [[HaMeR]] (2024, ViT 손) → 대안 백본 [[Hamba]] (Mamba+graph) · full-stack [[WiLoR]] (검출+정렬)
@@ -91,6 +94,7 @@ tags: [index]
 - [[BTimer]] — **동적(bullet-time)**. context에 목표 timestamp 임베딩 → 그 순간 완전한 3DGS aggregate, 정적·동적 통일·RGB 손실만, NTE로 빠른 모션 보강, 12뷰 150ms (NeurIPS'25)
 - [[NoPoSplat]] — **pose-free**. unposed sparse(2뷰) → **정준공간** 직접 3DGS(transform-then-fuse 탈피), 광도손실만 학습·intrinsic token·순수 ViT, 저overlap서 pose-required 능가, 66fps (ICLR'25)
 - [[C3G]] — **컴팩트 정적**. per-pixel 탈피, N=2048 query token으로 필수 위치 가우시안(~2K, 65×↓)만, 창발적 attention 재활용 view-invariant feature lifting(C3G-F), 3D 이해·대응 SOTA. [[C4G]]의 정적 선행작 (2026)
+- [[ATSplat]] — **적응적 용량 배분**. 성긴 3D anchor token + 상대 offset(픽셀격자 탈피) + **불확실도 기반 토큰 확장(ATE)** — 실제 오차맵을 래스터화해 지도. 가우시안 5.7×↓로 SOTA, 저overlap·외삽서 특히 강함 (2026)
 - [[4DGT]] — 4DGS(2DGS+life-span/velocity)로 정적·동적 통일, density control, 실세계 단안 학습 (NeurIPS'25)
 - [[DGS-LRM]] — per-pixel deformable 3DGS + 3D scene flow, Kubric 멀티뷰 학습, flow chaining 3D tracking (2025)
 - [[MoVieS]] — VGGT 기반 dynamic splatter pixel, NVS·깊이·tracking 통합 1초, zero-shot scene flow (2026)
@@ -98,7 +102,7 @@ tags: [index]
 - [[C4G]] — **per-pixel 탈피**. timestamp 조건 learnable query token(N=2048)으로 global motion aggregate, 2K 가우시안(0.007×↓)·포즈 불필요 SOTA, 최초 feed-forward 4D feature lifting + VDM refine (2026)
 - [[NeoVerse]] — **복원+생성 4D 세계모델**. VGGT Gaussianize + 양방향 모션 pose-free 4DGS 복원 → degradation 시뮬로 novel-view 조건 생성(Wan+Rectified Flow), in-the-wild 단안 1M clip 스케일러블, 복원·생성 SOTA (2026)
 
-- _sources_: Radiance Field [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]]·[[2026-06-20-Scaffold-GS-논문]] / 동적GS뿌리 [[2026-06-20-4DGS-논문]]·[[2026-06-20-Deformable3DGS-논문]]·[[2026-06-20-native4DGS-논문]]·[[2026-06-20-SpacetimeGS-논문]] / feed-forward GS [[2026-06-20-MVSplat-논문]]·[[2026-06-25-pixelSplat-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]·[[2026-07-14-C4G-논문]] / VGGT스케일업 [[2026-07-25-VGGT-Omega-논문]] / online동적 [[2026-07-01-OR2-논문]] / pose-free GS [[2026-07-25-NoPoSplat-논문]] / 4D세계모델 [[2026-07-25-NeoVerse-논문]] / 컴팩트GS [[2026-07-25-C3G-논문]] / 단안4D트래킹 [[2026-07-26-ShapeOfMotion-논문]] / LRM확장 [[2026-07-26-LGM-논문]]·[[2026-07-26-Long-LRM-논문]]·[[2026-07-26-BTimer-논문]] / 4D궤적장 [[2026-07-27-OmniX-논문]]
+- _sources_: Radiance Field [[2026-06-13-3DGS-논문]]·[[2026-06-13-NeRF-논문]]·[[2026-06-13-LighthouseGS-논문]]·[[2026-06-13-RelaxedRigidity-논문]]·[[2026-06-16-CoherentRaster-논문]]·[[2026-06-18-Ex4DGS-논문]]·[[2026-06-18-3D-4DGS-논문]]·[[2026-06-20-Scaffold-GS-논문]] / 동적GS뿌리 [[2026-06-20-4DGS-논문]]·[[2026-06-20-Deformable3DGS-논문]]·[[2026-06-20-native4DGS-논문]]·[[2026-06-20-SpacetimeGS-논문]] / feed-forward GS [[2026-06-20-MVSplat-논문]]·[[2026-06-25-pixelSplat-논문]] / 손복원 [[2026-06-13-HMR-논문]]·[[2026-06-13-HaMeR-논문]]·[[2026-06-13-Hamba-논문]]·[[2026-06-13-WiLoR-논문]] / DUSt3R계보 [[2026-06-17-CroCo-논문]]·[[2026-06-16-DUSt3R-논문]]·[[2026-06-17-MASt3R-논문]]·[[2026-06-16-VGGT-논문]]·[[2026-06-16-MONST3R-논문]]·[[2026-06-16-POMATO-논문]]·[[2026-06-16-MoRe-논문]] / GS-LRM계보 [[2026-06-17-GS-LRM-논문]]·[[2026-06-16-4DGT-논문]]·[[2026-06-16-DGS-LRM-논문]]·[[2026-06-16-MoVieS-논문]]·[[2026-06-16-StreamSplat-논문]]·[[2026-07-14-C4G-논문]] / VGGT스케일업 [[2026-07-25-VGGT-Omega-논문]] / online동적 [[2026-07-01-OR2-논문]] / pose-free GS [[2026-07-25-NoPoSplat-논문]] / 4D세계모델 [[2026-07-25-NeoVerse-논문]] / 컴팩트GS [[2026-07-25-C3G-논문]] / 단안4D트래킹 [[2026-07-26-ShapeOfMotion-논문]] / LRM확장 [[2026-07-26-LGM-논문]]·[[2026-07-26-Long-LRM-논문]]·[[2026-07-26-BTimer-논문]] / 4D궤적장 [[2026-07-27-OmniX-논문]] / 동적GS 모션·저장 [[2026-08-01-SC-GS-논문]]·[[2026-08-01-MoSca-논문]]·[[2026-08-01-4DScaffold-GS-논문]] / 컴팩트 feed-forward [[2026-08-01-ATSplat-논문]]
 - `Zotero/`는 **ingest 대상 아님** (raw/ 전용 — [[raw-wiki-규칙]] §A 참조)
 
 ### LLM / 강화학습 (도메인 확장, 2026-07-31~)

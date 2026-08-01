@@ -351,3 +351,13 @@ wiki의 시간순 append-only 기록. 최근 항목: `grep "^## \[" log.md | tai
 - **고립 해소(중)**: [[BeyondEntropy-ICT]] 1→2. **구조적 고립**(LLM/RL 도메인 단독 노트라 peer 부재)이었으므로 억지 링크 대신 [[정보이론-분포거리]] 경유로 [[VGGT-Ω]]·[[MASt3R]]와 **수학적 간접 연결**을 명시. 도메인 확장의 다리를 개념 축으로 놓은 셈.
 - index concepts에 "정보이론 (3D ↔ LLM 가로지름)" 소섹션 신설.
 - 재검: 미해결 wikilink 0, 미처리 raw 0, ≥200줄 0, cross-link <3 노트 0, frontmatter 누락 0.
+
+## [2026-08-01] ingest | SC-GS + MoSca + 4D Scaffold-GS + ATSplat (동적 GS 3 + 컴팩트 feed-forward 1)
+- 멱등성 가드: 미처리 4건(`SC-GSS.md` 11p·`MoSca.md` 13p·`4DScaffold-GS.md` 17p·`ATSplat.md` 18p, 총 8161줄) → sources 미등재 → 처음 ingest. 부록·References 포함 전체 통독. 모두 [통과]/research(3D Vision).
+- **[[SC-GS]]**(HKU, CVPR'24): 모션=희소 제어점(~512)·외형=조밀 가우시안(~100K) **명시적 분해**. 제어점당 MLP가 시변 6-DoF → KNN 이웃 4개를 RBF 가중 **LBS 보간**. **ARAP**(궤적 기반 이웃·SVD 국소회전)로 강체성 강제. 적응적 제어점 prune/clone. **control graph 조작으로 학습 밖 모션 편집**. D-NeRF 43.31(4D-GS 34.01). 한계: 포즈 부정확·specular 취약.
+- **[[MoSca]]**(UPenn·Stanford, 2024): casual 단안 **완전 자동 pose-free** 시스템. 6-DoF 궤적 노드 + **curve distance** 엣지(위상 변화 처리) + **DQB**(SE(3) 다양체 보간). 2D foundation prior(깊이·장거리 트랙·epipolar error)를 3D lift 후 ARAP·속도·가속도로 정련 → **전 시점 가우시안 전역 융합**(4/8 프레임만 쓰면 19.32→16.96/17.26 급락, 핵심). tracklet BA로 포즈·초점거리 자체 해결(Sintel·TUM서 MONST3R·DUSt3R 능가). 대응 PCK-T 0.824로 **입력 트래커(0.779)보다 향상**.
+- **[[4D-Scaffold-GS]]**(연세대, 2025): 저장 절감을 위해 가우시안 **수를 줄이는 대신 anchor 특징으로 압축**. **Scaff-naive 실패 진단** — Scaffold-GS의 anchor growing이 전 프레임 그래디언트를 평균해 짧게 등장하는 동적 영역이 신호를 못 받음 → **dynamic-aware anchor growing**(활성 시에만 누적 + 커버리지 σ 역가중, ablation 최대 기여 29.57→25.77). 선형 모션(3파라미터) + **일반화 가우시안 시간 불투명도**. N3DV 동적 28.86@149MB vs 4DGS 27.65@6194MB.
+- **[[ATSplat]]**(연세대·NUS, 2026): feed-forward 3DGS가 per-pixel 회귀로 잃은 **적응적 용량 배분** 복원. 성긴 **3D anchor token + 상대 offset**(픽셀격자 탈피) + **ATE**(토큰 불확실도를 예측하되 중간 가우시안의 실제 오차맵을 래스터화해 지도 — feed-forward가 렌더 오차를 못 보는 한계 우회). 가우시안 5.7×↓(23K)로 SOTA, 저overlap·외삽서 특히 강함, 불확실도 임계로 장면별 동적 예산.
+- **주목할 교차**: [[4D-Scaffold-GS]]·[[ATSplat]]은 **같은 연세대 그룹**(In Cho·Seon Joo Kim 공저)의 "어디에 용량을 더 줄 것인가"라는 동일 질문의 두 답 — 전자는 **최적화 기반 시간 커버리지 보정 그래디언트**, 후자는 **feed-forward 학습된 불확실도**. 양 노트에 상호 링크. [[SC-GS]]·[[MoSca]]·[[ShapeOfMotion]]은 **희소 모션 기저** 3계열(제어점/그래프 노드/전역 SE(3) 기저)로 묶어 index 계보줄에 명시.
+- index: 동적 GS 계보줄에 "모션 기저 분해"·"anchor 압축" 패러다임 추가 + 항목 3줄, feed-forward 클러스터에 ATSplat 1줄, _sources_ 4건 등재.
+- 압축: 각 1596/1835/2556/2174줄 → 노트 ~50줄(각 ≤200·직접인용 ≤3·cross-link 타영역 ≥1). 미처리 raw 0.
