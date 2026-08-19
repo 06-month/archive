@@ -217,7 +217,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="project-card project-card-featured flex flex-col justify-between">
+        <div className="project-card project-card-compact flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
               <span className="tag-custom">Capstone</span>
