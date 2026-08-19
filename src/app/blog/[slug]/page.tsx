@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
+import PostReactions from "@/components/PostReactions";
 import contentIndexRaw from "@/generated/content-index.json";
 
 interface Backlink {
@@ -132,6 +133,8 @@ export default async function BlogDetail({ params }: PageProps) {
             className="article-body"
             dangerouslySetInnerHTML={{ __html: item.html }}
           />
+
+          <PostReactions slug={decodedSlug} />
         </article>
       </main>
     </div>
