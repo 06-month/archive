@@ -1,5 +1,22 @@
 "use client";
 
+function RepoLink({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      className="project-repo-link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitHub 저장소 열기"
+      title="GitHub 저장소"
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.2 3.44 9.61 8.21 11.16.6.11.82-.25.82-.57 0-.28-.01-1.02-.02-2-3.34.71-4.04-1.58-4.04-1.58-.55-1.36-1.34-1.73-1.34-1.73-1.09-.73.08-.71.08-.71 1.2.08 1.84 1.21 1.84 1.21 1.07 1.79 2.81 1.27 3.5.97.11-.76.42-1.27.76-1.56-2.67-.3-5.47-1.3-5.47-5.79 0-1.28.47-2.33 1.23-3.15-.12-.3-.53-1.5.12-3.13 0 0 1-.32 3.3 1.2a11.6 11.6 0 0 1 6 0c2.28-1.52 3.29-1.2 3.29-1.2.65 1.63.24 2.83.12 3.13.77.82 1.23 1.87 1.23 3.15 0 4.5-2.81 5.49-5.49 5.78.43.36.81 1.08.81 2.18 0 1.58-.01 2.85-.01 3.24 0 .32.21.69.83.57A12.02 12.02 0 0 0 24 12.29C24 5.78 18.63.5 12 .5z" />
+      </svg>
+    </a>
+  );
+}
+
 export default function About() {
   return (
     <div className="container-overview about-page">
@@ -192,10 +209,13 @@ export default function About() {
               <p>End-to-end pipeline converting synchronized triple-camera exercise video into camera poses, 3D joints, and parametric body fits. Processed 26 sequences / 78 camera views / 65,595 frames, with 24 of 26 sequences completed end-to-end under per-frame quality validation.</p>
             </div>
           </div>
-          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">Multi-View Geometry</span>
-            <span className="tech-badge">3D Human Motion</span>
-            <span className="tech-badge">Bundle Adjustment</span>
+          <div className="project-footer">
+            <div className="project-tech flex flex-wrap gap-1.5">
+              <span className="tech-badge">Multi-View Geometry</span>
+              <span className="tech-badge">3D Human Motion</span>
+              <span className="tech-badge">Bundle Adjustment</span>
+            </div>
+            <RepoLink href="https://github.com/06-month/Exercise3D-Dataset-Pipeline" />
           </div>
         </div>
 
@@ -210,10 +230,12 @@ export default function About() {
               <p>Independent literature study and research proposal on compact query-based and dynamic Gaussian reconstruction methods, including 3DGS, Deformable 3DGS, VGGT, C3G, and C4G.</p>
             </div>
           </div>
-          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">Feed-Forward Reconstruction</span>
-            <span className="tech-badge">Dynamic Gaussians</span>
-            <span className="tech-badge">Gaussian Splatting</span>
+          <div className="project-footer">
+            <div className="project-tech flex flex-wrap gap-1.5">
+              <span className="tech-badge">Feed-Forward Reconstruction</span>
+              <span className="tech-badge">Dynamic Gaussians</span>
+              <span className="tech-badge">Gaussian Splatting</span>
+            </div>
           </div>
         </div>
 
@@ -228,10 +250,13 @@ export default function About() {
               <p>Capstone design AI pipeline for real-time exercise posture coaching with on-device pose estimation, joint-angle features, and model-based feedback logic.</p>
             </div>
           </div>
-          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">On-Device</span>
-            <span className="tech-badge">Pose Estimation</span>
-            <span className="tech-badge">Mobile AI</span>
+          <div className="project-footer">
+            <div className="project-tech flex flex-wrap gap-1.5">
+              <span className="tech-badge">On-Device</span>
+              <span className="tech-badge">Pose Estimation</span>
+              <span className="tech-badge">Mobile AI</span>
+            </div>
+            <RepoLink href="https://github.com/06-month/BPT" />
           </div>
         </div>
 
@@ -246,10 +271,13 @@ export default function About() {
               <p>AiRLab lab coding seminar project on semantic segmentation of building regions from satellite imagery using deep learning models.</p>
             </div>
           </div>
-          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">Semantic Seg</span>
-            <span className="tech-badge">U-Net</span>
-            <span className="tech-badge">Satellite Vision</span>
+          <div className="project-footer">
+            <div className="project-tech flex flex-wrap gap-1.5">
+              <span className="tech-badge">Semantic Seg</span>
+              <span className="tech-badge">U-Net</span>
+              <span className="tech-badge">Satellite Vision</span>
+            </div>
+            <RepoLink href="https://github.com/06-month/satellite-building-segmentation" />
           </div>
         </div>
 
@@ -264,10 +292,13 @@ export default function About() {
               <p>Federated learning research on CLIP2FL with balanced knowledge distillation, resulting in a KICS Winter Conference 2026 publication.</p>
             </div>
           </div>
-          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">Federated Learning</span>
-            <span className="tech-badge">CLIP</span>
-            <span className="tech-badge">BKD</span>
+          <div className="project-footer">
+            <div className="project-tech flex flex-wrap gap-1.5">
+              <span className="tech-badge">Federated Learning</span>
+              <span className="tech-badge">CLIP</span>
+              <span className="tech-badge">BKD</span>
+            </div>
+            <RepoLink href="https://github.com/06-month/CLIP2FL_BKD" />
           </div>
         </div>
 
@@ -282,10 +313,13 @@ export default function About() {
               <p>Computer vision term project on semantic segmentation of satellite images for thick cloud, thin cloud, and cloud shadow classes.</p>
             </div>
           </div>
-          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
-            <span className="tech-badge">Computer Vision</span>
-            <span className="tech-badge">Semantic Seg</span>
-            <span className="tech-badge">Satellite</span>
+          <div className="project-footer">
+            <div className="project-tech flex flex-wrap gap-1.5">
+              <span className="tech-badge">Computer Vision</span>
+              <span className="tech-badge">Semantic Seg</span>
+              <span className="tech-badge">Satellite</span>
+            </div>
+            <RepoLink href="https://github.com/06-month/Satellite-Cloud-Semantic-Segmentation" />
           </div>
         </div>
       </div>
