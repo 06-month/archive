@@ -26,6 +26,10 @@ export default function About() {
               <span>Research Interests</span>
               <strong>Dynamic Gaussians, motion modeling, neural rendering</strong>
             </div>
+            <div>
+              <span>Cumulative GPA</span>
+              <strong>4.02 / 4.5 · Major 4.07 / 4.5</strong>
+            </div>
           </div>
           <div className="interest-chip-row">
             <span>Feed-Forward Reconstruction</span>
@@ -177,6 +181,24 @@ export default function About() {
       </div>
 
       <div className="projects-grid col-span-12 grid grid-cols-3 gap-5">
+        <div className="project-card project-card-featured flex flex-col justify-between">
+          <div>
+            <div className="project-meta flex justify-between items-center mb-4">
+              <span className="tag-custom">Research Eng.</span>
+              <span className="project-date mono">2026.08 - Present</span>
+            </div>
+            <div className="project-body">
+              <h3>Exercise3D Multi-View Dataset Pipeline</h3>
+              <p>End-to-end pipeline converting synchronized triple-camera exercise video into camera poses, 3D joints, and parametric body fits. Processed 26 sequences / 78 camera views / 65,595 frames, with 24 of 26 sequences completed end-to-end under per-frame quality validation.</p>
+            </div>
+          </div>
+          <div className="project-tech flex flex-wrap gap-1.5 mt-4">
+            <span className="tech-badge">Multi-View Geometry</span>
+            <span className="tech-badge">3D Human Motion</span>
+            <span className="tech-badge">Bundle Adjustment</span>
+          </div>
+        </div>
+
         <div className="project-card project-card-featured flex flex-col justify-between">
           <div>
             <div className="project-meta flex justify-between items-center mb-4">
@@ -362,7 +384,7 @@ export default function About() {
         </div>
         
         <div>
-          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.08.01</span>
+          <span className="mono" style={{ color: "var(--text-muted)", fontSize: "11px" }}>Last Updated: 2026.08.16</span>
         </div>
       </section>
     </div>
