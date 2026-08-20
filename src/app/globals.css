@@ -1852,7 +1852,7 @@ footer {
 .project-repo-link:hover {
   color: var(--text);
   border-color: var(--text-muted);
-  transform: translateY(-1px);
+  transform: translate(1px, -1px);
 }
 
 .project-card:hover {
